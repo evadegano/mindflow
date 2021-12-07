@@ -11,12 +11,21 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 
 // GET /dashboard
 router.get("/dashboard/:userId", isLoggedIn, (req, res, next) => {
+  // call ZenQuote API
 
+  // search for user's tasks and goals in the database
+
+  res.render("/users/dashboard", { 
+    currentUser: req.session.user,
+    zenQuote: ""
+  }) 
+
+  
 })
 
 // POST /dashboard
 router.post("", isLoggedIn, (req, res, next) => {
-  
+
 })
 
 // GET /profile
@@ -28,3 +37,6 @@ router.get("/profile/:userId", isLoggedIn, (req, res, next) => {
 router.post("", isLoggedIn, (req, res, next) => {
 
 })
+
+
+module.exports = router;
