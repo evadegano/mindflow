@@ -15,7 +15,7 @@ router.get("/dashboard", isLoggedIn, (req, res, next) => {
 
   // search for user's tasks and goals in the database
 
-  res.render("/users/dashboard", { 
+  res.render("/user/dashboard", { 
     currentUser: req.session.user,
     zenQuote: ""
   }) 
