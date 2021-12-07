@@ -7,23 +7,23 @@ const mongoose = require("mongoose");
 // How many rounds should bcrypt run the salt (default [10 - 12 rounds])
 const saltRounds = 10;
 
-// require models in order to interact with the database
+// database models
 const User = require("../models/User.model");
-const Goal = require("../models/Goal.model");
-const Task = require("../models/Task.model");
 
-// Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
+// middleware to control access to specific routes
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
+// GET /signup
 router.get("/signup", isLoggedOut, (req, res) => {
   res.render("auth/signup");
 });
 
+// POST /signup
 router.post("/signup", isLoggedOut, (req, res) => {
   const { firstName, email, password } = req.body;
 
-  if (!email || firstName) {
+  if (!email || !firstName) {
     return res
       .status(400)
       .render("auth/signup", { errorMessage: "Please provide your first name and email." });
@@ -53,7 +53,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
     if (found) {
       return res
         .status(400)
-        .render("auth.signup", { errorMessage: "Email already taken." });
+        .render("auth/signup", { errorMessage: "Email already taken." });
     }
 
     // if user is not found, create a new user - start with hashing the password
@@ -70,9 +70,9 @@ router.post("/signup", isLoggedOut, (req, res) => {
       })
       .then((user) => {
         // Bind the user to the session object
-        req.session.user = user;
-        console.log("user ==>", user)
-        res.redirect("/");
+        req.session.user = currentUser;
+        console.log("user ==>", currentUser)
+        res.redirect("/dashboard");
       })
       .catch((error) => {
         if (error instanceof mongoose.Error.ValidationError) {
@@ -131,9 +131,9 @@ router.post("/login", isLoggedOut, (req, res, next) => {
             .status(400)
             .render("auth/login", { errorMessage: "Wrong credentials." });
         }
-        req.session.user = user;
+        req.session.user = currentUser;
         // req.session.user = user._id; // ! better and safer but in this case we saving the entire user object
-        return res.redirect("/");
+        return res.redirect("/dashboard");
       });
     })
 
