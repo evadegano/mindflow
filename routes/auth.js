@@ -72,7 +72,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
         // Bind the user to the session object
         req.session.user = user;
         console.log("user ==>", user)
-        res.redirect("/");
+        res.redirect("/dashboard/:userID");
       })
       .catch((error) => {
         if (error instanceof mongoose.Error.ValidationError) {
@@ -133,7 +133,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
         }
         req.session.user = user;
         // req.session.user = user._id; // ! better and safer but in this case we saving the entire user object
-        return res.redirect("/");
+        return res.redirect("/dashboard/:userID");
       });
     })
 
