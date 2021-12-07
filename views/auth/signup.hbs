@@ -1,31 +1,67 @@
 <section class="auth-section">
   <div class="auth-container">
-    <h2>Sign up</h2>
-    <div class="btn" id="oAuth-btn-g">
-      <a href=""><img src="https://d3ptyyxy2at9ui.cloudfront.net/google-32ae27.svg">with Google</a>
+    <h2><span>Log In </span><span>Sign Up</span></h2>
+    <input class="checkbox" type="checkbox" checked="checked" id="reg-log" name="reg-log"/>
+
+    <label for="reg-log"></label>
+    <div class="card-3d-wrap">
+      <div class="card-3d-wrapper">
+        <div class="card-front">
+          <div class="center-wrap">
+            <div class="btn" id="oAuth-btn-g">
+              <a href="#"><img src="https://d3ptyyxy2at9ui.cloudfront.net/google-32ae27.svg">with Google</a>
+            </div>
+            <div class="btn" id="oAuth-btn-fb">
+              <a href="#"><img src="https://d3ptyyxy2at9ui.cloudfront.net/facebook-fadd25.svg">with Facebook</a>
+            </div>
+            <p>Or</p>
+            <form method="POST" action="/auth/login">
+              <label>First name:</label>
+              <input type="text" name="firstName" placeholder="Your first name">
+              <!-- <div class="caption">Error</div> -->
+
+              <label>Password:</label>
+              <input type="password" name="password" placeholder="Your password">
+              <!-- <div class="caption">Error</div> -->
+
+              <button class="btn" id="auth-btn" type="submit">Log in</button>
+            </form>
+            <div class="forgot-pass">
+              <a href="#">Forgot your password?</a>
+            </div>          
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="center-wrap">
+                        <div class="btn" id="oAuth-btn-g">
+              <a href=""><img src="https://d3ptyyxy2at9ui.cloudfront.net/google-32ae27.svg">with Google</a>
+            </div>
+            <div class="btn" id="oAuth-btn-fb">
+              <a href=""><img src="https://d3ptyyxy2at9ui.cloudfront.net/facebook-fadd25.svg">with Facebook</a>
+            </div>
+            <p>Or</p>
+            <form method="POST" action="/auth/signup">
+              <label>First name:</label>
+              <input type="text" name="firstName" placeholder="Your first name">
+              <!-- <div class="caption">Error</div> -->
+
+              <label>Email:</label>
+              <input type="email" name="email" placeholder="Your email">
+              <!-- <div class="caption">Error</div> -->
+
+              <label>Password:</label>
+              <input type="password" name="password" placeholder="Your password">
+              <!-- <div class="caption">Error</div> -->
+
+              <button class="btn" id="auth-btn" type="submit">Sign up</button>
+            </form>
+          </div>
+        </div>
       </div>
-    <div class="btn" id="oAuth-btn-fb">
-      <a href=""><img src="https://d3ptyyxy2at9ui.cloudfront.net/facebook-fadd25.svg">with Facebook</a>
     </div>
-    <p>Or</p>
-    <form method="POST" action="/signup">
-      <label>First name:</label>
-      <input type="text" name="firstName" placeholder="Your first name">
-      <div class="caption">Error</div>
-
-      <label>Email:</label>
-      <input type="email" name="email" placeholder="Your email" required>
-      <div class="caption">Error</div>
-
-      <label>Password:</label>
-      <input type="password" name="password" placeholder="Your password">
-      <div class="caption">Error</div>
-
-      <button class="btn" id="auth-btn" type="submit">Sign up</button>
-    </form>
   </div>
 </section>
 
 {{#if errorMessage}}
-   {{errorMessage}}
+  {{errorMessage}}
 {{/if}}
