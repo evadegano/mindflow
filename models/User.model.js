@@ -15,7 +15,7 @@ const userSchema = new Schema(
       lowercase: true,
       required: [true, "Please enter your email address."],
       unique: [true, "This email address is already linked to an account."],
-      match: [/^\s+@\s+\.\s+$/, "Please use a valid email address."]
+      match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, "Please use a valid email address."]
     },
     password: {
       type: String,

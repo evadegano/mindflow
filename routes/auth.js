@@ -23,7 +23,7 @@ router.get("/signup", isLoggedOut, (req, res) => {
 router.post("/signup", isLoggedOut, (req, res) => {
   const { firstName, email, password } = req.body;
 
-  if (!email || firstName) {
+  if (!email || !firstName) {
     return res
       .status(400)
       .render("auth/signup", { errorMessage: "Please provide your first name and email." });
@@ -53,7 +53,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
     if (found) {
       return res
         .status(400)
-        .render("auth.signup", { errorMessage: "Email already taken." });
+        .render("auth/signup", { errorMessage: "Email already taken." });
     }
 
     // if user is not found, create a new user - start with hashing the password

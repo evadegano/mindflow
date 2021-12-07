@@ -10,7 +10,7 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 const isLoggedOut = require("../middleware/isLoggedOut");
 
 // GET /dashboard
-router.get("/dashboard/:userId", isLoggedIn, (req, res, next) => {
+router.get("/dashboard", isLoggedIn, (req, res, next) => {
   // call ZenQuote API
 
   // search for user's tasks and goals in the database
