@@ -1,21 +1,99 @@
-<nav>
-  <div>
-    <h2>Hi {{ currentUser.firstName }}</h2>
-    <figure>
-      <blockquote>{{ zenQuote.q }}</blockquote>
-      <figcaption>{{ zenQuote.a }}</figcaption>
-    </figure>
+
+<main id="homepage">
+  <div id="top-screen">
+    <nav>
+      <!-- greeting section-->
+      <div>
+        <!-- TODO: changer le contenu du span selon l'heure de la journée -->
+        <h2><span>Good morning</span> {{currentUser.firstName}}</h2>
+        <figure>
+          <blockquote><i>"this is a quote{{zenQuote.q}}"</i></blockquote>
+          <figcaption><strong>– Author{{zenQuote.a}}</strong></figcaption>
+        </figure>
+      </div>
+      <!-- settings menu -->
+      <div id="toggle-menu">
+        <i class="uil uil-setting"></i>
+        <ul id="toggle-links">
+          <li><a href="/profile"><i class="uil uil-user-circle"></i> Profile</a></li>
+          <hr>
+          <li>
+            <form id="logout-form" method="POST" action="/logout">
+              <button type="submit"><i class="uil uil-signout"></i> Logout</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- main screen -->
+    <section id="dashboard-container">
+      <!-- goals container -->
+      <div id="goals-section">
+        <h2>Goals & projects</h2>
+        <h3>Work & study</h3>
+        <!-- display goals from db -->
+        
+        <!-- add new goal -->
+        <form id="" method="POST" action="/user/dashboard">
+          <input type="text" name="goal" placeholder="Add goal">
+          <input type="date" name="endDate">
+          <button type="submit"></button>
+        </form>
+        <h3>Health & fitness</h3>
+        <h3>Social life</h3>
+        <h3>Finance</h3>
+        <h3>Misc.</h3>
+      </div>
+
+      <!-- tasks container -->
+      <div id="tasks-section">
+        <h2>Today</h2>
+        <!-- display today's tasks -->
+        {{#each todayTasks}}
+        <div class="task-{{this.isDone}}">
+          <div class="task-checkbox"></div>
+          <div>{{this.title}}</div>
+        </div>
+        {{/each}}
+        <!-- add new task -->
+        <form method="POST" action="/user/dashboard">
+          <input id="new-task-input" type="text" name="task" placeholder="Add task">
+          <select id="goal-selector" name="task-goal">
+            {{#each currentGoals}}
+            <option value="{{this._id}}">{{this.title}}</option>
+            {{/each}}
+          </select>
+        </form>
+        <h2>Overdue</h2>
+        <!-- display overdue tasks -->
+        {{#each overdueTasks}}
+        <div class="overdue-task-{{this.isDone}}">
+          <div class="task-checkbox"></div>
+          <div>{{this.title}}</div>
+        </div>
+        {{/each}}
+      </div>
+
+      <!-- widget section -->
+      <div id="widget-section">
+        <div>
+          <div class="row-container">
+            <h3>focus</h3>
+            <h3>relax</h3>
+          </div>
+          <div id="round-widget">
+            <h3>start</h3>
+          </div>
+        </div>
+        <div id="player-widget"></div>
+      </div>
+    </section>
   </div>
 
-  <!-- settings menu -->
-  <img src="" alt="settings icon">
-  <a href="/profile">Profile</a>
-  <form id="logout-form" method="POST" action="/logout">
-    <button>Logout</button>
-  </form>
-</nav>
-<main>
-  <div id="cont" class="col-container">
-
+  <div id="bottom-screen">
+    <div id="gantt-chart">
+      <h2>Deadlines</h2>
+    </div>
   </div>
 </main>

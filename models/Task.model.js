@@ -10,7 +10,7 @@ const taskSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Goal"
     },
-    task: String,
+    title: String,
     isDone: Boolean,
     endDate: {
       type: Date,

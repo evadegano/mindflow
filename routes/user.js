@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const mongoose = require("mongoose");
 
 // database models
 const User = require("../models/User.model");
@@ -11,21 +12,29 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 
 // GET /dashboard
 router.get("/dashboard", isLoggedIn, (req, res, next) => {
-  // call ZenQuote API
+  // TODO: récupérer l'objet "zenQuote" grâce à l'API Zen Quote
 
-  // search for user's tasks and goals in the database
+  // TODO: chercher les tâches et objectifs du user dans la DB
+  // TODO: filtre des tâches : endDate = today, endDate < today and isDone = false
+  // TODO: filtre des objectifs : isDone = false
 
-  res.render("/user/dashboard", { 
-    currentUser: req.session.user,
-    zenQuote: ""
-  }) 
-
+  // capitalize first letter of user's first name
+  req.session.user.firstName = req.session.user.firstName[0].toUpperCase() + req.session.user.firstName.substring(1)
   
+  // TODO: exécuter le render une fois que toutes les promise sont faites
+  res.render("user/dashboard", {
+    currentUser: req.session.user,
+    zenQuote: "",
+    currentGoals: "",
+    todayTasks: "",
+    overdueTasks: ""
+  })
+    
 })
 
 // POST /dashboard
 router.post("", isLoggedIn, (req, res, next) => {
-
+  // TODO: permettre au user d'ajouter des tâches et des objectifs dans la DB
 })
 
 // GET /profile
