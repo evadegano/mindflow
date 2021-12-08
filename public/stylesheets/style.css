@@ -5,6 +5,7 @@
   --blue-grey: #ECF0FF;
   --dark-blue: #0207BF;
   --main-blue: #5538EE;
+  --mid-blue: #9295F1;
   --light-blue: #C6C4FF;
   --main-red: #FF6D6D;
   --light-red: #FFC0C0;
@@ -63,7 +64,6 @@ nav {
   justify-content: space-between;
   align-items: flex-start;
   padding: 0 15px;
-  margin-bottom: 30px;
 }
 
 
@@ -447,18 +447,28 @@ font-size: 150%;
   display: block;  
 }
 
+
 /* 
     DASHBOARD
 */
+
 #top-screen {
   height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-#top-screen {
+#bottom-screen {
   height: 100vh;
   display: flex;
+  justify-content: center;
+}
+
+#page-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 20px;
 }
 
 #dashboard-container {
@@ -496,6 +506,12 @@ font-size: 150%;
 
 #widget-section {
   width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 20px;
+  justify-content: center;
+  margin-right: 20px;
 }
 
 #round-widget {
@@ -504,6 +520,19 @@ font-size: 150%;
   align-items: center;
   box-shadow: var(--shadow);
   border-radius: 50%;
+  height: 0;
+  width: 80%;
+  max-width: 297px;
+  max-height: 297px;
+  padding: 40% 0;
+  color: var(--mid-blue);
+}
+
+#player-widget {
+  width: 80%;
+  max-width: 297px;
+  max-height: 297px;
+  padding: 40% 0;
 }
 
 #player-widget,
@@ -553,9 +582,63 @@ blockquote {
 
 #gantt-chart {
   margin: 40px;
+  width: 100%;
 }
 
 #gantt-chart > h2 {
   color: var(--white);
   text-align: center;
+}
+
+/* toggle switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  border-radius: 34px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--main-blue);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  border-radius: 50%;
+  background: var(--white);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background: var(--mid-blue);
+}
+
+input:focus + .slider {
+  box-shadow: var(--shadow);
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
 }

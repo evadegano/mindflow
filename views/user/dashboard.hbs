@@ -19,12 +19,22 @@
           <hr>
           <li>
             <form id="logout-form" method="POST" action="/logout">
-              <button type="submit"><i class="uil uil-signout"></i> Logout</button>
+              <button type="submit"><i class="uil uil-sign-out-alt"></i></i> Logout</button>
             </form>
           </li>
         </ul>
       </div>
     </nav>
+
+    <!-- page toggle -->
+    <div id="page-toggle">
+      <h2>focus</h2>
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider"></span>
+      </label>
+      <h2>relax</h2>
+    </div>
 
     <!-- main screen -->
     <section id="dashboard-container">
@@ -77,16 +87,12 @@
 
       <!-- widget section -->
       <div id="widget-section">
-        <div>
-          <div class="row-container">
-            <h3>focus</h3>
-            <h3>relax</h3>
-          </div>
-          <div id="round-widget">
-            <h3>start</h3>
-          </div>
+        <div id="round-widget">
+          <h3>start</h3>
         </div>
-        <div id="player-widget"></div>
+        <div id="player-widget">
+
+        </div>
       </div>
     </section>
   </div>
