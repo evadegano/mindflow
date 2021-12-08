@@ -106,7 +106,6 @@ button {
   background: inherit;
   font-family: var(--main-font);
   font-weight: inherit;
-  font-size: inherit;
   border-style: none;
   cursor: pointer;
   padding: 0;
@@ -434,7 +433,11 @@ font-size: 150%;
   -moz-backface-visibility: hidden;
   -o-backface-visibility: hidden;
   backface-visibility: hidden;
+<<<<<<< HEAD
   box-shadow: var(--blue-shadow);
+=======
+  box-shadow:0 0 5px rgba(0,0,0,.4);
+>>>>>>> 6f337fef70e8d55591a2b5068ba1e9c973c09f47
   transform:rotateX(-1deg); 
   transform-origin:center top;
 }
@@ -719,4 +722,91 @@ blockquote {
 .options,
 #category-input {
   display: none;
+}
+
+/*
+    PROFILE PAGE 
+*/
+
+.profile-section {
+  background: linear-gradient(var(--main-blue), var(--white));
+  height: 100vh;
+  display: flex;
+}
+
+.profile-container {
+  margin: auto;
+  padding: 25px 30px;
+  width: 500px;
+  max-width: 100%;
+  height: 400px;
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow:0 0 5px rgba(0,0,0,.4);  
+  transform:rotateX(-1deg); 
+  transform-origin:center top;
+}
+
+.profile-container h2 {
+  color: var(--dark-blue)
+}
+
+.profile-container form { 
+  display: flex;
+  flex-direction: column;
+  padding: 5px 70px;
+}
+
+.profile-container label {
+  color: var(--dark);
+  font-size: 80%;
+  padding: 5px 0;
+}
+
+.profile-container input {
+  padding: 8px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  border: solid 1px var(--dark);
+}
+
+.profile-container input:valid {
+  padding: 8px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  border: solid 1px var(--main-blue);
+  background-color: #c6c4ff3a;
+}
+
+.profile-container input:invalid {
+  padding: 8px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  border: solid 1px red;
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+.ccaption:hidden {
+  display: none;
+}
+
+.ccaption {
+  color: red;
+  font-size: 50%;
+  padding-right: 25px;
+  margin-bottom: 10px;
+}
+
+#edit-btn {
+  margin: 27px auto 20px;
+  padding: 7px 20px;
+  background: var(--main-red);
+  color: var(--white);
+  border: none;   
+}
+
+#edit-btn:hover {
+  background: var(--white);
+  color: var(--main-red);
+  border: solid 1px var(--main-red);
 }
