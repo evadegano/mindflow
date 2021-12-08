@@ -27,6 +27,7 @@
 body {
   margin: 0;
   font: 16px var(--main-font), Helvetica, Arial, sans-serif;
+  font-weight: 300;
   color: var(--dark);
 }
 
@@ -38,7 +39,6 @@ h2 {
 }
 
 h3 {
-  font-weight: 600;
   margin-bottom: 10px;
 }
 
@@ -70,6 +70,10 @@ nav {
   justify-content: space-between;
   align-items: flex-start;
   padding: 0 15px;
+}
+
+input {
+  font-weight: 300;
 }
 
 
@@ -433,11 +437,7 @@ font-size: 150%;
   -moz-backface-visibility: hidden;
   -o-backface-visibility: hidden;
   backface-visibility: hidden;
-<<<<<<< HEAD
-  box-shadow: var(--blue-shadow);
-=======
   box-shadow:0 0 5px rgba(0,0,0,.4);
->>>>>>> 6f337fef70e8d55591a2b5068ba1e9c973c09f47
   transform:rotateX(-1deg); 
   transform-origin:center top;
 }
@@ -460,6 +460,21 @@ font-size: 150%;
 /* 
     DASHBOARD
 */
+#dashboard h2 {
+  font-family: var(--main-font);
+  font-weight: 600;
+  font-size: 20px;
+}
+
+#dashboard h3 {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+#dashboard h4 {
+  font-weight: 300;
+  font-size: 16px;
+}
 
 #top-screen {
   height: 100vh;
@@ -478,6 +493,12 @@ font-size: 150%;
   justify-content: center;
   align-items: center;
   column-gap: 20px;
+  margin-bottom: 20px;
+}
+
+#page-toggle * {
+  font-family: var(--main-font);
+  font-size: 20px;
 }
 
 #dashboard-container {
@@ -660,7 +681,7 @@ blockquote {
 
 /* goal and tasks forms */
 .goal {
-  padding-left: 20px;
+  padding-left: 30px;
 }
 
 .goal > h4 {
@@ -671,7 +692,7 @@ blockquote {
 }
 
 .add-goal-form {
-  padding-left: 20px;
+  padding-left: 30px;
 }
 
 .add-goal-form .uil-plus {
@@ -705,6 +726,7 @@ blockquote {
 .add-input {
   background: none;
   border-style: none;
+  width: 80%;
 }
 
 .add-input::placeholder {

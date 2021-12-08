@@ -1,13 +1,13 @@
 
-<main id="homepage">
+<main id="dashboard">
   <div id="top-screen">
     <nav>
       <!-- greeting section-->
       <div>
-        <h2><span id="greeting-msg">Good morning</span> {{currentUser.firstName}}</h2>
+        <h1><span id="greeting-msg">Good morning</span> {{currentUser.firstName}}</h1>
         <figure>
           <blockquote><i>"this is a quote{{zenQuote.q}}"</i></blockquote>
-          <figcaption><strong>– Author{{zenQuote.a}}</strong></figcaption>
+          <figcaption>– Author{{zenQuote.a}}</figcaption>
         </figure>
       </div>
       <!-- settings menu -->
@@ -27,12 +27,12 @@
 
     <!-- page toggle -->
     <div id="page-toggle">
-      <h2>focus</h2>
+      <div>focus</div>
       <label class="switch">
         <input type="checkbox">
         <span class="slider"></span>
       </label>
-      <h2>relax</h2>
+      <div>relax</div>
     </div>
 
     <!-- main screen -->
@@ -41,7 +41,7 @@
       <div id="goals-section">
         <h2>Goals & projects</h2>
 
-        <h3>Work & study</h3>
+        <h3><i class="uil uil-angle-down"></i>Work & study</h3>
         <!-- display goals from db -->
         {{#each workGoals}}
         <div class="goal"><h4 style="background: {{this.color}};">{{this.title}}</h4></div>
@@ -59,7 +59,7 @@
           <input id="category-input" type="text" name="category" value="work">
         </form>
 
-        <h3>Health & fitness</h3>
+        <h3><i class="uil uil-angle-down"></i>Health & fitness</h3>
         <!-- display goals from db -->
         {{#each healthGoals}}
         <div class="goal"><h4 style="background: {{this.color}};">{{this.title}}</h4></div>
@@ -76,7 +76,7 @@
           <input id="category-input" type="text" name="category" value="health">
         </form>
 
-        <h3>Social life</h3>
+        <h3><i class="uil uil-angle-down"></i>Social life</h3>
         <!-- display goals from db -->
         {{#each socialGoals}}
         <div class="goal"><h4 style="background: {{this.color}};">{{this.title}}</h4></div>
@@ -93,7 +93,7 @@
           <input id="category-input" type="text" name="category" value="social">
         </form>
 
-        <h3>Finance</h3>
+        <h3><i class="uil uil-angle-down"></i>Finance</h3>
         <!-- display goals from db -->
         {{#each financeGoals}}
         <div class="goal"><h4 style="background: {{this.color}};">{{this.title}}</h4></div>
@@ -110,7 +110,7 @@
           <input id="category-input" type="text" name="category" value="finance">
         </form>
         
-        <h3>Misc.</h3>
+        <h3><i class="uil uil-angle-down"></i>Misc.</h3>
         <!-- add new goal -->
         <form class="add-goal-form" method="POST" action="/user/goals">
           <input class="add-input" type="text" name="title" placeholder="Add goal">
@@ -163,9 +163,10 @@
               {{/each}}
             </select>
         </form>
+        
+        {{#if todayTasks}}
         <h2>Overdue</h2>
         <!-- display overdue tasks -->
-        {{#if todayTasks}}
           {{#each todayTasks}}
             {{#if this.isDone}}
             {{else}}
@@ -180,7 +181,6 @@
             {{/if}}
           {{/each}}
         {{else}}
-        <div>You have no overdue task, well done!</div>
         {{/if}}
       </div>
 
