@@ -11,7 +11,10 @@ const goalSchema = new Schema(
       default: Date.now
     },
     endDate: Date,
-    title: String,
+    title: { 
+      type: String,
+      required: true
+    },
     color: {
       type: String,
       default: "#636EE6"

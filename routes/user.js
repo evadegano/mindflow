@@ -33,8 +33,21 @@ router.get("/dashboard", isLoggedIn, (req, res, next) => {
 })
 
 // POST /dashboard
-router.post("", isLoggedIn, (req, res, next) => {
-  // TODO: permettre au user d'ajouter des tâches et des objectifs dans la DB
+router.post("/goals", isLoggedIn, (req, res, next) => {
+  // TODO: permettre au user d'ajouter des objectifs dans la DB
+  Goal.create({ 
+    title: req.body.title,
+    endDate: req.body.endDate 
+  })
+    .then(newGoal => res.redirect('/user/dashboard'))
+    .catch((err) => res.render('/user/dashboard'))
+})
+
+router.post("/tasks", isLoggedIn, (req, res, next) => {
+  // TODO: permettre au user d'ajouter des tâches dans la DB
+  Task.create({ title: req.body.title })
+  .then(newTask => res.redirect('/user/dashboard'))
+  .catch(err => res.render('/user/dashboard'))
 })
 
 // GET /profile

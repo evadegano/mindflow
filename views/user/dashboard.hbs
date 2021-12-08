@@ -45,8 +45,8 @@
         <!-- display goals from db -->
         
         <!-- add new goal -->
-        <form id="" method="POST" action="/user/dashboard">
-          <input type="text" name="goal" placeholder="Add goal">
+        <form id="" method="POST" action="/user/goals">
+          <input type="text" name="title" placeholder="Add goal">
           <input type="date" name="endDate">
           <button type="submit"></button>
         </form>
@@ -67,8 +67,8 @@
         </div>
         {{/each}}
         <!-- add new task -->
-        <form method="POST" action="/user/dashboard">
-          <input id="new-task-input" type="text" name="task" placeholder="Add task">
+        <form method="POST" action="/user/tasks">
+          <input id="new-task-input" type="text" name="title" placeholder="Add task">
           <select id="goal-selector" name="task-goal">
             {{#each currentGoals}}
             <option value="{{this._id}}">{{this.title}}</option>
