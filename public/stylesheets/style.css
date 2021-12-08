@@ -9,7 +9,12 @@
   --light-blue: #C6C4FF;
   --main-red: #FF6D6D;
   --light-red: #FFC0C0;
-  --shadow: 0 4px 44px 0 rgba(2,7,191, 0.1);
+  --blue-shadow: 0 4px 44px 0 rgba(2,7,191, 0.1);
+  --red-shadow: 0 4px 44px 0 rgba(255,109,109, 0.3);
+  --small-radius: 5px;
+  --mid-radius: 15px;
+  --large-radius: 25px;
+  --xlarge-radius: 50%;
   --title-font: "Rozha One";
   --main-font: "Poppins";
 }
@@ -34,6 +39,7 @@ h2 {
 
 h3 {
   font-weight: 600;
+  margin-bottom: 10px;
 }
 
 a {
@@ -89,7 +95,7 @@ nav {
 .btn {
   padding: 10px;
   margin-left: 10px;
-  border-radius: 5px;
+  border-radius: var(--small-radius);
 }
 
 .signup-btn {
@@ -373,7 +379,7 @@ font-size: 150%;
   display: block;
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: var(--xlarge-radius);
   color: var(--light-blue);
   background-color: var(--dark-blue);
   font-family: 'unicons';
@@ -427,7 +433,11 @@ font-size: 150%;
   -moz-backface-visibility: hidden;
   -o-backface-visibility: hidden;
   backface-visibility: hidden;
+<<<<<<< HEAD
+  box-shadow: var(--blue-shadow);
+=======
   box-shadow:0 0 5px rgba(0,0,0,.4);
+>>>>>>> 6f337fef70e8d55591a2b5068ba1e9c973c09f47
   transform:rotateX(-1deg); 
   transform-origin:center top;
 }
@@ -483,7 +493,7 @@ font-size: 150%;
 #tasks-section,
 #player-widget,
 #gantt-chart {
-  box-shadow: var(--shadow);
+  box-shadow: var(--blue-shadow);
   padding: 30px;
 }
 
@@ -495,12 +505,12 @@ font-size: 150%;
 #goals-section {
   background: var(--blue-grey);
   width: 30%;
-  border-radius: 0 25px 25px 0;
+  border-radius: 0 var(--large-radius) var(--large-radius) 0;
 }
 
 #tasks-section {
   width: 40%;
-  border-radius: 25px;
+  border-radius: var(--large-radius);
 }
 
 #widget-section {
@@ -517,8 +527,8 @@ font-size: 150%;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: var(--shadow);
-  border-radius: 50%;
+  box-shadow: var(--blue-shadow);
+  border-radius: var(--xlarge-radius);
   height: 0;
   width: 80%;
   max-width: 297px;
@@ -537,7 +547,7 @@ font-size: 150%;
 #player-widget,
 #gantt-chart {
   background: var(--main-blue);
-  border-radius: 25px;
+  border-radius: var(--large-radius);
 }
 
 blockquote {
@@ -558,8 +568,8 @@ blockquote {
   top: 13px;
   display: none;
   color: var(--dark);
-  box-shadow: var(--shadow);
-  border-radius: 15px;
+  box-shadow: var(--blue-shadow);
+  border-radius: var(--mid-radius);
   padding: 5px;
   width: 200px;
   margin: 0;
@@ -628,27 +638,133 @@ blockquote {
   width: 26px;
   left: 4px;
   bottom: 4px;
-  border-radius: 50%;
+  border-radius: var(--xlarge-radius);
   background: var(--white);
   -webkit-transition: .4s;
   transition: .4s;
 }
 
-input:checked + .slider {
+.switch input:checked + .slider {
   background: var(--mid-blue);
 }
 
-input:focus + .slider {
-  box-shadow: var(--shadow);
+.switch input:focus + .slider {
+  box-shadow: var(--blue-shadow);
 }
 
-input:checked + .slider:before {
+.switch input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
 
-/*profile page*/
+/* goal and tasks forms */
+.goal {
+  padding-left: 20px;
+}
+
+.goal > h4 {
+  padding-left: 10px;
+  border-radius: var(--small-radius);
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.add-goal-form {
+  padding-left: 20px;
+}
+
+.add-goal-form .uil-plus {
+  color: var(--main-red);
+}
+
+#add-task-form {
+  margin: 20px 0 30px 0;
+}
+
+#add-task-form .uil-plus {
+  color: var(--white);
+  background: var(--main-red);
+  border-radius: var(--small-radius);
+  box-shadow: var(--red-shadow);
+}
+
+.color-picker {
+  border-radius: var(--xlarge-radius);
+  width: 30px;
+  height:30px;
+  padding: 0;
+  border-style: none;
+}
+
+.date-picker,
+.color-picker {
+  cursor: pointer;
+}
+
+.add-input {
+  background: none;
+  border-style: none;
+}
+
+.add-input::placeholder {
+  font-size: 16px;
+  font-family: var(--main-font);
+}
+
+.add-input:focus {
+  outline: none;
+}
+
+.add-input:focus::placeholder {
+  opacity: 0;
+}
+
+.add-input:focus + .options {
+  display: block;
+}
+
+.options,
+#category-input {
+  display: none;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+}
+
+.task > div {
+  padding-left: 10px;
+  margin-left: 5px;
+}
+
+.uil-circle,
+.uil-check-circle {
+  font-size: 25px;
+}
+
+.uil-circle:hover,
+.is-done-true * {
+  color: var(--light-grey);
+}
+
+.uil-check-circle:hover {
+  color: var(--dark)
+}
+
+.is-done-true div {
+  text-decoration: line-through;
+}
+
+.is-done-input {
+  display: none;
+}
+
+/*
+    PROFILE PAGE 
+*/
+
 .profile-section {
   background: linear-gradient(var(--main-blue), var(--white));
   height: 100vh;

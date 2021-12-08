@@ -15,6 +15,7 @@ const goalSchema = new Schema(
       type: String,
       required: true
     },
+    category: String,
     color: {
       type: String,
       default: "#636EE6"
