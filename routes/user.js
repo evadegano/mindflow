@@ -39,13 +39,9 @@ router.post("", isLoggedIn, (req, res, next) => {
 
 // GET /profile
 router.get("/profile", isLoggedIn, (req, res, next) => {
-<<<<<<< HEAD
-  res.render("user/profile");
-=======
   res.render("user/profile", {
     currentUser: req.session.user
   });
->>>>>>> 6f337fef70e8d55591a2b5068ba1e9c973c09f47
 })
 
 // POST /profile
