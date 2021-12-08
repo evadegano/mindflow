@@ -38,13 +38,21 @@ router.post("", isLoggedIn, (req, res, next) => {
 })
 
 // GET /profile
-router.get("/profile/:userId", isLoggedIn, (req, res, next) => {
-
+router.get("/profile", isLoggedIn, (req, res, next) => {
+  res.render("user/profile", {
+    currentUser: req.session.user
+  });
 })
 
 // POST /profile
 router.post("", isLoggedIn, (req, res, next) => {
+  //TO DO: récupérer les valeurs des champs modifiés
 
+  //TO DO: Ne pas envoyer un nouveau mot de passe si pas de modification du champ "password"
+
+  //TO DO: encrypter le nouveau mot de passe
+  
+  //TO DO: update la DB
 })
 
 
