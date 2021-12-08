@@ -658,6 +658,7 @@ blockquote {
   transform: translateX(26px);
 }
 
+/* goal and tasks forms */
 .goal {
   padding-left: 20px;
 }
@@ -675,6 +676,10 @@ blockquote {
 
 .add-goal-form .uil-plus {
   color: var(--main-red);
+}
+
+#add-task-form {
+  margin: 20px 0 30px 0;
 }
 
 #add-task-form .uil-plus {
@@ -721,6 +726,38 @@ blockquote {
 
 .options,
 #category-input {
+  display: none;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+}
+
+.task > div {
+  padding-left: 10px;
+  margin-left: 5px;
+}
+
+.uil-circle,
+.uil-check-circle {
+  font-size: 25px;
+}
+
+.uil-circle:hover,
+.is-done-true * {
+  color: var(--light-grey);
+}
+
+.uil-check-circle:hover {
+  color: var(--dark)
+}
+
+.is-done-true div {
+  text-decoration: line-through;
+}
+
+.is-done-input {
   display: none;
 }
 

@@ -26,7 +26,10 @@ settingsBtn.addEventListener("click", () => {
   }
 })
 
-// 
+// display form options
+function showOptions() {
+  return
+}
 
 
 // change greeting message
