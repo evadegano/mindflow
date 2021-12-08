@@ -38,8 +38,8 @@ router.post("", isLoggedIn, (req, res, next) => {
 })
 
 // GET /profile
-router.get("/profile/:userId", isLoggedIn, (req, res, next) => {
-
+router.get("/profile", isLoggedIn, (req, res, next) => {
+  res.render("user/profile");
 })
 
 // POST /profile

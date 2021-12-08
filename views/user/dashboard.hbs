@@ -4,8 +4,7 @@
     <nav>
       <!-- greeting section-->
       <div>
-        <!-- TODO: changer le contenu du span selon l'heure de la journée -->
-        <h2><span>Good morning</span> {{currentUser.firstName}}</h2>
+        <h2><span id="greeting-msg">Good morning</span> {{currentUser.firstName}}</h2>
         <figure>
           <blockquote><i>"this is a quote{{zenQuote.q}}"</i></blockquote>
           <figcaption><strong>– Author{{zenQuote.a}}</strong></figcaption>
@@ -43,23 +42,80 @@
         <h2>Goals & projects</h2>
         <h3>Work & study</h3>
         <!-- display goals from db -->
-        
+        {{#each workGoals}}
+        <div class="goal"><h4 style="background: {{this.color}};">{{this.title}}</h4></div>
+        {{/each}}
+        <div class="goal"><h4 style="background: #9295F1;">Test goal</h4></div>
         <!-- add new goal -->
-        <form id="" method="POST" action="/user/dashboard">
-          <input type="text" name="goal" placeholder="Add goal">
-          <input type="date" name="endDate">
-          <button type="submit"></button>
+        <form class="add-goal-form" method="POST" action="/user/dashboard">
+          <input class="add-input" type="text" name="title" placeholder="Add goal">
+          <button type="submit"><i class="uil uil-plus"></i></button>
+          <span class="options">
+            <input class="date-picker" type="date" name="startDate">
+            <input class="date-picker" type="date" name="endDate">
+            <input class="color-picker" type="color" value="#636EE6">
+          </span>
+          <input id="category-input" type="text" name="category" value="work">
         </form>
         <h3>Health & fitness</h3>
+        <!-- add new goal -->
+        <form class="add-goal-form" method="POST" action="/user/dashboard">
+          <input class="add-input" type="text" name="title" placeholder="Add goal">
+          <button type="submit"><i class="uil uil-plus"></i></button>
+          <span class="options">
+            <input class="date-picker" type="date" name="startDate">
+            <input class="date-picker" type="date" name="endDate">
+            <input class="color-picker" type="color" value="#636EE6">
+          </span>
+          <input id="category-input" type="text" name="category" value="health">
+        </form>
         <h3>Social life</h3>
+        <!-- add new goal -->
+        <form class="add-goal-form" method="POST" action="/user/dashboard">
+          <input class="add-input" type="text" name="title" placeholder="Add goal">
+          <button type="submit"><i class="uil uil-plus"></i></button>
+          <span class="options">
+            <input class="date-picker" type="date" name="startDate">
+            <input class="date-picker" type="date" name="endDate">
+            <input class="color-picker" type="color" value="#636EE6">
+          </span>
+          <input id="category-input" type="text" name="category" value="social">
+        </form>
         <h3>Finance</h3>
+        <!-- add new goal -->
+        <form class="add-goal-form" method="POST" action="/user/dashboard">
+          <input class="add-input" type="text" name="title" placeholder="Add goal">
+          <button type="submit"><i class="uil uil-plus"></i></button>
+          <span class="options">
+            <input class="date-picker" type="date" name="startDate">
+            <input class="date-picker" type="date" name="endDate">
+            <input class="color-picker" type="color" value="#636EE6">
+          </span>
+          <input id="category-input" type="text" name="category" value="finance">
+        </form>
         <h3>Misc.</h3>
+        <!-- add new goal -->
+        <form class="add-goal-form" method="POST" action="/user/dashboard">
+          <input class="add-input" type="text" name="title" placeholder="Add goal">
+          <button type="submit"><i class="uil uil-plus"></i></button>
+          <span class="options">
+            <input class="date-picker" type="date" name="startDate">
+            <input class="date-picker" type="date" name="endDate">
+            <input class="color-picker" type="color" value="#636EE6">
+          </span>
+          <input id="category-input" type="text" name="category" value="other">
+        </form>
       </div>
 
       <!-- tasks container -->
       <div id="tasks-section">
         <h2>Today</h2>
+        <h4 id="date-today"></h4>
         <!-- display today's tasks -->
+        <div class="task-false">
+          <div class="task-checkbox"></div>
+          <div>This is a test task</div>
+        </div>
         {{#each todayTasks}}
         <div class="task-{{this.isDone}}">
           <div class="task-checkbox"></div>
@@ -67,13 +123,17 @@
         </div>
         {{/each}}
         <!-- add new task -->
-        <form method="POST" action="/user/dashboard">
-          <input id="new-task-input" type="text" name="task" placeholder="Add task">
-          <select id="goal-selector" name="task-goal">
-            {{#each currentGoals}}
-            <option value="{{this._id}}">{{this.title}}</option>
-            {{/each}}
-          </select>
+        <form id="add-task-form" method="POST" action="/user/dashboard">
+          <input class="add-input" type="text" name="task" placeholder="Add task">
+          <button type="submit"><i class="uil uil-plus"></i></button>
+
+            <select id="goal-selector" name="task-goal">
+              <option value="test-option">test option</option>
+              {{#each currentGoals}}
+              <option value="{{this._id}}">{{this.title}}</option>
+              {{/each}}
+            </select>
+
         </form>
         <h2>Overdue</h2>
         <!-- display overdue tasks -->
