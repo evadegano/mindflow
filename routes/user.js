@@ -12,23 +12,36 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 
 // GET /dashboard
 router.get("/dashboard", isLoggedIn, (req, res, next) => {
+  // TODO: chercher les objectifs du user dans la DB
+  Goal.find({})
+    .then(GoalsFromDb => res.render('user/dashboard', {workGoals: GoalsFromDb}))
+    .catch(err => next(err))
+})
+
+router.get("/dashboard", isLoggedIn, (req, res, next) => {
   // TODO: récupérer l'objet "zenQuote" grâce à l'API Zen Quote
 
-  // TODO: chercher les tâches et objectifs du user dans la DB
-  // TODO: filtre des tâches : endDate = today, endDate < today and isDone = false
   // TODO: filtre des objectifs : isDone = false
+
+  // TODO: chercher les tâches du user dans la DB
+  Task.find({ isDone: false })
+    .then(taskFromDb => res.render('user/dashboard', {todayTasks: taskFromDb}))
+    .catch(err => next(err))
+
+  // TODO: filtre des tâches : endDate = today, endDate < today and isDone = false
+    //Task.find({ $and: [ { endDate: { $lte: Date.now } }, { isDone: false} ] })
 
   // capitalize first letter of user's first name
   req.session.user.firstName = req.session.user.firstName[0].toUpperCase() + req.session.user.firstName.substring(1);
   
   // TODO: exécuter le render une fois que toutes les promise sont faites
-  res.render("user/dashboard", {
+  /*res.render("user/dashboard", {
     currentUser: req.session.user,
     zenQuote: "",
     currentGoals: "",
     todayTasks: "",
     overdueTasks: ""
-  })
+  })*/
     
 })
 
@@ -49,9 +62,13 @@ router.post("/goals", isLoggedIn, (req, res, next) => {
 
 router.post("/tasks", isLoggedIn, (req, res, next) => {
   // TODO: permettre au user d'ajouter des tâches dans la DB
-  Task.create({ title: req.body.title })
-  .then(newTask => res.redirect('/user/dashboard'))
-  .catch(err => res.render('/user/dashboard'))
+  Task.create({ 
+    user_id: req.session.user._id,
+    goal_id: req.body._id,
+    title: req.body.title
+  })
+    .then(newTask => res.redirect('/user/dashboard'))
+    .catch(err => res.render('/user/dashboard'))
 })
 
 // GET /profile
