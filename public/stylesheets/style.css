@@ -626,10 +626,6 @@ blockquote {
   
 }
 
-#goal-selector {
-  display: none;
-}
-
 #gantt-chart {
   margin: 40px;
   width: 100%;
