@@ -24,7 +24,7 @@ router.get("/dashboard", isLoggedIn, (req, res, next) => {
   // TODO: filtre des objectifs : isDone = false
 
   // TODO: chercher les tâches du user dans la DB
-  Task.find({ isDone: true })
+  Task.find({ isDone: false })
     .then(taskFromDb => res.render('user/dashboard', {todayTasks: taskFromDb}))
     .catch(err => next(err))
 
