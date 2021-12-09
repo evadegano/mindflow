@@ -1,7 +1,8 @@
 const settingsBtn = document.querySelector(".uil-setting");
 const addInput = document.querySelector("#add-input");
 const collapseMenu = document.querySelectorAll(".collapsible-menu");
-
+const addGoalForm = document.querySelectorAll(".add-goal-form");
+const addTaskInput = document.querySelector("#add-task-form .add-input");
 
 window.addEventListener("load", () => {
   // get today's full date
@@ -44,10 +45,33 @@ collapseMenu.forEach(menu => {
   })
 })
 
-// display form options
-function showOptions() {
-  return
-}
+// display form options on focus
+addTaskInput.addEventListener("focus", () => {
+  const addTaskOptions = document.querySelector("#add-task-form .options");
+
+  addTaskOptions.style.display = "block";
+  addTaskInput.style.borderBottom = "1px solid var(--light-grey)";
+  addTaskInput.style.paddingBottom = "10px";
+})
+
+document.addEventListener("click", event => {
+  const addTaskForm = document.querySelector("#add-task-form");
+  const addTaskOptions = document.querySelector("#add-task-form .options");
+
+  if (!addTaskForm.contains(event.target)) {
+    addTaskOptions.style.display = "none";
+    addTaskInput.style.borderBottom = "none";
+    addTaskInput.style.paddingBottom = "0";
+    addTaskInput.value = "";
+  }
+})
+
+// hide form options on focus out
+//addTaskForm.addEventListener("focusout", () => {
+  //const addTaskForm = document.querySelector("#add-task-form");
+  //const addTaskOptions = document.querySelector("#add-task-form .options");
+  //addTaskOptions.style.display = "none";
+//})
 
 // change greeting message
 function switchGreetingMsg(hour) {
@@ -55,16 +79,16 @@ function switchGreetingMsg(hour) {
 
   switch(true) {
     case hour > 4 && hour < 13:
-      greetingMsg.textContent = "Good morning";
+      greetingMsg.textContent = "Good morning,";
       break;
     case hour < 18:
-      greetingMsg.textContent = "Good afternoon";
+      greetingMsg.textContent = "Good afternoon,";
       break;
     case hour < 23:
-      greetingMsg.textContent = "Good evening";
+      greetingMsg.textContent = "Good evening,";
       break;
     default:
-      greetingMsg.textContent = "Good night" ;
+      greetingMsg.textContent = "Good night," ;
       break;
   }
 }

@@ -4,7 +4,7 @@
     <nav>
       <!-- greeting section-->
       <div>
-        <h1><span id="greeting-msg">Good morning</span> {{currentUser.firstName}}</h1>
+        <h1><span id="greeting-msg"></span> {{currentUser.firstName}}</h1>
         <figure>
           <blockquote><i>"this is a quote{{zenQuote.q}}"</i></blockquote>
           <figcaption>– Author{{zenQuote.a}}</figcaption>
@@ -181,7 +181,13 @@
           <input class="add-input" type="text" name="title" placeholder="Add task">
           <button type="submit"><i class="uil uil-plus"></i></button>
           <div class="options">
+            <label>Due Date: </label>
+            <span class="datepicker-toggle">
+              <!--<i class="uil uil-schedule"></i>-->
+              <input class="date-picker" type="date" name="endDate">
+            </span>
             <select id="goal-selector" name="taskGoal">
+              <option value="">Link to goal</option>
               <option value="test-option">test option</option>
               {{#each currentGoals}}
               <option value="{{this._id}}">{{this.title}}</option>
@@ -213,7 +219,7 @@
       <!-- widget section -->
       <div id="widget-section">
         <div id="round-widget">
-          <h3>start</h3>
+          <h3>Start</h3>
         </div>
         <div id="player-widget">
 
