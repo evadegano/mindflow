@@ -14,7 +14,10 @@ const taskSchema = new Schema(
       type: String,
       required: true
     },
-    isDone: Boolean,
+    isDone: {
+      type: Boolean,
+      default: false
+    },
     endDate: {
       type: Date,
       default: Date.now

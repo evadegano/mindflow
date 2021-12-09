@@ -1,5 +1,6 @@
 const settingsBtn = document.querySelector(".uil-setting");
 const addInput = document.querySelector("#add-input");
+const collapseMenu = document.querySelectorAll(".collapsible-menu");
 
 
 window.addEventListener("load", () => {
@@ -14,7 +15,6 @@ window.addEventListener("load", () => {
   switchGreetingMsg(todayFullDate.getHours());
 })
 
-
 // toggle the settings menu
 settingsBtn.addEventListener("click", () => {
   const toggleLinks = document.querySelector("#toggle-links");
@@ -26,11 +26,28 @@ settingsBtn.addEventListener("click", () => {
   }
 })
 
+// toggle dropdown menus
+collapseMenu.forEach(menu => {
+  const collapseBtn = menu.querySelector(".collapsible-btn");
+  const collapseContent = menu.querySelector(".collapsible-content");
+
+  collapseBtn.addEventListener("click", () => {
+    if (collapseContent.style.display === "none") {
+      collapseContent.style.display = "block";
+      collapseBtn.classList.remove("uil-angle-right");
+      collapseBtn.classList.add("uil-angle-down");
+    } else {
+      collapseContent.style.display = "none";
+      collapseBtn.classList.remove("uil-angle-down");
+      collapseBtn.classList.add("uil-angle-right");
+    }
+  })
+})
+
 // display form options
 function showOptions() {
   return
 }
-
 
 // change greeting message
 function switchGreetingMsg(hour) {

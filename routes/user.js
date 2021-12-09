@@ -19,7 +19,7 @@ router.get("/dashboard", isLoggedIn, (req, res, next) => {
   // TODO: filtre des objectifs : isDone = false
 
   // capitalize first letter of user's first name
-  req.session.user.firstName = req.session.user.firstName[0].toUpperCase() + req.session.user.firstName.substring(1)
+  req.session.user.firstName = req.session.user.firstName[0].toUpperCase() + req.session.user.firstName.substring(1);
   
   // TODO: exécuter le render une fois que toutes les promise sont faites
   res.render("user/dashboard", {
@@ -36,8 +36,12 @@ router.get("/dashboard", isLoggedIn, (req, res, next) => {
 router.post("/goals", isLoggedIn, (req, res, next) => {
   // TODO: permettre au user d'ajouter des objectifs dans la DB
   Goal.create({ 
+    user_id: req.session.user._id,
     title: req.body.title,
-    endDate: req.body.endDate 
+    startDate: req.body.startDate,
+    endDate: req.body.endDate,
+    color: req.body.color,
+    category: req.body.category
   })
     .then(newGoal => res.redirect('/user/dashboard'))
     .catch((err) => res.render('/user/dashboard'))

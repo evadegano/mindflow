@@ -20,7 +20,10 @@ const goalSchema = new Schema(
       type: String,
       default: "#636EE6"
     },
-    isDone: Boolean
+    isDone: {
+      type: Boolean,
+      default: false
+    }
   },
   {
     timestamps: true
