@@ -49,9 +49,13 @@ router.post("/goals", isLoggedIn, (req, res, next) => {
 
 router.post("/tasks", isLoggedIn, (req, res, next) => {
   // TODO: permettre au user d'ajouter des tâches dans la DB
-  Task.create({ title: req.body.title })
-  .then(newTask => res.redirect('/user/dashboard'))
-  .catch(err => res.render('/user/dashboard'))
+  Task.create({ 
+    user_id: req.session.user._id,
+    goal_id: req.session.user.goal_id,
+    title: req.body.title
+  })
+    .then(newTask => res.redirect('/user/dashboard'))
+    .catch(err => res.render('/user/dashboard'))
 })
 
 // GET /profile
