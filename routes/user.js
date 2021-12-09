@@ -64,7 +64,7 @@ router.post("/tasks", isLoggedIn, (req, res, next) => {
   // TODO: permettre au user d'ajouter des tâches dans la DB
   Task.create({ 
     user_id: req.session.user._id,
-    goal_id: req.body._id,
+    goal_id: req.body.taskGoal,
     title: req.body.title
   })
     .then(newTask => res.redirect('/user/dashboard'))
