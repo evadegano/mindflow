@@ -181,9 +181,9 @@
           <input class="add-input" type="text" name="title" placeholder="Add task">
           <button type="submit"><i class="uil uil-plus"></i></button>
           <div class="options">
-            <select id="goal-selector" name="taskGoal">
+            <select id="goal-selector" name="taskGoal" multiple>
               <option value="test-option">test option</option>
-              {{#each currentGoals}}
+              {{#each workGoals}}
               <option value="{{this._id}}">{{this.title}}</option>
               {{/each}}
             </select>

@@ -613,7 +613,7 @@ blockquote {
 }
 
 #goal-selector {
-  display: none;
+  ddisplay: none;
 }
 
 #gantt-chart {
