@@ -13,9 +13,17 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 // GET /dashboard
 /*router.get("/dashboard", isLoggedIn, (req, res, next) => {
   // TODO: chercher les objectifs du user dans la DB
+<<<<<<< HEAD
   // TODO: filtre des objectifs : isDone = false
   Goal.find({ isDone: false })
     .then(GoalsFromDb => res.render('user/dashboard', {workGoals: GoalsFromDb}))
+=======
+  Goal.find({})
+    .then(GoalsFromDb => res.render('user/dashboard', {
+      workGoals: GoalsFromDb,
+      currentUser: req.session.user
+    }))
+>>>>>>> ef8703ee1c33d5f34366e2fcd06a2cc51a242903
     .catch(err => next(err))
 })
 */
@@ -63,7 +71,7 @@ router.post("/tasks", isLoggedIn, (req, res, next) => {
   // TODO: permettre au user d'ajouter des tâches dans la DB
   Task.create({ 
     user_id: req.session.user._id,
-    goal_id: req.body._id,
+    goal_id: req.body.taskGoal,
     title: req.body.title
   })
     .then(newTask => res.redirect('/user/dashboard'))

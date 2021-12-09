@@ -2,6 +2,7 @@
   --dark: #161616;
   --white: #FFFFFF;
   --light-grey: rgba(196,196,196, 0.5);
+  --mid-grey: #a9a9a9;
   --blue-grey: #ECF0FF;
   --dark-blue: #0207BF;
   --main-blue: #5538EE;
@@ -558,6 +559,19 @@ font-size: 150%;
   color: var(--mid-blue);
 }
 
+.circular {
+  height: 100px;
+  width: 100px;
+  background: red;
+}
+
+.round-widget--inner {
+  width: 80%;
+  height: 80%;
+  background: red;
+  border-radius: 50%;
+}
+
 #player-widget {
   width: 80%;
   max-width: 297px;
@@ -610,10 +624,6 @@ blockquote {
 .uil-setting:hover {
   transform: rotate(90deg);
   
-}
-
-#goal-selector {
-  ddisplay: none;
 }
 
 #gantt-chart {
@@ -715,12 +725,21 @@ blockquote {
   width: 30px;
   height:30px;
   padding: 0;
-  border-style: none;
+  border: none;
 }
 
 .date-picker,
 .color-picker {
   cursor: pointer;
+}
+
+.date-picker {
+  font-family: var(--main-font);
+  font-weight: 300;
+  background: inherit;
+  border: 1px solid var(--mid-grey);
+  border-radius: var(--mid-radius);
+  padding: 0 5px;
 }
 
 .add-input {
@@ -742,12 +761,33 @@ blockquote {
   opacity: 0;
 }
 
-.add-input:focus + .options {
-  display: block;
-}
-
 #category-input {
   display: none;
+}
+
+.options {
+  margin-top: 10px;
+}
+
+.options * {
+  color: var(--mid-grey);
+}
+
+#goal-selector {
+  border-radius: var(--mid-radius);
+  padding: 5px;
+  font-weight: 300;
+  font-family: var(--main-font);
+  border-color: var(--light-grey);
+}
+
+#add-task-form {
+  padding: 10px;
+}
+
+.form-focus {
+  border: 1px solid var(--light-grey);
+  border-radius: var(--small-radius);
 }
 
 .task {
@@ -778,8 +818,13 @@ blockquote {
   text-decoration: line-through;
 }
 
+.options,
 .is-done-input {
   display: none;
+}
+
+.date-picker::webkit-calendar-picker-indicator {
+  color: var(--mid-grey);
 }
 
 /*
