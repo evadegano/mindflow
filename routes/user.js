@@ -15,7 +15,7 @@ router.get("/dashboard", isLoggedIn, (req, res, next) => {
   // TODO: chercher les objectifs du user dans la DB
   Goal.find({})
     .then(GoalsFromDb => res.render('user/dashboard', {workGoals: GoalsFromDb}))
-    .catch(err => console.log('MESSAGE:', err))
+    .catch(err => next(err))
 })
 
 router.get("/dashboard", isLoggedIn, (req, res, next) => {
@@ -24,9 +24,9 @@ router.get("/dashboard", isLoggedIn, (req, res, next) => {
   // TODO: filtre des objectifs : isDone = false
 
   // TODO: chercher les tâches du user dans la DB
-  Task.find({})
+  Task.find({ isDone: true })
     .then(taskFromDb => res.render('user/dashboard', {todayTasks: taskFromDb}))
-    .catch(err => console.log('MESSAGE:', err))
+    .catch(err => next(err))
 
   // TODO: filtre des tâches : endDate = today, endDate < today and isDone = false
     //Task.find({ $and: [ { endDate: { $lte: Date.now } }, { isDone: false} ] })
