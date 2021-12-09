@@ -14,7 +14,10 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 router.get("/dashboard", isLoggedIn, (req, res, next) => {
   // TODO: chercher les objectifs du user dans la DB
   Goal.find({})
-    .then(GoalsFromDb => res.render('user/dashboard', {workGoals: GoalsFromDb}))
+    .then(GoalsFromDb => res.render('user/dashboard', {
+      workGoals: GoalsFromDb,
+      currentUser: req.session.user
+    }))
     .catch(err => next(err))
 })
 
