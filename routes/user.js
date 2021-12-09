@@ -11,20 +11,19 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 const isLoggedOut = require("../middleware/isLoggedOut");
 
 // GET /dashboard
-router.get("/dashboard", isLoggedIn, (req, res, next) => {
+/*router.get("/dashboard", isLoggedIn, (req, res, next) => {
   // TODO: chercher les objectifs du user dans la DB
-  Goal.find({})
+  // TODO: filtre des objectifs : isDone = false
+  Goal.find({ isDone: false })
     .then(GoalsFromDb => res.render('user/dashboard', {workGoals: GoalsFromDb}))
     .catch(err => next(err))
 })
-
+*/
 router.get("/dashboard", isLoggedIn, (req, res, next) => {
   // TODO: récupérer l'objet "zenQuote" grâce à l'API Zen Quote
 
-  // TODO: filtre des objectifs : isDone = false
-
   // TODO: chercher les tâches du user dans la DB
-  Task.find({ isDone: false })
+  Task.find({ endDate: { $lte: Date.now() }, isDone: false })
     .then(taskFromDb => res.render('user/dashboard', {todayTasks: taskFromDb}))
     .catch(err => next(err))
 
