@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
+const axios = require("axios");
 
 // database models
 const User = require("../models/User.model");
@@ -11,45 +12,33 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 const isLoggedOut = require("../middleware/isLoggedOut");
 
 // GET /dashboard
-/*router.get("/dashboard", isLoggedIn, (req, res, next) => {
-  // TODO: chercher les objectifs du user dans la DB
-<<<<<<< HEAD
-  // TODO: filtre des objectifs : isDone = false
-  Goal.find({ isDone: false })
-    .then(GoalsFromDb => res.render('user/dashboard', {workGoals: GoalsFromDb}))
-=======
-  Goal.find({})
-    .then(GoalsFromDb => res.render('user/dashboard', {
-      workGoals: GoalsFromDb,
-      currentUser: req.session.user
-    }))
->>>>>>> ef8703ee1c33d5f34366e2fcd06a2cc51a242903
-    .catch(err => next(err))
-})
-*/
 router.get("/dashboard", isLoggedIn, (req, res, next) => {
-  // TODO: récupérer l'objet "zenQuote" grâce à l'API Zen Quote
-
-  // TODO: chercher les tâches du user dans la DB
-  Task.find({ endDate: { $lte: Date.now() }, isDone: false })
-    .then(taskFromDb => res.render('user/dashboard', {todayTasks: taskFromDb}))
-    .catch(err => next(err))
-
-  // TODO: filtre des tâches : endDate = today, endDate < today and isDone = false
-    //Task.find({ $and: [ { endDate: { $lte: Date.now } }, { isDone: false} ] })
-
   // capitalize first letter of user's first name
   req.session.user.firstName = req.session.user.firstName[0].toUpperCase() + req.session.user.firstName.substring(1);
-  
-  // TODO: exécuter le render une fois que toutes les promise sont faites
-  /*res.render("user/dashboard", {
-    currentUser: req.session.user,
-    zenQuote: "",
-    currentGoals: "",
-    todayTasks: "",
-    overdueTasks: ""
-  })*/
-    
+  // TODO: récupérer l'objet "zenQuote" grâce à l'API Zen Quote
+  const p1 = axios.get('https://zenquotes.io/api/today/')
+  // TODO: chercher les objectifs du user dans la DB
+  // TODO: filtre des objectifs : isDone = false  
+  const p2 = Goal.find({ isDone: false })
+  // TODO: chercher les tâches du user dans la DB
+  // TODO: filtre des tâches : endDate = today, endDate < today and isDone = false  
+  const p3 = Task.find({ endDate: { $lte: Date.now() }, isDone: false })
+  // TODO: filtre des tâches en retard: endDate > today and isDone = false  
+  const p4 = Task.find({ endDate: { $gt: Date.now() }, isDone: false })
+
+  Promise.all([p1, p2, p3, p4])
+    .then(function([response, goalsFromDb, tasksFromDb, overdueTasksFromDb]) {
+      res.render('user/dashboard', {
+        currentUser: req.session.user,
+        zenQuote: response.data[0],
+        workGoals: goalsFromDb,
+        todayTasks: tasksFromDb,
+        overdueTasks: overdueTasksFromDb,
+      })
+    })
+    .catch(err => {
+      next(err)
+    })
 })
 
 // POST /dashboard
