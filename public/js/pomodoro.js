@@ -5,11 +5,10 @@ const pomodoroRing = document.querySelector("#pomodoro--progress-ring");
 const ringLength = pomodoroRing.getTotalLength();
 const duration = 25 * 60;
 const progress = ringLength / duration;
-let pomodoroTimer, timeElapsed, pomodoroStatus;
 
 
 // update pomodoro timer's content
-function updatePomodoro() {
+function updatePomodoro(timeElapsed, pomodoroStatus) {
   pomodoroRing.style.strokeDasharray = ringLength + " " + ringLength;
   pomodoroRing.style.strokeDashoffset = ringLength - timeElapsed * progress;
 
@@ -36,14 +35,14 @@ function updatePomodoro() {
       pomodoroMins.textContent = mins;
       pomodoroSecs.textContent = secs;
 
-      pomodoroStart();
+      pomodoroStart(timeElapsed);
   }
 }
 
 // start pomodoro timer
-function pomodoroStart() {
+function pomodoroStart(timeElapsed) {
   localStorage.setItem("pomodoroStatus", "active");
-  pomodoroTimer = setInterval(pomodoroProgress, 1000);
+  let pomodoroTimer = setInterval(pomodoroProgress, 1000);
   pomodoroBtn.className = "stop";
   pomodoroBtn.textContent = "stop";
   

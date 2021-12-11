@@ -555,6 +555,11 @@ font-size: 150%;
   display: block;
 }
 
+#breath-container.active {
+  display: flex;
+}
+
+#breath-container,
 #pomodoro {
   box-shadow: var(--blue-shadow);
   border-radius: var(--xlarge-radius);
@@ -578,18 +583,50 @@ font-size: 150%;
   transition: 0.5s;
   transform: rotate(-90deg);
   transform-origin: 50% 50%;
-  stroke: var(--mid-blue);
+  stroke: var(--main-blue);
 }
 
+/* beath bubble */
 #breath-container {
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
-  border-radius: var(--xlarge-radius);
+  width: 297px;
+  height: 297px;
 }
 
 #breath-bubble {
   border-radius: var(--xlarge-radius);
+  width: 33.5%; 
+  height: 33.5%; 
+  text-align: center;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: breath 10s ease-in-out 0s infinite alternate,
+             text-gradient 10s ease-in-out 0s infinite alternate;
+}
+
+@keyframes breath {
+  from { 
+    transform: scale(1);
+    background: var(--mid-blue);
+  }
+	to { 
+    transform: scale(3);
+    background: var(--white);
+  }
+}
+
+@keyframes text-gradient {
+  from {
+    color: var(--white);
+  }
+  to {
+    color: var(--mid-blue);
+    opacity: 0;
+  }
 }
 
 #player-widget {

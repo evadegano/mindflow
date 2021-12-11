@@ -7,21 +7,29 @@ const addTaskInput = document.querySelector("#add-task-form .add-input");
 const addTaskOptions = document.querySelector("#add-task-form .options");
 const addTaskForm = document.querySelector("#add-task-form");
 const toggleMenu = document.querySelector("#toggle-menu");
+const pageSwitchBtn = document.querySelector("#page-toggle input")
+const pomodoroContainer = document.querySelector("#pomodoro-container");
+const breathContainer = document.querySelector("#breath-container");
+let timeElapsed, pomodoroStatus, pageMode;
 
 
 window.addEventListener("load", () => {
   // init localStorage if necessary
+  if (!localStorage.getItem("pomodoroStatus")) {
+    localStorage.setItem("pomodoroStatus", "inactive");
+  }
+
   if (!localStorage.getItem("timeElapsed")) {
     localStorage.setItem("timeElapsed", 0);
-    localStorage.setItem("pomodoroStatus", "inactive");
-    timeElapsed = 0;
-    pomodoroStatus = "inactive";
-  } else {
-    timeElapsed = localStorage.getItem("timeElapsed");
-    pomodoroStatus = localStorage.getItem("pomodoroStatus");
-    console.log(timeElapsed);
-    console.log(pomodoroStatus);
   }
+
+  if (!localStorage.getItem("pageMode")) {
+    localStorage.setItem("pageMode", "focus");
+  } 
+
+  timeElapsed = localStorage.getItem("timeElapsed");
+  pomodoroStatus = localStorage.getItem("pomodoroStatus");
+  pageMode = localStorage.getItem("pageMode");
 
   // get today's full date
   const todayFullDate = new Date();
@@ -33,8 +41,15 @@ window.addEventListener("load", () => {
   // change greeting message
   switchGreetingMsg(todayFullDate.getHours());
 
-  // update pomodoro timer
-  updatePomodoro();
+  if (pageMode === "focus") {
+    pomodoroContainer.classList.toggle("active");
+    updatePomodoro(timeElapsed, pomodoroStatus);
+    pageSwitchBtn.checked = false;
+  } else {
+    breathContainer.classList.toggle("active");
+    pageSwitchBtn.checked = true;
+  }
+  
 })
 
 // toggle the settings menu
@@ -123,3 +138,18 @@ function switchGreetingMsg(hour) {
       break;
   }
 }
+
+pageSwitchBtn.addEventListener("click", () => {
+  if (pageMode === "focus") {
+    localStorage.setItem("pageMode", "relax");
+    pageMode = "relax";
+    pomodoroContainer.classList.toggle("active");
+    breathContainer.classList.toggle("active");
+  } else {
+    localStorage.setItem("pageMode", "focus");
+    pageMode = "focus";
+    pomodoroContainer.classList.toggle("active");
+    breathContainer.classList.toggle("active");
+    updatePomodoro(timeElapsed, pomodoroStatus);
+  }
+})
