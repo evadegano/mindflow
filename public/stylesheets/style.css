@@ -535,6 +535,8 @@ font-size: 150%;
   border-radius: var(--large-radius);
 }
 
+/* widget section */
+
 #widget-section {
   width: 30%;
   display: flex;
@@ -545,31 +547,28 @@ font-size: 150%;
   margin-right: 20px;
 }
 
-#round-widget {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+#pomodoro {
   box-shadow: var(--blue-shadow);
-  border-radius: var(--xlarge-radius);
-  height: 0;
-  width: 80%;
-  max-width: 297px;
-  max-height: 297px;
-  padding: 40% 0;
+  border-radius: 50%;
   color: var(--mid-blue);
 }
 
-.circular {
-  height: 100px;
-  width: 100px;
-  background: red;
+#pomodoro button {
+  color: var(--mid-blue);
 }
 
-.round-widget--inner {
-  width: 80%;
-  height: 80%;
-  background: red;
-  border-radius: 50%;
+#pomodoro--content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#pomodoro--progress-ring {
+  transition: 0.5s;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  stroke: var(--mid-blue);
 }
 
 #player-widget {
@@ -598,17 +597,27 @@ blockquote {
 }
 
 #toggle-links {
-  position: absolute;
-  right: 0;
-  top: 13px;
-  display: none;
+  position:absolute; right:0; top:13px; z-index: 0;
   color: var(--dark);
   box-shadow: var(--blue-shadow);
   border-radius: var(--mid-radius);
-  padding: 5px;
+  padding: 10px;
   width: 200px;
   margin: 0;
-  z-index: 0;
+
+  display: none;
+}
+#toggle-links.active {
+  display:block;
+}
+
+.options.active {
+  display: flex;
+}
+
+.add-input.active {
+  border-bottom: 1px solid var(--light-grey);
+  padding-bottom: 10px;
 }
 
 .uil-setting {
@@ -729,17 +738,9 @@ blockquote {
 }
 
 .date-picker,
-.color-picker {
+.color-picker,
+#goal-selector {
   cursor: pointer;
-}
-
-.date-picker {
-  font-family: var(--main-font);
-  font-weight: 300;
-  background: inherit;
-  border: 1px solid var(--mid-grey);
-  border-radius: var(--mid-radius);
-  padding: 0 5px;
 }
 
 .add-input {
@@ -773,12 +774,14 @@ blockquote {
   color: var(--mid-grey);
 }
 
+.date-picker,
 #goal-selector {
   border-radius: var(--mid-radius);
   padding: 5px;
   font-weight: 300;
   font-family: var(--main-font);
-  border-color: var(--light-grey);
+  border: 1px solid var(--light-grey);
+  background: inherit;
 }
 
 #add-task-form {
