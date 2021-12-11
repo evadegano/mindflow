@@ -12,28 +12,65 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 const isLoggedOut = require("../middleware/isLoggedOut");
 
 // GET /dashboard
-router.get("/dashboard", isLoggedIn, (req, res, next) => {
+router.get("/dashboard", (req, res, next) => {
+  // 
+  if (!req.session.user) return res.redirect('/login')
+
   // capitalize first letter of user's first name
   req.session.user.firstName = req.session.user.firstName[0].toUpperCase() + req.session.user.firstName.substring(1);
   // TODO: récupérer l'objet "zenQuote" grâce à l'API Zen Quote
   const p1 = axios.get('https://zenquotes.io/api/today/');
   // TODO: chercher les objectifs du user dans la DB
   // TODO: filtre des objectifs : isDone = false  
-  const p2 = Goal.find({ isDone: false });
+  const p2 = Goal.find({/* user_id: req.session.user.id,*/ isDone: false });
   // TODO: chercher les tâches du user dans la DB
   // TODO: filtre des tâches : endDate = today, endDate < today and isDone = false  
-  const p3 = Task.find({ endDate: { $lte: Date.now() }, isDone: false });
+  const p3 = Task
+              .find({/* user_id: req.session.user.id,*/ endDate: { $lte: Date.now() }, isDone: false })
+              //.populate('goal_id');
   // TODO: filtre des tâches en retard: endDate > today and isDone = false  
-  const p4 = Task.find({ endDate: { $gt: Date.now() }, isDone: false });
+  const p4 = Task.find({/* user_id: req.session.user.id,*/ endDate: { $gt: Date.now() }, isDone: false });
 
   Promise.all([p1, p2, p3, p4])
     .then(function([response, goalsFromDb, tasksFromDb, overdueTasksFromDb]) {
+
+      function getGoal(goalid) {
+        return goalsFromDb.find(el => el.id === goalid)
+      }
+      tasksFromDb.forEach((task, i) => {
+        const goal = getGoal(''+task.goal_id) // add a .goal property of the matching goal
+        console.log('goal=', goal)
+        tasksFromDb[i].goal = goal
+      })
+      console.log('tasksFromDb=', tasksFromDb)
+
+      //work's goals
+      let workGoals = goalsFromDb.filter(function(goal) {
+        return goal.category === 'work'
+      })
+
+      //health
+      let healthGoals = goalsFromDb.filter(function(goal) {
+        return goal.category === 'health'
+      })
+
+      //social
+      let socialGoals = goalsFromDb.filter(function(goal) {
+        return goal.category === 'social'
+      })
+
+      //finance
+      //other
+    
+
       res.render('user/dashboard', {
         currentUser: req.session.user,
         zenQuote: response.data[0],
-        workGoals: goalsFromDb,
+        workGoals: workGoals,
+        healthGoals: healthGoals,
+        socialGoals: socialGoals,
         todayTasks: tasksFromDb,
-        overdueTasks: overdueTasksFromDb,
+        overdueTasks: overdueTasksFromDb
       })
     })
     .catch(err => {
