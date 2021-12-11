@@ -3,37 +3,10 @@ const pomodoroMins = document.querySelector("#pomodoro--mins");
 const pomodoroSecs = document.querySelector("#pomodoro--secs");
 const pomodoroRing = document.querySelector("#pomodoro--progress-ring");
 const ringLength = pomodoroRing.getTotalLength();
-const duration = 10;
+const duration = 25 * 60;
 const progress = ringLength / duration;
 let pomodoroTimer, timeElapsed, pomodoroStatus;
 
-
-window.addEventListener("load", () => {
-  // init localStorage if necessary
-  if (!localStorage.getItem("timeElapsed")) {
-    localStorage.setItem("timeElapsed", 0);
-    localStorage.setItem("pomodoroStatus", "inactive");
-    timeElapsed = 0;
-    pomodoroStatus = "inactive";
-  } else {
-    timeElapsed = localStorage.getItem("timeElapsed");
-    pomodoroStatus = localStorage.getItem("pomodoroStatus");
-    console.log(timeElapsed);
-    console.log(pomodoroStatus);
-  }
-
-  updatePomodoro();
-})
-
-// dynamically display mins, secs, pomodoroRing.style.strokeDashoffset
-// pomodoro timer interation
-pomodoroBtn.addEventListener("click", () => {
-  if (pomodoroBtn.className === "start") {
-    pomodoroStart();
-  } else {
-    pomodoroStop(pomodoroTimer);
-  }
-})
 
 // update pomodoro timer's content
 function updatePomodoro() {

@@ -10,6 +10,19 @@ const toggleMenu = document.querySelector("#toggle-menu");
 
 
 window.addEventListener("load", () => {
+  // init localStorage if necessary
+  if (!localStorage.getItem("timeElapsed")) {
+    localStorage.setItem("timeElapsed", 0);
+    localStorage.setItem("pomodoroStatus", "inactive");
+    timeElapsed = 0;
+    pomodoroStatus = "inactive";
+  } else {
+    timeElapsed = localStorage.getItem("timeElapsed");
+    pomodoroStatus = localStorage.getItem("pomodoroStatus");
+    console.log(timeElapsed);
+    console.log(pomodoroStatus);
+  }
+
   // get today's full date
   const todayFullDate = new Date();
 
@@ -19,6 +32,9 @@ window.addEventListener("load", () => {
 
   // change greeting message
   switchGreetingMsg(todayFullDate.getHours());
+
+  // update pomodoro timer
+  updatePomodoro();
 })
 
 // toggle the settings menu
@@ -79,7 +95,14 @@ document.addEventListener("click", event => {
   }
 })
 
-
+// pomodoro timer interation
+pomodoroBtn.addEventListener("click", () => {
+  if (pomodoroBtn.className === "start") {
+    pomodoroStart();
+  } else {
+    pomodoroStop(pomodoroTimer);
+  }
+})
 
 // change greeting message
 function switchGreetingMsg(hour) {
