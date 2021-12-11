@@ -13,7 +13,6 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 
 // GET /dashboard
 router.get("/dashboard", (req, res, next) => {
-  // 
   if (!req.session.user) return res.redirect('/login')
 
   // capitalize first letter of user's first name
@@ -22,14 +21,14 @@ router.get("/dashboard", (req, res, next) => {
   const p1 = axios.get('https://zenquotes.io/api/today/');
   // TODO: chercher les objectifs du user dans la DB
   // TODO: filtre des objectifs : isDone = false  
-  const p2 = Goal.find({/* user_id: req.session.user.id,*/ isDone: false });
+  const p2 = Goal.find({ user_id: req.session.user._id, isDone: false });
   // TODO: chercher les tâches du user dans la DB
   // TODO: filtre des tâches : endDate = today, endDate < today and isDone = false  
   const p3 = Task
-              .find({/* user_id: req.session.user.id,*/ endDate: { $lte: Date.now() }, isDone: false })
+              .find({ user_id: req.session.user._id, endDate: { $lte: Date.now() }, isDone: false })
               //.populate('goal_id');
   // TODO: filtre des tâches en retard: endDate > today and isDone = false  
-  const p4 = Task.find({/* user_id: req.session.user.id,*/ endDate: { $gt: Date.now() }, isDone: false });
+  const p4 = Task.find({ user_id: req.session.user._id, endDate: { $gt: Date.now() }, isDone: false });
 
   Promise.all([p1, p2, p3, p4])
     .then(function([response, goalsFromDb, tasksFromDb, overdueTasksFromDb]) {
@@ -39,7 +38,7 @@ router.get("/dashboard", (req, res, next) => {
       }
       tasksFromDb.forEach((task, i) => {
         const goal = getGoal(''+task.goal_id) // add a .goal property of the matching goal
-        console.log('goal=', goal)
+        //console.log('goal=', goal)
         tasksFromDb[i].goal = goal
       })
       console.log('tasksFromDb=', tasksFromDb)
@@ -60,8 +59,14 @@ router.get("/dashboard", (req, res, next) => {
       })
 
       //finance
+      let financeGoals = goalsFromDb.filter(function(goal) {
+        return goal.category === 'finance'
+      })
+
       //other
-    
+      let otherGoals = goalsFromDb.filter(function(goal) {
+        return goal.category === 'other'
+      })
 
       res.render('user/dashboard', {
         currentUser: req.session.user,
@@ -69,6 +74,9 @@ router.get("/dashboard", (req, res, next) => {
         workGoals: workGoals,
         healthGoals: healthGoals,
         socialGoals: socialGoals,
+        financeGoals: financeGoals,
+        otherGoals: otherGoals,
+        allGoals: goalsFromDb,
         todayTasks: tasksFromDb,
         overdueTasks: overdueTasksFromDb
       })
