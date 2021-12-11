@@ -79,6 +79,8 @@ document.addEventListener("click", event => {
   }
 })
 
+
+
 // change greeting message
 function switchGreetingMsg(hour) {
   const greetingMsg = document.querySelector("#greeting-msg");
