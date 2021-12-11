@@ -8,13 +8,6 @@ const addTaskOptions = document.querySelector("#add-task-form .options");
 const addTaskForm = document.querySelector("#add-task-form");
 const toggleMenu = document.querySelector("#toggle-menu");
 
-const pomodoroStartBtn = document.querySelector("#pomodoro--start-btn");
-const pomodoroMins = document.querySelector("#pomodoro--mins");
-const pomodoroSecs = document.querySelector("#pomodoro--secs");
-const pomodoroRing = document.querySelector("#pomodoro--progress-ring");
-const ringLength = pomodoroRing.getTotalLength();
-const duration = 10;
-const progress = ringLength / duration;
 
 window.addEventListener("load", () => {
   // get today's full date
@@ -105,37 +98,3 @@ function switchGreetingMsg(hour) {
       break;
   }
 }
-
-// pomodoro timer
-pomodoroRing.style.strokeDasharray = ringLength + " " + ringLength;
-pomodoroRing.style.strokeDashoffset = ringLength;
-
-pomodoroStartBtn.addEventListener("click", () => {
-  let steps = 0;
-  let pomodoroTimer = setInterval(pomodoroProgress, 1000);
-  
-  function pomodoroProgress() {
-    if (steps === duration) {
-      clearInterval(pomodoroTimer);
-      pomodoroRing.style.strokeDashoffset = ringLength;
-      pomodoroMins.textContent = "00";
-      pomodoroSecs.textContent = "00";
-    } else {
-      pomodoroRing.style.strokeDashoffset -= progress;
-      steps++;
-      let mins = Math.floor(steps / 60);
-      let secs = steps % 60;
-
-      if (mins < 10) {
-        mins = "0" + mins;
-      }
-
-      if (secs < 10) {
-        secs = "0" + secs;
-      }
-
-      pomodoroMins.textContent = mins;
-      pomodoroSecs.textContent = secs;
-    }
-  }
-})

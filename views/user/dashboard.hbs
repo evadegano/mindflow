@@ -6,8 +6,8 @@
       <div>
         <h1><span id="greeting-msg"></span> {{currentUser.firstName}}</h1>
         <figure>
-          <blockquote><i>"this is a quote{{zenQuote.q}}"</i></blockquote>
-          <figcaption>– Author{{zenQuote.a}}</figcaption>
+          <blockquote><i>"{{zenQuote.q}}"</i></blockquote>
+          <figcaption>– {{zenQuote.a}}</figcaption>
         </figure>
       </div>
       <!-- settings menu -->
@@ -38,7 +38,6 @@
             {{#each workGoals}}
             <div class="goal"><h4 style="background: {{this.color}};">{{this.title}}</h4></div>
             {{/each}}
-            <div class="goal"><h4 style="background: #9295F1;">Test goal</h4></div>
             <!-- add new goal -->
             <form class="add-goal-form" method="POST" action="/user/goals">
               <input class="add-input" type="text" name="title" placeholder="Add goal">
@@ -217,7 +216,7 @@
         </div>
 
         <!-- pomodoro timer -->
-        <div>
+        <div id="pomodoro-container">
           <svg id="pomodoro" height="297" width="297">
             <circle
                     id="pomodoro--progress-ring"
@@ -227,17 +226,16 @@
                     cx="50%"
                     cy="50%"
                     />
-            
-            <div id="pomodoro--content">
-              <div><span id="pomodoro--mins">00</span>:<span id="pomodoro--secs">00</span></div>
-              <div>
-                <button id="pomodoro--start-btn">Start</button>
-                <button id="pomodoro--reset-btn">Reset</button>
-              </div>
-            </div>
           </svg>
+          <div id="pomodoro--content">
+            <div><span id="pomodoro--mins">00</span>:<span id="pomodoro--secs">00</span></div>
+            <div>
+              <button id="pomodoro--btn" class="start">Start</button>
+            </div>
+          </div>
         </div>
 
+        <!-- Spotify widget -->
         <div id="player-widget">
 
         </div>
