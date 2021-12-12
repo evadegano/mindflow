@@ -142,24 +142,11 @@
         <h2>Today</h2>
         <h4 id="date-today"></h4>
         <!-- display today's tasks -->
-        <div class="task is-done-false">
-          <form method="POST" action="/user/dashboard">
-            <input class="is-done-input" name="isDone" value="true">
-            <button><i class="uil uil-circle"></i></button>
-          </form>
-          <div style="border-left: 3px solid var(--main-blue)">This is a test task</div>
-        </div>
-        <hr>
         {{#each todayTasks}}
-        <div class="task is-done-{{this.isDone}}">
+        <div class="task">
           <form method="POST" action="/user/dashboard">
-            {{#if this.isDone}}
-            <input class="is-done-input" name="isDone" value="false">
-            <button><i class="uil uil-check-circle"></i></button>
-            {{else}}
             <input class="is-done-input" name="isDone" value="true">
-            <button><i class="uil uil-circle"></i></button>
-            {{/if}}
+            <button></button>
           </form>
           <div style="border-left: 3px solid {{this.goal.color}}">{{this.title}}</div>
         </div>
@@ -220,7 +207,7 @@
           <svg id="pomodoro" height="297" width="297">
             <circle
                     id="pomodoro--progress-ring"
-                    stroke-width="35"
+                    stroke-width="40"
                     fill="transparent"
                     r="50%"
                     cx="50%"
@@ -237,7 +224,8 @@
 
         <!-- breathing bubble -->
         <div id="breath-container">
-          <div id="breath-bubble">breath</div>
+          <div id="breath-bubble"></div>
+          <div id="breath-text">breath</div>
         </div>
 
         <!-- Spotify widget -->
@@ -249,8 +237,22 @@
   </div>
 
   <div id="bottom-screen">
+    <!-- Gantt chart -->
     <div id="gantt-chart">
       <h2>Deadlines</h2>
+      <ul id="gantt-chart__weeks">
+        
+      </ul>
+      <ul id="gantt-chart__goals">
+        <!-- display goals that have a start and an end date -->
+        {{#each allGoals}}
+        {{#if allGoals.endDate}}
+        <li data-duration="{{allGoals.startDate}}-{{allGoals.endDate}}" data-color="{{allGoals.color}}">{{allGoals.title}}</li>
+        {{/if}}
+        {{/each}}
+      </ul>
+
+      </ul>
     </div>
   </div>
 </main>

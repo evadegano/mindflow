@@ -110,15 +110,6 @@ document.addEventListener("click", event => {
   }
 })
 
-// pomodoro timer interation
-pomodoroBtn.addEventListener("click", () => {
-  if (pomodoroBtn.className === "start") {
-    pomodoroStart();
-  } else {
-    pomodoroStop(pomodoroTimer);
-  }
-})
-
 // change greeting message
 function switchGreetingMsg(hour) {
   const greetingMsg = document.querySelector("#greeting-msg");

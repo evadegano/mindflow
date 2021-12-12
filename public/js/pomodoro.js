@@ -2,13 +2,15 @@ const pomodoroBtn = document.querySelector("#pomodoro--btn");
 const pomodoroMins = document.querySelector("#pomodoro--mins");
 const pomodoroSecs = document.querySelector("#pomodoro--secs");
 const pomodoroRing = document.querySelector("#pomodoro--progress-ring");
-const ringLength = pomodoroRing.getTotalLength();
 const duration = 25 * 60;
-const progress = ringLength / duration;
+let ringLength, pomodoroTimer;
+
 
 
 // update pomodoro timer's content
 function updatePomodoro(timeElapsed, pomodoroStatus) {
+  ringLength = pomodoroRing.getTotalLength();
+  const progress = ringLength / duration;
   pomodoroRing.style.strokeDasharray = ringLength + " " + ringLength;
   pomodoroRing.style.strokeDashoffset = ringLength - timeElapsed * progress;
 
@@ -35,12 +37,12 @@ function updatePomodoro(timeElapsed, pomodoroStatus) {
       pomodoroMins.textContent = mins;
       pomodoroSecs.textContent = secs;
 
-      pomodoroStart(timeElapsed);
+      pomodoroStart(timeElapsed, progress);
   }
 }
 
 // start pomodoro timer
-function pomodoroStart(timeElapsed) {
+function pomodoroStart(timeElapsed, progress) {
   localStorage.setItem("pomodoroStatus", "active");
   let pomodoroTimer = setInterval(pomodoroProgress, 1000);
   pomodoroBtn.className = "stop";
@@ -82,3 +84,12 @@ function pomodoroStop(timerId) {
   pomodoroBtn.className = "start";
   pomodoroBtn.textContent = "start";
 }
+
+// pomodoro timer interation
+pomodoroBtn.addEventListener("click", () => {
+  if (pomodoroBtn.className === "start") {
+    pomodoroStart();
+  } else {
+    pomodoroStop(pomodoroTimer);
+  }
+})
