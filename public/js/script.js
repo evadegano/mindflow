@@ -3,6 +3,7 @@ const addInput = document.querySelector("#add-input");
 const collapseMenu = document.querySelectorAll(".collapsible-menu");
 const addGoalForms = document.querySelectorAll(".add-goal-form");
 const addGoalInputs = document.querySelectorAll(".add-goal-form .add-input");
+const tasksForms = document.querySelectorAll(".task-form");
 const addTaskInput = document.querySelector("#add-task-form .add-input");
 const addTaskOptions = document.querySelector("#add-task-form .options");
 const addTaskForm = document.querySelector("#add-task-form");
@@ -85,6 +86,13 @@ addTaskInput.addEventListener("focus", () => {
 // display new goal options on focus
 addGoalForms.forEach((form) => {
   form.querySelector(".add-input").addEventListener("focus", () => {
+    form.querySelector(".options").classList.add("active");
+  })
+})
+
+// display task options on click
+tasksForms.forEach((form) => {
+  form.querySelector(".task-container .task .edit-icons .uil-pen").addEventListener("click", () => {
     form.querySelector(".options").classList.add("active");
   })
 })

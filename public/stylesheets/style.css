@@ -120,19 +120,19 @@ button {
 /* 
     HOMEPAGE
 */
-#homepage > h1 {
+#homepage h1 {
   font-size: 50px;
 }
 
-#homepage > h2 {
+#homepage h2 {
   font-size: 40px;
 }
 
-#homepage > section {
+#homepage section {
   margin-top: 40px;
 }
 
-#homepage > header {
+#homepage header {
   background: linear-gradient(var(--main-blue), var(--white));
   color: var(--white);
 }
@@ -497,7 +497,6 @@ font-size: 150%;
   justify-content: center;
   align-items: center;
   column-gap: 20px;
-  margin-bottom: 20px;
 }
 
 #page-toggle * {
@@ -525,6 +524,10 @@ font-size: 150%;
 #dashboard-container h1,
 #dashboard-container h2 {
   margin-top: 0;
+}
+
+#dashboard h1 {
+  font-size: 25px;
 }
 
 #goals-section {
@@ -571,6 +574,7 @@ font-size: 150%;
 
 #pomodoro--content * {
   color: var(--mid-blue);
+  font-size: 20px;
 }
 
 #pomodoro--content {
@@ -580,6 +584,7 @@ font-size: 150%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  
 }
 
 #pomodoro--progress-ring {
@@ -608,7 +613,7 @@ font-size: 150%;
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: breath 10s ease-in-out 0s infinite alternate;
+  animation: breath 8s ease-in 0s infinite alternate;
 }
 
 @keyframes breath {
@@ -623,12 +628,13 @@ font-size: 150%;
 }
 
 #breath-text {
+  font-size: 20px;
   color: var(--white);
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  animation: text-gradient 10s ease-in-out 0s infinite alternate;
+  animation: text-gradient 8s ease-in 0s infinite alternate;
 }
 
 @keyframes text-gradient {
@@ -705,6 +711,7 @@ blockquote {
 }
 
 #gantt-chart {
+  color: white;
   margin: 40px;
   width: 100%;
 }
@@ -712,6 +719,11 @@ blockquote {
 #gantt-chart > h2 {
   color: var(--white);
   text-align: center;
+}
+
+#gantt-chart__weeks {
+  display: flex;
+  justify-content: space-between;
 }
 
 /* mode switch */
@@ -787,8 +799,10 @@ blockquote {
   color: var(--main-red);
 }
 
-#add-task-form {
+#add-task-form,
+.edit-task-form {
   margin: 10px 0 30px 0;
+  padding: 10px;
 }
 
 #add-task-form .uil-plus {
@@ -857,26 +871,27 @@ blockquote {
   background: inherit;
 }
 
-#add-task-form {
-  padding: 10px;
-}
-
 .form-focus {
   border: 1px solid var(--light-grey);
   border-radius: var(--small-radius);
 }
 
-.task {
+.task-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-container {
   display: flex;
   align-items: center;
 }
 
-.task > div {
+.task-container > div {
   padding-left: 10px;
   margin-left: 5px;
 }
 
-.task button {
+.task-container button {
   width: 25px;
   height: 25px;
   margin-right: 5px;
@@ -884,27 +899,33 @@ blockquote {
   border: 1px solid var(--mid-grey);
 }
 
-.uil-circle,
-.uil-check-circle {
-  font-size: 25px;
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  max-height: 30px;
 }
 
-.uil-circle:hover,
-.is-done-true * {
-  color: var(--light-grey);
+.uil-pen,
+.uil-trash-alt {
+  color: var(--dark);
+  font-size: 18px;
 }
 
-.uil-check-circle:hover {
-  color: var(--dark)
-}
-
-.is-done-true div {
-  text-decoration: line-through;
+.task:hover .edit-icons {
+  display: block;
 }
 
 .options,
-.is-done-input {
+.is-done-input,
+.edit-icons,
+.edit-task-form {
   display: none;
+}
+
+.edit-task-form.active {
+  display: block;
 }
 
 /*
