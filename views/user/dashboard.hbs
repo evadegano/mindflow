@@ -36,7 +36,25 @@
           <div class="collapsible-content">
             <!-- display goals from db -->
             {{#each workGoals}}
-            <div class="goal"><h4 style="background: {{this.color}};">{{this.title}}</h4></div>
+            <div class="goal" style="background: {{this.color}};">
+              <h4>{{this.title}}</h4>
+              <div class="edit-icons">
+                <i class="uil uil-pen"></i>
+                <i class="uil uil-trash-alt"></i>
+              </div>
+            </div>
+            <!-- form to edit goals -->
+            <form class="edit-goal-form" method="POST" action="">
+              <div class="">
+                <input class="add-input" type="text" name="title" value="{{this.title}}">
+                <button class="save-btn" type="submit">save</button>
+              </div>
+              <div>
+                <input class="date-picker" type="date" name="startDate">
+                <input class="date-picker" type="date" name="endDate">
+                <input class="color-picker" type="color" name="color" value="#636EE6">
+              </div>
+            </form>
             {{/each}}
             <!-- add new goal -->
             <form class="add-goal-form" method="POST" action="/user/goals">
@@ -143,7 +161,7 @@
         <h4 id="date-today"></h4>
         {{#each todayTasks}}
           <!-- display today's tasks -->
-          <div>
+          <div class="task-forms-container">
             <form class="task-form" method="POST" action="/user/dashboard">
               <div class="task-container">
                 <input class="is-done-input" name="isDone" value="true">
@@ -154,21 +172,21 @@
                     <i class="uil uil-pen"></i>
                     <i class="uil uil-trash-alt"></i>
                   </div>
-                  
                 </div>
               </div>
             </form>
             <!-- form to edit tasks -->
             <form class="edit-task-form" method="POST" action="">
-              <input class="add-input" type="text" name="title" value="{{this.title}}">
-              <button type="submit">save</button>
-              <button>cancel</button>
-              <div class="options">
+              <div class="task">
+                <input class="add-input" type="text" name="title" value="{{this.title}}">
+                <button class="save-btn" type="submit">save</button>
+              </div>
+              <div>
                 <span class="datepicker-toggle">
                   <input class="date-picker" type="date" name="endDate">
                 </span>
                 <select id="goal-selector" name="taskGoal">
-                  <option value="">Link to goal</option>
+                  <option value="">Change goal</option>
                   {{#each allGoals}}
                   <option value="{{this._id}}">{{this.title}}</option>
                   {{/each}}

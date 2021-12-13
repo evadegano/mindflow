@@ -781,14 +781,27 @@ blockquote {
 
 /* goal and tasks forms */
 .goal {
-  padding-left: 30px;
+  margin-left: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: var(--small-radius);
+  margin-bottom: 10px;
+  height: 30px;
+  box-sizing: border-box;
+  cursor: pointer;
 }
 
-.goal > h4 {
-  padding-left: 10px;
-  border-radius: var(--small-radius);
+.goal * {
   color: var(--white);
-  margin-bottom: 10px;
+  margin: 0;
+}
+
+.goal .uil {
+  color: var(--white);
+  font-size: 16px;
+  margin: 0;
 }
 
 .add-goal-form {
@@ -799,10 +812,18 @@ blockquote {
   color: var(--main-red);
 }
 
-#add-task-form,
-.edit-task-form {
+#add-task-form {
   margin: 10px 0 30px 0;
   padding: 10px;
+}
+
+.edit-task-form {
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.edit-goal-form {
+  margin: 10px 0 10px 10px;
 }
 
 #add-task-form .uil-plus {
@@ -881,6 +902,10 @@ blockquote {
   flex-direction: column;
 }
 
+.task-form.inactive {
+  display: none;
+}
+
 .task-container {
   display: flex;
   align-items: center;
@@ -913,8 +938,21 @@ blockquote {
   font-size: 18px;
 }
 
-.task:hover .edit-icons {
+.task:hover .edit-icons,
+.goal:hover .edit-icons {
   display: block;
+}
+
+.edit-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.save-btn {
+  background: var(--main-red);
+  border-radius: var(--small-radius);
+  color: var(--white);
+  padding: 5px;
 }
 
 .options,
