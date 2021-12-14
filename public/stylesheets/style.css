@@ -638,14 +638,14 @@ figure {
 
 #breath-text::before {
   content: "";
-  font-size: 20px;
+  font-size: 17px;
   color: var(--white);
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   animation: text-gradient 5s ease-in-out 0s infinite alternate,
-             text-change 10s ease 0s infinite;
+             text-change 10.4s linear 0s infinite;
 }
 
 @keyframes text-gradient {
@@ -658,14 +658,11 @@ figure {
 }
 
 @keyframes text-change {
-  0% {
+  from {
     content: "breath in";
   }
-  50% {
+  to {
     content: "breath out";
-  }
-  100% {
-    content: "breath in";
   }
 }
 
