@@ -477,7 +477,7 @@ font-size: 150%;
   font-size: 14px;
 }
 
-#top-screen {
+#dashboard {
   min-height: 100vh;
   max-height: 100vh;
   display: flex;
@@ -504,6 +504,10 @@ font-size: 150%;
   font-size: 20px;
 }
 
+figure {
+  margin: 14px 0;
+}
+
 #dashboard-container {
   flex-grow: 1;
   display: flex;
@@ -515,10 +519,14 @@ font-size: 150%;
 
 #goals-section,
 #tasks-section,
-#player-widget,
-#gantt-chart {
+#player-widget {
   box-shadow: var(--blue-shadow);
   padding: 30px;
+}
+
+#goals-section,
+#tasks-section {
+  overflow: hidden;
 }
 
 #dashboard-container h1,
@@ -532,7 +540,8 @@ font-size: 150%;
 
 #goals-section {
   background: var(--blue-grey);
-  width: 30%;
+  min-width: 290px;
+  max-width: 290px;
   border-radius: 0 var(--large-radius) var(--large-radius) 0;
 }
 
@@ -600,8 +609,8 @@ font-size: 150%;
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 297px;
-  height: 297px;
+  width: 300px;
+  height: 300px;
 }
 
 #breath-bubble {
@@ -613,7 +622,7 @@ font-size: 150%;
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: breath 8s ease-in 0s infinite alternate;
+  animation: breath 5s ease-in-out 0s infinite alternate;
 }
 
 @keyframes breath {
@@ -627,14 +636,16 @@ font-size: 150%;
   }
 }
 
-#breath-text {
+#breath-text::before {
+  content: "";
   font-size: 20px;
   color: var(--white);
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  animation: text-gradient 8s ease-in 0s infinite alternate;
+  animation: text-gradient 5s ease-in-out 0s infinite alternate,
+             text-change 10s ease 0s infinite;
 }
 
 @keyframes text-gradient {
@@ -646,10 +657,23 @@ font-size: 150%;
   }
 }
 
+@keyframes text-change {
+  0% {
+    content: "breath in";
+  }
+  50% {
+    content: "breath out";
+  }
+  100% {
+    content: "breath in";
+  }
+}
+
 #player-widget {
-  width: 80%;
-  max-width: 297px;
-  max-height: 297px;
+  min-width: 300px;
+  max-width: 370px;
+  max-height: 300px;
+  width: 100%;
   padding: 40% 0;
 }
 
@@ -798,10 +822,27 @@ blockquote {
   margin: 0;
 }
 
+.goal h4 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .goal .uil {
   color: var(--white);
   font-size: 16px;
   margin: 0;
+}
+
+.goal-edit,
+.edit-options {
+  margin-left: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-options * {
+  color: var(--mid-grey);
 }
 
 .add-goal-form {
@@ -878,12 +919,25 @@ blockquote {
   margin-top: 10px;
 }
 
-.options * {
+.options *,
+.datepicker-toggle *,
+.goal-selector {
   color: var(--mid-grey);
 }
 
+.add-input {
+   font: inherit;
+}
+
+.edit-task-form .task,
+.goal-edit {
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--light-grey);
+  padding-bottom: 10px;
+}
+
 .date-picker,
-#goal-selector {
+.goal-selector {
   border-radius: var(--mid-radius);
   padding: 5px;
   font-weight: 300;
@@ -902,7 +956,8 @@ blockquote {
   flex-direction: column;
 }
 
-.task-form.inactive {
+.task-form.inactive,
+.goal.inactive {
   display: none;
 }
 
@@ -932,6 +987,12 @@ blockquote {
   max-height: 30px;
 }
 
+.task h4 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .uil-pen,
 .uil-trash-alt {
   color: var(--dark);
@@ -958,11 +1019,13 @@ blockquote {
 .options,
 .is-done-input,
 .edit-icons,
+.edit-goal-form,
 .edit-task-form {
   display: none;
 }
 
-.edit-task-form.active {
+.edit-task-form.active,
+.edit-goal-form.active {
   display: block;
 }
 

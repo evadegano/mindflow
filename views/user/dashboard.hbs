@@ -1,321 +1,391 @@
 
 <main id="dashboard">
-  <div id="top-screen">
-    <nav>
-      <!-- greeting section-->
-      <div>
-        <h1><span id="greeting-msg"></span> {{currentUser.firstName}}</h1>
-        <figure>
-          <blockquote><i>"{{zenQuote.q}}"</i></blockquote>
-          <figcaption>– {{zenQuote.a}}</figcaption>
-        </figure>
-      </div>
-      <!-- settings menu -->
-      <div id="toggle-menu">
-        <i class="uil uil-setting"></i>
-        <ul id="toggle-links">
-          <li><a href="/user/profile"><i class="uil uil-user-circle"></i> Profile</a></li>
-          <hr>
-          <li>
-            <form method="POST" action="/auth/logout">
-              <button type="submit"><i class="uil uil-sign-out-alt"></i></i> Logout</button>
-            </form>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-    <!-- main screen -->
-    <section id="dashboard-container">
-      <!-- goals container -->
-      <div id="goals-section">
-        <h2>Goals & projects</h2>
-
-        <div class="collapsible-menu">
-          <h3><i class="collapsible-btn uil uil-angle-down"></i>Work & study</h3>
-          <div class="collapsible-content">
-            <!-- display goals from db -->
-            {{#each workGoals}}
-            <div class="goal" style="background: {{this.color}};">
-              <h4>{{this.title}}</h4>
-              <div class="edit-icons">
-                <i class="uil uil-pen"></i>
-                <i class="uil uil-trash-alt"></i>
-              </div>
-            </div>
-            <!-- form to edit goals -->
-            <form class="edit-goal-form" method="POST" action="">
-              <div class="">
-                <input class="add-input" type="text" name="title" value="{{this.title}}">
-                <button class="save-btn" type="submit">save</button>
-              </div>
-              <div>
-                <input class="date-picker" type="date" name="startDate">
-                <input class="date-picker" type="date" name="endDate">
-                <input class="color-picker" type="color" name="color" value="#636EE6">
-              </div>
-            </form>
-            {{/each}}
-            <!-- add new goal -->
-            <form class="add-goal-form" method="POST" action="/user/goals">
-              <input class="add-input" type="text" name="title" placeholder="Add goal">
-              <button type="submit"><i class="uil uil-plus"></i></button>
-              <span class="options">
-                <input class="date-picker" type="date" name="startDate">
-                <input class="date-picker" type="date" name="endDate">
-                <input class="color-picker" type="color" name="color" value="#636EE6">
-              </span>
-              <input id="category-input" type="text" name="category" value="work">
-            </form>
-          </div>
-        </div>
-
-        <div class="collapsible-menu">
-          <h3><i class="collapsible-btn uil uil-angle-down"></i>Health & fitness</h3>
-          <div class="collapsible-content">
-            <!-- display goals from db -->
-            {{#each healthGoals}}
-            <div class="goal"><h4 style="background: {{this.color}};">{{this.title}}</h4></div>
-            {{/each}}
-            <!-- add new goal -->
-            <form class="add-goal-form" method="POST" action="/user/goals">
-              <input class="add-input" type="text" name="title" placeholder="Add goal">
-              <button type="submit"><i class="uil uil-plus"></i></button>
-              <span class="options">
-                <input class="date-picker" type="date" name="startDate">
-                <input class="date-picker" type="date" name="endDate">
-                <input class="color-picker" type="color" name="color" value="#636EE6">
-              </span>
-              <input id="category-input" type="text" name="category" value="health">
-            </form>
-          </div>
-        </div>
-
-        <div class="collapsible-menu">
-          <h3><i class="collapsible-btn uil uil-angle-down"></i>Social life</h3>
-          <div class="collapsible-content">
-            <!-- display goals from db -->
-            {{#each socialGoals}}
-            <div class="goal"><h4 style="background: {{this.color}};">{{this.title}}</h4></div>
-            {{/each}}
-            <!-- add new goal -->
-            <form class="add-goal-form" method="POST" action="/user/goals">
-              <input class="add-input" type="text" name="title" placeholder="Add goal">
-              <button type="submit"><i class="uil uil-plus"></i></button>
-              <span class="options">
-                <input class="date-picker" type="date" name="startDate">
-                <input class="date-picker" type="date" name="endDate">
-                <input class="color-picker" type="color" name="color" value="#636EE6">
-              </span>
-              <input id="category-input" type="text" name="category" value="social">
-            </form>
-          </div>
-        </div>
-
-        <div class="collapsible-menu">
-          <h3><i class="collapsible-btn uil uil-angle-down"></i>Finance</h3>
-          <div class="collapsible-content">
-            <!-- display goals from db -->
-            {{#each financeGoals}}
-            <div class="goal"><h4 style="background: {{this.color}};">{{this.title}}</h4></div>
-            {{/each}}
-            <!-- add new goal -->
-            <form class="add-goal-form" method="POST" action="/user/goals">
-              <input class="add-input" type="text" name="title" placeholder="Add goal">
-              <button type="submit"><i class="uil uil-plus"></i></button>
-              <span class="options">
-                <input class="date-picker" type="date" name="startDate">
-                <input class="date-picker" type="date" name="endDate">
-                <input class="color-picker" type="color" name="color" value="#636EE6">
-              </span>
-              <input id="category-input" type="text" name="category" value="finance">
-            </form>
-          </div>
-        </div>
-        
-        <div class="collapsible-menu">
-          <h3><i class="collapsible-btn uil uil-angle-down"></i>Misc.</h3>
-          <div class="collapsible-content">
-            <!-- display goals from db -->
-            {{#each otherGoals}}
-            <div class="goal"><h4 style="background: {{this.color}};">{{this.title}}</h4></div>
-            {{/each}}
-            <!-- add new goal -->
-            <form class="add-goal-form" method="POST" action="/user/goals">
-              <input class="add-input" type="text" name="title" placeholder="Add goal">
-              <button type="submit"><i class="uil uil-plus"></i></button>
-              <span class="options">
-                <input class="date-picker" type="date" name="startDate">
-                <input class="date-picker" type="date" name="endDate">
-                <input class="color-picker" type="color" name="color" value="#636EE6">
-              </span>
-              <input id="category-input" type="text" name="category" value="other">
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <!-- tasks container -->
-      <div id="tasks-section">
-        <h2>Today</h2>
-        <h4 id="date-today"></h4>
-        {{#each todayTasks}}
-          <!-- display today's tasks -->
-          <div class="task-forms-container">
-            <form class="task-form" method="POST" action="/user/dashboard">
-              <div class="task-container">
-                <input class="is-done-input" name="isDone" value="true">
-                <button></button>
-                <div class="task" style="border-left: 3px solid {{this.goal.color}}">
-                  <h4>{{this.title}}</h4>
-                  <div class="edit-icons">
-                    <i class="uil uil-pen"></i>
-                    <i class="uil uil-trash-alt"></i>
-                  </div>
-                </div>
-              </div>
-            </form>
-            <!-- form to edit tasks -->
-            <form class="edit-task-form" method="POST" action="">
-              <div class="task">
-                <input class="add-input" type="text" name="title" value="{{this.title}}">
-                <button class="save-btn" type="submit">save</button>
-              </div>
-              <div>
-                <span class="datepicker-toggle">
-                  <input class="date-picker" type="date" name="endDate">
-                </span>
-                <select id="goal-selector" name="taskGoal">
-                  <option value="">Change goal</option>
-                  {{#each allGoals}}
-                  <option value="{{this._id}}">{{this.title}}</option>
-                  {{/each}}
-                </select>
-              </div>
-            </form>
-          </div>
-
+  <nav>
+    <!-- greeting section-->
+    <div>
+      <h1><span id="greeting-msg"></span> {{currentUser.firstName}}</h1>
+      <figure>
+        <blockquote><i>"{{zenQuote.q}}"</i></blockquote>
+        <figcaption>– {{zenQuote.a}}</figcaption>
+      </figure>
+    </div>
+    <!-- settings menu -->
+    <div id="toggle-menu">
+      <i class="uil uil-setting"></i>
+      <ul id="toggle-links">
+        <li><a href="/user/profile"><i class="uil uil-user-circle"></i> Profile</a></li>
         <hr>
-        {{/each}}
-        <!-- add new task -->
-        <form id="add-task-form" method="POST" action="/user/tasks">
-          <input class="add-input" type="text" name="title" placeholder="Add task">
-          <button type="submit"><i class="uil uil-plus"></i></button>
-          <div class="options">
-            <span class="datepicker-toggle">
-              <input class="date-picker" type="date" name="endDate">
-            </span>
-            <select id="goal-selector" name="taskGoal">
-              <option value="">Link to goal</option>
-              {{#each allGoals}}
-              <option value="{{this._id}}">{{this.title}}</option>
-              {{/each}}
-            </select>
-          </div>
-        </form>
-        
-        {{#if overdueTasks}}
-        <h2>Overdue</h2>
-        <!-- display overdue tasks -->
-          {{#each overdueTasks}}
-            {{#if this.isDone}}
-            {{else}}
-            <div class="task is-done-{{this.isDone}}">
-              <form method="POST" action="/user/dashboard">
-                <input class="is-done-input" name="is-done" value="true">
-                <button><i class="uil uil-circle"></i></button>
-              </form>
-            <div style="border-left: 3px solid {{this.goal_id.color}}">{{this.title}}</div>
-            </div>
-            <hr>
-            {{/if}}
-          {{/each}}
-        {{else}}
-        {{/if}}
-      </div>
-
-      <!-- widget section -->
-      <div id="widget-section">
-        <!-- page toggle -->
-        <div id="page-toggle">
-          <div>focus</div>
-          <label class="switch">
-            <input type="checkbox">
-            <span class="slider"></span>
-          </label>
-          <div>relax</div>
-        </div>
-
-        <!-- pomodoro timer -->
-        <div id="pomodoro-container">
-          <svg id="pomodoro" height="297" width="297">
-            <circle
-                    id="pomodoro--progress-ring"
-                    stroke-width="40"
-                    fill="transparent"
-                    r="50%"
-                    cx="50%"
-                    cy="50%"
-                    />
-          </svg>
-          <div id="pomodoro--content">
-            <div><span id="pomodoro--mins"></span>:<span id="pomodoro--secs"></span></div>
-            <div>
-              <button id="pomodoro--btn">Start</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- breathing bubble -->
-        <div id="breath-container">
-          <div id="breath-bubble"></div>
-          <div id="breath-text">breath</div>
-        </div>
-
-        <!-- Spotify widget -->
-        <div id="player-widget">
-          <div id="player-widget__menu">
-            <h3>creativity</h3>
-            <h3>problem solving</h3>
-          </div>
-          <div id="player-widget__content">
-
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!--
-  <div id="bottom-screen">
-    -- Gantt chart --
-    <div id="gantt-chart">
-      <h2>Deadlines</h2>
-      <ul id="gantt-chart__weeks">
-        <li>Week 1</li>
-        <li>Week 1</li>
-        <li>Week 1</li>
-        <li>Week 1</li>
-        <li>Week 1</li>
-        <li>Week 1</li>
-        <li>Week 1</li>
-        <li>Week 1</li>
-        <li>Week 1</li>
-        <li>Week 1</li>
-        <li>Week 1</li>
-        <li>Week 1</li>
-      </ul>
-      <ul id="gantt-chart__goals">
-        <-- display goals that have a start and an end date --
-        {{#each allGoals}}
-        {{#if allGoals.endDate}}
-        <li data-duration="{{allGoals.startDate}}-{{allGoals.endDate}}" data-color="{{allGoals.color}}">{{allGoals.title}}</li>
-        {{/if}}
-        {{/each}}
-      </ul>
-
+        <li>
+          <form method="POST" action="/auth/logout">
+            <button type="submit"><i class="uil uil-sign-out-alt"></i></i> Logout</button>
+          </form>
+        </li>
       </ul>
     </div>
-    -->
+  </nav>
+
+  <!-- main screen -->
+  <section id="dashboard-container">
+    <!-- goals container -->
+    <div id="goals-section">
+      <h2>Goals & projects</h2>
+
+      <div class="collapsible-menu">
+        <h3><i class="collapsible-btn uil uil-angle-down"></i>Work & study</h3>
+        <div class="collapsible-content">
+          <!-- display goals from db -->
+          {{#each workGoals}}
+          <div class="goal" style="background: {{this.color}};">
+            <h4>{{this.title}}</h4>
+            <div class="edit-icons">
+              <i class="uil uil-pen"></i>
+              <i class="uil uil-trash-alt"></i>
+            </div>
+          </div>
+          <!-- form to edit goals -->
+          <form class="edit-goal-form" method="POST" action="">
+            <div class="goal-edit">
+              <input class="add-input" type="text" name="title" value="{{this.title}}">
+              <button class="save-btn" type="submit">save</button>
+            </div>
+            <div class="edit-options">
+              <input class="date-picker" type="date" name="startDate">
+              <input class="date-picker" type="date" name="endDate">
+              <input class="color-picker" type="color" name="color" value="#636EE6">
+            </div>
+          </form>
+          {{/each}}
+          <!-- add new goal -->
+          <form class="add-goal-form" method="POST" action="/user/goals">
+            <input class="add-input" type="text" name="title" placeholder="Add goal">
+            <button type="submit"><i class="uil uil-plus"></i></button>
+            <span class="options">
+              <input class="date-picker" type="date" name="startDate">
+              <input class="date-picker" type="date" name="endDate">
+              <input class="color-picker" type="color" name="color" value="#636EE6">
+            </span>
+            <input id="category-input" type="text" name="category" value="work">
+          </form>
+        </div>
+      </div>
+
+      <div class="collapsible-menu">
+        <h3><i class="collapsible-btn uil uil-angle-down"></i>Health & fitness</h3>
+        <div class="collapsible-content">
+          <!-- display goals from db -->
+          {{#each healthGoals}}
+          <div class="goal" style="background: {{this.color}};">
+            <h4>{{this.title}}</h4>
+            <div class="edit-icons">
+              <i class="uil uil-pen"></i>
+              <i class="uil uil-trash-alt"></i>
+            </div>
+          </div>
+          <!-- form to edit goals -->
+          <form class="edit-goal-form" method="POST" action="">
+            <div class="goal-edit">
+              <input class="add-input" type="text" name="title" value="{{this.title}}">
+              <button class="save-btn" type="submit">save</button>
+            </div>
+            <div class="edit-options">
+              <input class="date-picker" type="date" name="startDate">
+              <input class="date-picker" type="date" name="endDate">
+              <input class="color-picker" type="color" name="color" value="#636EE6">
+            </div>
+          </form>
+          {{/each}}
+          <!-- add new goal -->
+          <form class="add-goal-form" method="POST" action="/user/goals">
+            <input class="add-input" type="text" name="title" placeholder="Add goal">
+            <button type="submit"><i class="uil uil-plus"></i></button>
+            <span class="options">
+              <input class="date-picker" type="date" name="startDate">
+              <input class="date-picker" type="date" name="endDate">
+              <input class="color-picker" type="color" name="color" value="#636EE6">
+            </span>
+            <input id="category-input" type="text" name="category" value="health">
+          </form>
+        </div>
+      </div>
+
+      <div class="collapsible-menu">
+        <h3><i class="collapsible-btn uil uil-angle-down"></i>Social life</h3>
+        <div class="collapsible-content">
+          <!-- display goals from db -->
+          {{#each socialGoals}}
+          <div class="goal" style="background: {{this.color}};">
+            <h4>{{this.title}}</h4>
+            <div class="edit-icons">
+              <i class="uil uil-pen"></i>
+              <i class="uil uil-trash-alt"></i>
+            </div>
+          </div>
+          <!-- form to edit goals -->
+          <form class="edit-goal-form" method="POST" action="">
+            <div class="goal-edit">
+              <input class="add-input" type="text" name="title" value="{{this.title}}">
+              <button class="save-btn" type="submit">save</button>
+            </div>
+            <div class="edit-options">
+              <input class="date-picker" type="date" name="startDate">
+              <input class="date-picker" type="date" name="endDate">
+              <input class="color-picker" type="color" name="color" value="#636EE6">
+            </div>
+          </form>
+          {{/each}}
+          <!-- add new goal -->
+          <form class="add-goal-form" method="POST" action="/user/goals">
+            <input class="add-input" type="text" name="title" placeholder="Add goal">
+            <button type="submit"><i class="uil uil-plus"></i></button>
+            <span class="options">
+              <input class="date-picker" type="date" name="startDate">
+              <input class="date-picker" type="date" name="endDate">
+              <input class="color-picker" type="color" name="color" value="#636EE6">
+            </span>
+            <input id="category-input" type="text" name="category" value="social">
+          </form>
+        </div>
+      </div>
+
+      <div class="collapsible-menu">
+        <h3><i class="collapsible-btn uil uil-angle-down"></i>Finance</h3>
+        <div class="collapsible-content">
+          <!-- display goals from db -->
+          {{#each financeGoals}}
+          <div class="goal" style="background: {{this.color}};">
+            <h4>{{this.title}}</h4>
+            <div class="edit-icons">
+              <i class="uil uil-pen"></i>
+              <i class="uil uil-trash-alt"></i>
+            </div>
+          </div>
+          <!-- form to edit goals -->
+          <form class="edit-goal-form" method="POST" action="">
+            <div class="goal-edit">
+              <input class="add-input" type="text" name="title" value="{{this.title}}">
+              <button class="save-btn" type="submit">save</button>
+            </div>
+            <div class="edit-options">
+              <input class="date-picker" type="date" name="startDate">
+              <input class="date-picker" type="date" name="endDate">
+              <input class="color-picker" type="color" name="color" value="#636EE6">
+            </div>
+          </form>
+          {{/each}}
+          <!-- add new goal -->
+          <form class="add-goal-form" method="POST" action="/user/goals">
+            <input class="add-input" type="text" name="title" placeholder="Add goal">
+            <button type="submit"><i class="uil uil-plus"></i></button>
+            <span class="options">
+              <input class="date-picker" type="date" name="startDate">
+              <input class="date-picker" type="date" name="endDate">
+              <input class="color-picker" type="color" name="color" value="#636EE6">
+            </span>
+            <input id="category-input" type="text" name="category" value="finance">
+          </form>
+        </div>
+      </div>
+      
+      <div class="collapsible-menu">
+        <h3><i class="collapsible-btn uil uil-angle-down"></i>Misc.</h3>
+        <div class="collapsible-content">
+          <!-- display goals from db -->
+          {{#each otherGoals}}
+          <div class="goal" style="background: {{this.color}};">
+            <h4>{{this.title}}</h4>
+            <div class="edit-icons">
+              <i class="uil uil-pen"></i>
+              <i class="uil uil-trash-alt"></i>
+            </div>
+          </div>
+          <!-- form to edit goals -->
+          <form class="edit-goal-form" method="POST" action="">
+            <div class="goal-edit">
+              <input class="add-input" type="text" name="title" value="{{this.title}}">
+              <button class="save-btn" type="submit">save</button>
+            </div>
+            <div class="edit-options">
+              <input class="date-picker" type="date" name="startDate">
+              <input class="date-picker" type="date" name="endDate">
+              <input class="color-picker" type="color" name="color" value="#636EE6">
+            </div>
+          </form>
+          {{/each}}
+          <!-- add new goal -->
+          <form class="add-goal-form" method="POST" action="/user/goals">
+            <input class="add-input" type="text" name="title" placeholder="Add goal">
+            <button type="submit"><i class="uil uil-plus"></i></button>
+            <span class="options">
+              <input class="date-picker" type="date" name="startDate">
+              <input class="date-picker" type="date" name="endDate">
+              <input class="color-picker" type="color" name="color" value="#636EE6">
+            </span>
+            <input id="category-input" type="text" name="category" value="other">
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- tasks container -->
+    <div id="tasks-section">
+      <h2>Today</h2>
+      <h4 id="date-today"></h4>
+      {{#each todayTasks}}
+        <!-- display today's tasks -->
+        <div class="task-forms-container">
+          <form class="task-form" method="POST" action="/user/dashboard">
+            <div class="task-container">
+              <input class="is-done-input" name="isDone" value="true">
+              <button></button>
+              <div class="task" style="border-left: 3px solid {{this.goal.color}}">
+                <h4>{{this.title}}</h4>
+                <div class="edit-icons">
+                  <i class="uil uil-pen"></i>
+                  <i class="uil uil-trash-alt"></i>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!-- form to edit tasks -->
+          <form class="edit-task-form" method="POST" action="">
+            <div class="task">
+              <input class="add-input" type="text" name="title" value="{{this.title}}">
+              <button class="save-btn" type="submit">save</button>
+            </div>
+            <div>
+              <span class="datepicker-toggle">
+                <input class="date-picker" type="date" name="endDate">
+              </span>
+              <select class="goal-selector" name="taskGoal">
+                <option value="">Change goal</option>
+                {{#each allGoals}}
+                <option value="{{this._id}}">{{this.title}}</option>
+                {{/each}}
+              </select>
+            </div>
+          </form>
+        </div>
+
+      <hr>
+      {{/each}}
+      <!-- add new task -->
+      <form id="add-task-form" method="POST" action="/user/tasks">
+        <input class="add-input" type="text" name="title" placeholder="Add task">
+        <button type="submit"><i class="uil uil-plus"></i></button>
+        <div class="options">
+          <span class="datepicker-toggle">
+            <input class="date-picker" type="date" name="endDate">
+          </span>
+          <select class="goal-selector" name="taskGoal">
+            <option value="">Link to goal</option>
+            {{#each allGoals}}
+            <option value="{{this._id}}">{{this.title}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </form>
+      
+      {{#if overdueTasks}}
+      <h2>Overdue</h2>
+      <!-- display overdue tasks -->
+        {{#each overdueTasks}}
+          {{#if this.isDone}}
+          {{else}}
+          <div class="task is-done-{{this.isDone}}">
+            <form method="POST" action="/user/dashboard">
+              <input class="is-done-input" name="is-done" value="true">
+              <button><i class="uil uil-circle"></i></button>
+            </form>
+          <div style="border-left: 3px solid {{this.goal_id.color}}">{{this.title}}</div>
+          </div>
+          <hr>
+          {{/if}}
+        {{/each}}
+      {{else}}
+      {{/if}}
+    </div>
+
+    <!-- widget section -->
+    <div id="widget-section">
+      <!-- page toggle -->
+      <div id="page-toggle">
+        <div>focus</div>
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider"></span>
+        </label>
+        <div>relax</div>
+      </div>
+
+      <!-- pomodoro timer -->
+      <div id="pomodoro-container">
+        <svg id="pomodoro" height="297" width="297">
+          <circle
+                  id="pomodoro--progress-ring"
+                  stroke-width="40"
+                  fill="transparent"
+                  r="50%"
+                  cx="50%"
+                  cy="50%"
+                  />
+        </svg>
+        <div id="pomodoro--content">
+          <div><span id="pomodoro--mins"></span>:<span id="pomodoro--secs"></span></div>
+          <div>
+            <button id="pomodoro--btn">Start</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- breathing bubble -->
+      <div id="breath-container">
+        <div id="breath-bubble"></div>
+        <div id="breath-text"></div>
+      </div>
+
+      <!-- Spotify widget -->
+      <div id="player-widget">
+        <div id="player-widget__menu">
+          <h3>creativity</h3>
+          <h3>problem solving</h3>
+        </div>
+        <div id="player-widget__content">
+
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!--
+<div id="bottom-screen">
+  -- Gantt chart --
+  <div id="gantt-chart">
+    <h2>Deadlines</h2>
+    <ul id="gantt-chart__weeks">
+      <li>Week 1</li>
+      <li>Week 1</li>
+      <li>Week 1</li>
+      <li>Week 1</li>
+      <li>Week 1</li>
+      <li>Week 1</li>
+      <li>Week 1</li>
+      <li>Week 1</li>
+      <li>Week 1</li>
+      <li>Week 1</li>
+      <li>Week 1</li>
+      <li>Week 1</li>
+    </ul>
+    <ul id="gantt-chart__goals">
+      <-- display goals that have a start and an end date --
+      {{#each allGoals}}
+      {{#if allGoals.endDate}}
+      <li data-duration="{{allGoals.startDate}}-{{allGoals.endDate}}" data-color="{{allGoals.color}}">{{allGoals.title}}</li>
+      {{/if}}
+      {{/each}}
+    </ul>
+
+    </ul>
   </div>
+  -->
 </main>

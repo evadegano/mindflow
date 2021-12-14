@@ -1,6 +1,7 @@
 const settingsBtn = document.querySelector(".uil-setting");
 const addInput = document.querySelector("#add-input");
-const collapseMenu = document.querySelectorAll(".collapsible-menu");
+const collapseMenus = document.querySelectorAll(".collapsible-menu");
+const collapseContents = document.querySelectorAll(".collapsible-content");
 const addGoalForms = document.querySelectorAll(".add-goal-form");
 const addGoalInputs = document.querySelectorAll(".add-goal-form .add-input");
 const taskFormsContainers = document.querySelectorAll(".task-forms-container");
@@ -60,7 +61,7 @@ settingsBtn.addEventListener("click", () => {
 })
 
 // toggle dropdown menus
-collapseMenu.forEach(menu => {
+collapseMenus.forEach(menu => {
   const collapseBtn = menu.querySelector(".collapsible-btn");
   const collapseContent = menu.querySelector(".collapsible-content");
 
@@ -90,13 +91,21 @@ addGoalForms.forEach((form) => {
   })
 })
 
-// display task options on click
+// display edit task options on click
 taskFormsContainers.forEach((container) => {
   container.querySelector(".task-form .task-container .task .edit-icons .uil-pen").addEventListener("click", () => {
     container.querySelector(".task-form").classList.add("inactive");
     container.querySelector(".edit-task-form").classList.add("active");
   })
 })
+
+// display edit goal options on click
+// collapseContents.forEach((container) => {
+//   container.querySelector(".goal .edit-icons .uil-pen").addEventListener("click", () => {
+//     container.querySelector(".goal").classList.add("inactive");
+//     container.querySelector(".edit-goal-form").classList.add("active");
+//   })
+// })
 
 document.addEventListener("click", event => {
   // hide task options
@@ -125,6 +134,14 @@ document.addEventListener("click", event => {
       container.querySelector(".edit-task-form").classList.remove("active");
     }
   })
+
+  // hide goal edit menu
+  // collapseContents.forEach((container) => {
+  //   if (!container.contains(event.target)) {
+  //     container.querySelector(".goal").classList.remove("inactive");
+  //     container.querySelector(".edit-goal-form").classList.remove("active");
+  //   }
+  // })  
 })
 
 // change greeting message
