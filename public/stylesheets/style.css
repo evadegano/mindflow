@@ -636,34 +636,14 @@ figure {
   }
 }
 
-#breath-text::before {
-  content: "";
+
+#breath-text {
   font-size: 17px;
   color: var(--white);
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  animation: text-gradient 5s ease-in-out 0s infinite alternate,
-             text-change 10.4s linear 0s infinite;
-}
-
-@keyframes text-gradient {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes text-change {
-  from {
-    content: "breath in";
-  }
-  to {
-    content: "breath out";
-  }
 }
 
 #player-widget {
@@ -674,8 +654,7 @@ figure {
   padding: 40% 0;
 }
 
-#player-widget,
-#gantt-chart {
+#player-widget {
   background: var(--main-blue);
   border-radius: var(--large-radius);
 }
@@ -711,9 +690,14 @@ blockquote {
   display: flex;
 }
 
-.add-input.active {
+.add-input.active,
+.edit-goal-form .add-input {
   border-bottom: 1px solid var(--light-grey);
   padding-bottom: 10px;
+}
+
+.edit-goal-form .add-input {
+  margin-bottom: 10px;
 }
 
 .uil-setting {
@@ -729,22 +713,6 @@ blockquote {
 .uil-setting:hover {
   transform: rotate(90deg);
   
-}
-
-#gantt-chart {
-  color: white;
-  margin: 40px;
-  width: 100%;
-}
-
-#gantt-chart > h2 {
-  color: var(--white);
-  text-align: center;
-}
-
-#gantt-chart__weeks {
-  display: flex;
-  justify-content: space-between;
 }
 
 /* mode switch */
@@ -861,7 +829,7 @@ blockquote {
 }
 
 .edit-goal-form {
-  margin: 10px 0 10px 10px;
+  margin: 10px 0 10px 30px;
 }
 
 #add-task-form .uil-plus {
@@ -1024,6 +992,10 @@ blockquote {
 .edit-task-form.active,
 .edit-goal-form.active {
   display: block;
+}
+
+.edit-goal-form div:nth-child(2) {
+  display: flex;
 }
 
 /*
