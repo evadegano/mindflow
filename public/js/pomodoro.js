@@ -6,6 +6,18 @@ const duration = 25 * 60;
 let ringLength, pomodoroTimer;
 
 
+class PomodoroTimer {
+  constructor() {
+
+  }
+
+
+}
+
+
+
+
+
 
 // update pomodoro timer's content
 function updatePomodoro(timeElapsed, pomodoroStatus) {

@@ -16,6 +16,10 @@ let timeElapsed, pomodoroStatus, pageMode;
 
 // enlever window onload
 window.addEventListener("load", () => {
+  localStorage.setItem("pomodoroStatus", "inactive");
+  localStorage.setItem("timeElapsed", 0);
+  localStorage.setItem("pageMode", "focus");
+
   // init localStorage if necessary
   if (!localStorage.getItem("pomodoroStatus")) {
     localStorage.setItem("pomodoroStatus", "inactive");
