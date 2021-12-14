@@ -635,40 +635,15 @@ figure {
     background: var(--white);
   }
 }
-#breath-text {
-  /*animation: text-gradient 5s ease-in-out 0s infinite alternate,
-             text-change 5s ease-in-out 0s infinite alternate;*/
-  animation: text-change 5s ease-in-out 0s infinite alternate;
-}
 
-#breath-text::before {
-  content: "salut";
+
+#breath-text {
   font-size: 17px;
   color: var(--white);
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-@keyframes text-gradient {
-  from {
-    oopacity: 1;
-  }
-  to {
-    oopacity: 0;
-  }
-}
-
-@keyframes text-change {
-  from {
-    cccontent: "breath in";
-    background-color: green;
-  }
-  to {
-    cccontent: "breath out";
-    background-color: red;
-  }
 }
 
 #player-widget {
@@ -715,9 +690,14 @@ blockquote {
   display: flex;
 }
 
-.add-input.active {
+.add-input.active,
+.edit-goal-form .add-input {
   border-bottom: 1px solid var(--light-grey);
   padding-bottom: 10px;
+}
+
+.edit-goal-form .add-input {
+  margin-bottom: 10px;
 }
 
 .uil-setting {
@@ -849,7 +829,7 @@ blockquote {
 }
 
 .edit-goal-form {
-  margin: 10px 0 10px 10px;
+  margin: 10px 0 10px 30px;
 }
 
 #add-task-form .uil-plus {
@@ -1012,6 +992,10 @@ blockquote {
 .edit-task-form.active,
 .edit-goal-form.active {
   display: block;
+}
+
+.edit-goal-form div:nth-child(2) {
+  display: flex;
 }
 
 /*

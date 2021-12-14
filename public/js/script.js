@@ -1,5 +1,4 @@
 const settingsBtn = document.querySelector(".uil-setting");
-const addInput = document.querySelector("#add-input");
 const collapseMenus = document.querySelectorAll(".collapsible-menu");
 const goalContainers = document.querySelectorAll(".goal-container");
 const addGoalForms = document.querySelectorAll(".add-goal-form");
@@ -12,6 +11,7 @@ const toggleMenu = document.querySelector("#toggle-menu");
 const pageSwitchBtn = document.querySelector("#page-toggle input")
 const pomodoroContainer = document.querySelector("#pomodoro-container");
 const breathContainer = document.querySelector("#breath-container");
+const breathBubble = document.querySelector("#breath-bubble");
 let timeElapsed, pomodoroStatus, pageMode;
 
 // enlever window onload
@@ -177,4 +177,18 @@ pageSwitchBtn.addEventListener("click", () => {
     breathContainer.classList.toggle("active");
     updatePomodoro(timeElapsed, pomodoroStatus);
   }
+})
+
+let iterationCount = 0;
+
+// change breathe bubble text on iteration
+breathBubble.addEventListener("animationiteration", () => {
+  iterationCount++;
+
+  if (iterationCount % 2 === 0) {
+    breathContainer.querySelector("#breath-text").textContent = "breath in";
+  } else {
+    breathContainer.querySelector("#breath-text").textContent = "breath out";
+  }
+  
 })
