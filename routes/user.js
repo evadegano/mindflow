@@ -29,13 +29,16 @@ router.get("/dashboard", (req, res, next) => {
   // TODO: chercher les tâches du user dans la DB
   // TODO: filtre des tâches : endDate = today, endDate < today and isDone = false  
   const p3 = Task
-              .find({ user_id: req.session.user._id, endDate: { $lte: Date.now() }, isDone: false })
+              .find({ user_id: req.session.user._id, endDate: { $gte: Date.now() }, isDone: false })
               //.populate('goal_id');
   // TODO: filtre des tâches en retard: endDate > today and isDone = false  
-  const p4 = Task.find({ user_id: req.session.user._id, endDate: { $gt: Date.now() }, isDone: false });
+  const p4 = Task.find({ user_id: req.session.user._id, endDate: { $lt: Date.now() }, isDone: false });
 
   Promise.all([p1, p2, p3, p4])
-    .then(function([response, goalsFromDb, tasksFromDb, overdueTasksFromDb]) {
+    .then(function(values) {
+      console.log('values=', values)
+      
+      const [response, goalsFromDb, tasksFromDb, overdueTasksFromDb] = values
 
       console.log('overdueTasksFromDb ==>', overdueTasksFromDb)
 
