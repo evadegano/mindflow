@@ -635,34 +635,39 @@ figure {
     background: var(--white);
   }
 }
+#breath-text {
+  /*animation: text-gradient 5s ease-in-out 0s infinite alternate,
+             text-change 5s ease-in-out 0s infinite alternate;*/
+  animation: text-change 5s ease-in-out 0s infinite alternate;
+}
 
 #breath-text::before {
-  content: "";
+  content: "salut";
   font-size: 17px;
   color: var(--white);
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  animation: text-gradient 5s ease-in-out 0s infinite alternate,
-             text-change 10.4s linear 0s infinite;
 }
 
 @keyframes text-gradient {
   from {
-    opacity: 1;
+    oopacity: 1;
   }
   to {
-    opacity: 0;
+    oopacity: 0;
   }
 }
 
 @keyframes text-change {
   from {
-    content: "breath in";
+    cccontent: "breath in";
+    background-color: green;
   }
   to {
-    content: "breath out";
+    cccontent: "breath out";
+    background-color: red;
   }
 }
 
@@ -674,8 +679,7 @@ figure {
   padding: 40% 0;
 }
 
-#player-widget,
-#gantt-chart {
+#player-widget {
   background: var(--main-blue);
   border-radius: var(--large-radius);
 }
@@ -729,22 +733,6 @@ blockquote {
 .uil-setting:hover {
   transform: rotate(90deg);
   
-}
-
-#gantt-chart {
-  color: white;
-  margin: 40px;
-  width: 100%;
-}
-
-#gantt-chart > h2 {
-  color: var(--white);
-  text-align: center;
-}
-
-#gantt-chart__weeks {
-  display: flex;
-  justify-content: space-between;
 }
 
 /* mode switch */

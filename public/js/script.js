@@ -1,7 +1,7 @@
 const settingsBtn = document.querySelector(".uil-setting");
 const addInput = document.querySelector("#add-input");
 const collapseMenus = document.querySelectorAll(".collapsible-menu");
-const collapseContents = document.querySelectorAll(".collapsible-content");
+const goalContainers = document.querySelectorAll(".goal-container");
 const addGoalForms = document.querySelectorAll(".add-goal-form");
 const addGoalInputs = document.querySelectorAll(".add-goal-form .add-input");
 const taskFormsContainers = document.querySelectorAll(".task-forms-container");
@@ -14,7 +14,7 @@ const pomodoroContainer = document.querySelector("#pomodoro-container");
 const breathContainer = document.querySelector("#breath-container");
 let timeElapsed, pomodoroStatus, pageMode;
 
-
+// enlever window onload
 window.addEventListener("load", () => {
   // init localStorage if necessary
   if (!localStorage.getItem("pomodoroStatus")) {
@@ -100,7 +100,7 @@ taskFormsContainers.forEach((container) => {
 })
 
 // display edit goal options on click
-collapseContents.forEach((container) => {
+goalContainers.forEach((container) => {
   container.querySelector(".goal .edit-icons .uil-pen").addEventListener("click", () => {
     container.querySelector(".goal").classList.add("inactive");
     container.querySelector(".edit-goal-form").classList.add("active");
@@ -136,7 +136,7 @@ document.addEventListener("click", event => {
   })
 
   // hide goal edit menu
-  collapseContents.forEach((container) => {
+  goalContainers.forEach((container) => {
     if (!container.contains(event.target)) {
       container.querySelector(".goal").classList.remove("inactive");
       container.querySelector(".edit-goal-form").classList.remove("active");
