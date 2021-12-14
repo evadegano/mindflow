@@ -233,7 +233,7 @@
       {{#each todayTasks}}
         <!-- display today's tasks -->
         <div class="task-forms-container">
-          <form class="task-form" method="POST" action="/user/dashboard">
+          <form class="task-form" method="POST" action="/user/tasks/{{_id}}/done">
             <div class="task-container">
               <input class="is-done-input" name="isDone" value="true">
               <button></button>
@@ -258,7 +258,7 @@
               </span>
               <select id="goal-selector" name="taskGoal">
                 <option value="">Change goal</option>
-                {{#each allGoals}}
+                {{#each @root.allGoals}}
                 <option value="{{this._id}}">{{this.title}}</option>
                 {{/each}}
               </select>

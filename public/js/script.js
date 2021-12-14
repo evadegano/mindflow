@@ -136,12 +136,12 @@ document.addEventListener("click", event => {
   })
 
   // hide goal edit menu
-  // collapseContents.forEach((container) => {
-  //   if (!container.contains(event.target)) {
-  //     container.querySelector(".goal").classList.remove("inactive");
-  //     container.querySelector(".edit-goal-form").classList.remove("active");
-  //   }
-  // })  
+  collapseContents.forEach((container) => {
+    if (!container.contains(event.target)) {
+      container.querySelector(".goal").classList.remove("inactive");
+      container.querySelector(".edit-goal-form").classList.remove("active");
+    }
+  })  
 })
 
 // change greeting message

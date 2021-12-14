@@ -37,6 +37,8 @@ router.get("/dashboard", (req, res, next) => {
   Promise.all([p1, p2, p3, p4])
     .then(function([response, goalsFromDb, tasksFromDb, overdueTasksFromDb]) {
 
+      console.log('overdueTasksFromDb ==>', overdueTasksFromDb)
+
       function getGoal(goalid) {
         return goalsFromDb.find(el => el.id === goalid)
       }
@@ -170,6 +172,15 @@ router.post("/tasks/:id/edit", isLoggedIn, (req, res, next) => {
     .then(task => res.redirect('/user/dashboard'))
     .catch(err => {
       // console.log(err);
+      res.redirect('/user/dashboard');    
+    })
+})
+
+router.post("/tasks/:id/done", isLoggedIn, (req, res, next) => {
+  Task.findByIdAndUpdate(req.params.id, { isDone: req.body.isDone })
+    .then(task => res.redirect('/user/dashboard'))
+    .catch(err => {
+      console.log(err);
       res.redirect('/user/dashboard');    
     })
 })
