@@ -43,12 +43,12 @@
             </div>
           </div>
           <!-- form to edit goals -->
-          <form class="edit-goal-form" method="POST" action="">
-            <div class="goal-edit">
+          <form class="edit-goal-form" method="POST" action="/user/goals/{{_id}}/edit">
+            <div class="">
               <input class="add-input" type="text" name="title" value="{{this.title}}">
               <button class="save-btn" type="submit">save</button>
             </div>
-            <div class="edit-options">
+            <div>
               <input class="date-picker" type="date" name="startDate">
               <input class="date-picker" type="date" name="endDate">
               <input class="color-picker" type="color" name="color" value="#636EE6">
@@ -82,7 +82,7 @@
             </div>
           </div>
           <!-- form to edit goals -->
-          <form class="edit-goal-form" method="POST" action="">
+          <form class="edit-goal-form" method="POST" action="/user/goals/{{_id}}/edit">
             <div class="goal-edit">
               <input class="add-input" type="text" name="title" value="{{this.title}}">
               <button class="save-btn" type="submit">save</button>
@@ -121,7 +121,7 @@
             </div>
           </div>
           <!-- form to edit goals -->
-          <form class="edit-goal-form" method="POST" action="">
+          <form class="edit-goal-form" method="POST" action="/user/goals/{{_id}}/edit">
             <div class="goal-edit">
               <input class="add-input" type="text" name="title" value="{{this.title}}">
               <button class="save-btn" type="submit">save</button>
@@ -160,7 +160,7 @@
             </div>
           </div>
           <!-- form to edit goals -->
-          <form class="edit-goal-form" method="POST" action="">
+          <form class="edit-goal-form" method="POST" action="/user/goals/{{_id}}/edit">
             <div class="goal-edit">
               <input class="add-input" type="text" name="title" value="{{this.title}}">
               <button class="save-btn" type="submit">save</button>
@@ -199,7 +199,7 @@
             </div>
           </div>
           <!-- form to edit goals -->
-          <form class="edit-goal-form" method="POST" action="">
+          <form class="edit-goal-form" method="POST" action="/user/goals/{{_id}}/edit">
             <div class="goal-edit">
               <input class="add-input" type="text" name="title" value="{{this.title}}">
               <button class="save-btn" type="submit">save</button>
@@ -247,7 +247,7 @@
             </div>
           </form>
           <!-- form to edit tasks -->
-          <form class="edit-task-form" method="POST" action="">
+          <form class="edit-task-form" method="POST" action="/user/tasks/{{_id}}/edit">
             <div class="task">
               <input class="add-input" type="text" name="title" value="{{this.title}}">
               <button class="save-btn" type="submit">save</button>
@@ -256,7 +256,7 @@
               <span class="datepicker-toggle">
                 <input class="date-picker" type="date" name="endDate">
               </span>
-              <select class="goal-selector" name="taskGoal">
+              <select id="goal-selector" name="taskGoal">
                 <option value="">Change goal</option>
                 {{#each allGoals}}
                 <option value="{{this._id}}">{{this.title}}</option>

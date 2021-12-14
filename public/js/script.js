@@ -100,12 +100,12 @@ taskFormsContainers.forEach((container) => {
 })
 
 // display edit goal options on click
-// collapseContents.forEach((container) => {
-//   container.querySelector(".goal .edit-icons .uil-pen").addEventListener("click", () => {
-//     container.querySelector(".goal").classList.add("inactive");
-//     container.querySelector(".edit-goal-form").classList.add("active");
-//   })
-// })
+collapseContents.forEach((container) => {
+  container.querySelector(".goal .edit-icons .uil-pen").addEventListener("click", () => {
+    container.querySelector(".goal").classList.add("inactive");
+    container.querySelector(".edit-goal-form").classList.add("active");
+  })
+})
 
 document.addEventListener("click", event => {
   // hide task options

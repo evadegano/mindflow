@@ -2,6 +2,10 @@ const router = require("express").Router();
 const mongoose = require("mongoose");
 const axios = require("axios");
 
+// Handles password encryption
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+
 // database models
 const User = require("../models/User.model");
 const Goal = require("../models/Goal.model");
@@ -41,7 +45,7 @@ router.get("/dashboard", (req, res, next) => {
         //console.log('goal=', goal)
         tasksFromDb[i].goal = goal
       })
-      console.log('tasksFromDb=', tasksFromDb)
+      // console.log('tasksFromDb=', tasksFromDb)
 
       //work's goals
       let workGoals = goalsFromDb.filter(function(goal) {
@@ -87,7 +91,8 @@ router.get("/dashboard", (req, res, next) => {
 })
 
 // POST /dashboard
-//Goals routes
+
+// POST /goals
 router.post("/goals", isLoggedIn, (req, res, next) => {
   // TODO: permettre au user d'ajouter des objectifs dans la DB
   Goal.create({ 
@@ -103,25 +108,38 @@ router.post("/goals", isLoggedIn, (req, res, next) => {
 })
 
 router.post("/goals/:id/edit", isLoggedIn, (req, res, next) => {
-  Goal.findByIdAndUpdate(req.params.id, {
-    title: req.body.title,
-    startDate: req.body.startDate,
-    endDate: req.body.endDate,
-    color: req.body.color,
-    //category: req.body.category
-  })
-    .then(goal => res.redirect('/user/dashboard'))
-    .catch((err) => res.redirect('/user/dashboard'))
+  const { title, startDate, endDate, color } = req.body;
+  const updateGoal = {};
+
+  if (title !== "") {
+    updateGoal.title = title;
+  }
+  if (startDate !== "") {
+    updateGoal.endDate = endDate;
+  }
+  if (endDate !== "") {
+    updateGoal.endDate = endDate;
+  }
+  if (color !== "") {
+    updateGoal.color = color;
+  }
+
+  Goal.findByIdAndUpdate(req.params.id, updateGoal)
+    .then(task => res.redirect('/user/dashboard'))
+    .catch(err => {
+      // console.log(err);
+      res.redirect('/user/dashboard');    
+    })
 })
 
 router.post("/goals/:id/delete", isLoggedIn, (req, res, next) => {
   Goal.findByIdAndRemove(req.params.id)
-  .then(() => res.redirect("/user/dashboard"))
+  .then(() => res.redirect('/user/dashboard'))
   .catch((err) => res.redirect('/user/dashboard'))
 })
 
 
-//Tasks routes
+// POST /tasks
 router.post("/tasks", isLoggedIn, (req, res, next) => {
   // TODO: permettre au user d'ajouter des tâches dans la DB
   Task.create({ 
@@ -134,14 +152,26 @@ router.post("/tasks", isLoggedIn, (req, res, next) => {
 })
 
 router.post("/tasks/:id/edit", isLoggedIn, (req, res, next) => {
-  // TODO: permettre au user d'ajouter des tâches dans la DB
-  Task.findByIdAndUpdate(req.params.id, {
-    user_id: req.session.user._id,
-    goal_id: req.body.taskGoal,
-    title: req.body.title
-  })
+  const { title, endDate, taskGoal } = req.body;
+  const updateTask = {};
+
+  if (title !== "") {
+    updateTask.title = title;
+  }
+  if (endDate !== "") {
+    updateTask.endDate = endDate;
+  }
+
+  if (taskGoal !== "") {
+    updateTask.goal_id = taskGoal;
+  }
+
+  Task.findByIdAndUpdate(req.params.id, updateTask)
     .then(task => res.redirect('/user/dashboard'))
-    .catch(err => res.redirect('/user/dashboard'))
+    .catch(err => {
+      // console.log(err);
+      res.redirect('/user/dashboard');    
+    })
 })
 
 router.post("/tasks/:id/delete", isLoggedIn, (req, res, next) => {
@@ -158,15 +188,33 @@ router.get("/profile", isLoggedIn, (req, res, next) => {
 })
 
 // POST /profile
-router.post("", isLoggedIn, (req, res, next) => {
+router.post("/profile", isLoggedIn, (req, res, next) => {
   //TO DO: récupérer les valeurs des champs modifiés
-
   //TO DO: Ne pas envoyer un nouveau mot de passe si pas de modification du champ "password"
-
   //TO DO: encrypter le nouveau mot de passe
+
+  const { firstName, email, password, newPassword, newPasswordChecked } = req.body;
+  const newUser = {};
+
+  newUser.firstName = firstName;
+  newUser.email = email;
+
+  if (password !== '' && newPassword !== '' && newPassword === newPasswordChecked ) {
+    const salt = bcrypt.genSaltSync(saltRounds);
+    newUser.password = bcrypt.hashSync(newPassword, salt);
+  }
   
   //TO DO: update la DB
+  User.findOneAndUpdate({_id: req.session.user._id}, newUser)
+  .then(user => {
+    req.session.user = user;
+    console.log("update user ==>", req.session.user);
+    res.redirect("/user/profile");
+  })
+  .catch((err) => {
+    console.log(err);
+    res.redirect('/user/profile');
+  })
 })
-
 
 module.exports = router;
