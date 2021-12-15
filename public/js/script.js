@@ -13,6 +13,7 @@ const pomodoroContainer = document.querySelector("#pomodoro-container");
 const breathContainer = document.querySelector("#breath-container");
 const breathBubble = document.querySelector("#breath-bubble");
 let timeElapsed, pomodoroStatus, pageMode;
+let iterationCount = 0;
 
 // enlever window onload
 window.addEventListener("load", () => {
@@ -174,6 +175,8 @@ pageSwitchBtn.addEventListener("click", () => {
     pageMode = "relax";
     pomodoroContainer.classList.toggle("active");
     breathContainer.classList.toggle("active");
+    iterationCount = 0;
+    breathContainer.querySelector("#breath-text").textContent = "breath in";
   } else {
     localStorage.setItem("pageMode", "focus");
     pageMode = "focus";
@@ -182,8 +185,6 @@ pageSwitchBtn.addEventListener("click", () => {
     updatePomodoro(timeElapsed, pomodoroStatus);
   }
 })
-
-let iterationCount = 0;
 
 // change breathe bubble text on iteration
 breathBubble.addEventListener("animationiteration", () => {

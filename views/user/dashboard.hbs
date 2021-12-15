@@ -241,41 +241,40 @@
       <h2>Today</h2>
       <h4 id="date-today"></h4>
       {{#each todayTasks}}
-        <!-- display today's tasks -->
-        <div class="task-forms-container">
-          <form class="task-form" method="POST" action="/user/tasks/{{_id}}/done">
-            <div class="task-container">
-              <input class="is-done-input" name="isDone" value="true">
-              <button></button>
-              <div class="task" style="border-left: 3px solid {{this.goal.color}}">
-                <h4>{{this.title}}</h4>
-                <div class="edit-icons">
-                  <i class="uil uil-pen"></i>
-                  <i class="uil uil-trash-alt"></i>
-                </div>
+      <!-- display today's tasks -->
+      <div class="task-forms-container">
+        <form class="task-form" method="POST" action="/user/tasks/{{_id}}/done">
+          <div class="task-container">
+            <input class="is-done-input" name="isDone" value="true">
+            <button></button>
+            <div class="task" style="border-left: 3px solid {{this.goal.color}}">
+              <h4>{{this.title}}</h4>
+              <div class="edit-icons">
+                <i class="uil uil-pen"></i>
+                <i class="uil uil-trash-alt"></i>
               </div>
             </div>
-          </form>
-          <!-- form to edit tasks -->
-          <form class="edit-task-form" method="POST" action="/user/tasks/{{_id}}/edit">
-            <div class="task">
-              <input class="add-input" type="text" name="title" value="{{this.title}}">
-              <button class="save-btn" type="submit">save</button>
-            </div>
-            <div>
-              <span class="datepicker-toggle">
-                <input class="date-picker" type="date" name="endDate">
-              </span>
-              <select class="goal-selector" name="taskGoal">
-                <option value="">Change goal</option>
-                {{#each @root.allGoals}}
-                <option value="{{this._id}}">{{this.title}}</option>
-                {{/each}}
-              </select>
-            </div>
-          </form>
-        </div>
-
+          </div>
+        </form>
+        <!-- form to edit tasks -->
+        <form class="edit-task-form" method="POST" action="/user/tasks/{{_id}}/edit">
+          <div class="task">
+            <input class="add-input" type="text" name="title" value="{{this.title}}">
+            <button class="save-btn" type="submit">save</button>
+          </div>
+          <div>
+            <span class="datepicker-toggle">
+              <input class="date-picker" type="date" name="endDate">
+            </span>
+            <select class="goal-selector" name="taskGoal">
+              <option value="">Change goal</option>
+              {{#each @root.allGoals}}
+              <option value="{{this._id}}">{{this.title}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </form>
+      </div>
       <hr>
       {{/each}}
       <!-- add new task -->
@@ -301,12 +300,38 @@
         {{#each overdueTasks}}
           {{#if this.isDone}}
           {{else}}
-          <div class="task is-done-{{this.isDone}}">
-            <form method="POST" action="/user/dashboard">
-              <input class="is-done-input" name="is-done" value="true">
-              <button><i class="uil uil-circle"></i></button>
+          <div class="task-forms-container">
+            <form class="task-form" method="POST" action="/user/tasks/{{_id}}/done">
+              <div class="task-container">
+                <input class="is-done-input" name="isDone" value="true">
+                <button></button>
+                <div class="task" style="border-left: 3px solid {{this.goal.color}}">
+                  <h4>{{this.title}}</h4>
+                  <div class="edit-icons">
+                    <i class="uil uil-pen"></i>
+                    <i class="uil uil-trash-alt"></i>
+                  </div>
+                </div>
+              </div>
             </form>
-          <div style="border-left: 3px solid {{this.goal_id.color}}">{{this.title}}</div>
+            <!-- form to edit tasks -->
+            <form class="edit-task-form" method="POST" action="/user/tasks/{{_id}}/edit">
+              <div class="task">
+                <input class="add-input" type="text" name="title" value="{{this.title}}">
+                <button class="save-btn" type="submit">save</button>
+              </div>
+              <div>
+                <span class="datepicker-toggle">
+                  <input class="date-picker" type="date" name="endDate">
+                </span>
+                <select class="goal-selector" name="taskGoal">
+                  <option value="">Change goal</option>
+                  {{#each @root.allGoals}}
+                  <option value="{{this._id}}">{{this.title}}</option>
+                  {{/each}}
+                </select>
+              </div>
+            </form>
           </div>
           <hr>
           {{/if}}
@@ -354,20 +379,26 @@
       </div>
 
       <!-- Spotify widget -->
-      <div id="player-widget">
+      <div id="player-widget" class="yellow-bg">
+        <div id="player-menu-bg" class="yellow-bg">
+          <div class="yellow-circle active"></div>
+          <div class="blue-circle"></div>
+        </div>
         <div id="player-widget__menu">
-          <h3>creativity</h3>
-          <h3>problem solving</h3>
+          <div id="player-menu__item1">creativity</div>
+          <div id="player-menu__item2" class="active">problem solving</div>
         </div>
 
-        <div id="player-widget__content">
+        <div id="player-widget__content" class="blue-bg">
           <img src="/images/temp-album-cover.png" alt="" width="50%">
+          <div>Song name</div>
+          <div>artist</div>
           <div id="player-icons">
-            <i class="uil uil-repeat"></i>
+            <i class="uil uil-shuffle"></i>
             <i class="uil uil-step-backward"></i>
             <i class="uil uil-play"></i>
             <i class="uil uil-skip-forward"></i>
-            <i class="uil uil-shuffle"></i>
+            <i class="uil uil-repeat"></i>
           </div>
         </div>
 
