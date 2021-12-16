@@ -17,30 +17,41 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 
 // GET /dashboard
 router.get("/dashboard", (req, res, next) => {
-  if (!req.session.user) return res.redirect('/login')
+  if (!req.session.user) return res.redirect('auth/login')
+
+  // http://localhost:3000/user/dashboard?goal_id=61b1fcf6d094e9c73114f827
+  console.log('req.query ===', req.query) // req.query === { goal_id: '61b1fcf6d094e9c73114f827' }
 
   // capitalize first letter of user's first name
   req.session.user.firstName = req.session.user.firstName[0].toUpperCase() + req.session.user.firstName.substring(1);
-  // TODO: récupérer l'objet "zenQuote" grâce à l'API Zen Quote
+
+  // get the "zenQuote" object with the Zen Quote API
   const p1 = axios.get('https://zenquotes.io/api/today/');
-  // TODO: chercher les objectifs du user dans la DB
-  // TODO: filtre des objectifs : isDone = false  
+
+  // search for the user's objectives in the database
+  // goals filters 
   const p2 = Goal.find({ user_id: req.session.user._id, isDone: false });
-  // TODO: chercher les tâches du user dans la DB
-  // TODO: filtre des tâches : endDate = today, endDate < today and isDone = false  
-  const p3 = Task
-              .find({ user_id: req.session.user._id, endDate: { $gte: Date.now() }, isDone: false })
-              //.populate('goal_id');
-  // TODO: filtre des tâches en retard: endDate > today and isDone = false  
-  const p4 = Task.find({ user_id: req.session.user._id, endDate: { $lt: Date.now() }, isDone: false });
+  
+  // search for the user's tasks in the database
+  // today tasks filters
+  const today = new Date().toISOString().split('T')[0]; // '2021-12-15'
+  const todayTasksFilters = { user_id: req.session.user._id, endDate:  { $gte: new Date(`${today}T00:00:00.000Z`)  , $lte: new Date(`${today}T23:59:59.999Z`) }  , isDone: false };
+  if (req.query.goal_id) {
+    todayTasksFilters.goal_id = req.query.goal_id;
+  }
+  const p3 = Task.find(todayTasksFilters); //.populate('goal_id');
+           
+  // overdue tasks filters
+  const overdueTasksFilters = { user_id: req.session.user._id, endDate: { $lt: new Date(`${today}T00:00:00.000Z`) }, isDone: false };
+  if (req.query.goal_id) {
+    overdueTasksFilters.goal_id = req.query.goal_id;
+  }
+  const p4 = Task.find(overdueTasksFilters);
 
   Promise.all([p1, p2, p3, p4])
     .then(function(values) {
-      console.log('values=', values)
-      
-      const [response, goalsFromDb, tasksFromDb, overdueTasksFromDb] = values
-
-      console.log('overdueTasksFromDb ==>', overdueTasksFromDb)
+      //console.log('values=', values)
+      const [response, goalsFromDb, tasksFromDb, overdueTasksFromDb] = values;
 
       function getGoal(goalid) {
         return goalsFromDb.find(el => el.id === goalid)
@@ -50,7 +61,12 @@ router.get("/dashboard", (req, res, next) => {
         //console.log('goal=', goal)
         tasksFromDb[i].goal = goal
       })
+      overdueTasksFromDb.forEach((task, i) => {
+        const goal = getGoal(''+task.goal_id) 
+        overdueTasksFromDb[i].goal = goal
+      })
       // console.log('tasksFromDb=', tasksFromDb)
+      // console.log('overdueTasksFromDb ==>', overdueTasksFromDb)
 
       //work's goals
       let workGoals = goalsFromDb.filter(function(goal) {
@@ -213,13 +229,13 @@ router.post("/profile", isLoggedIn, (req, res, next) => {
   newUser.firstName = firstName;
   newUser.email = email;
 
-  if (password !== '' && newPassword !== '' && newPassword === newPasswordChecked ) {
+  if (password !== '' && newPassword !== '' && newPassword === newPasswordChecked) {
     const salt = bcrypt.genSaltSync(saltRounds);
     newUser.password = bcrypt.hashSync(newPassword, salt);
   }
   
   //TO DO: update la DB
-  User.findOneAndUpdate({_id: req.session.user._id}, newUser)
+  User.findOneAndUpdate({ _id: req.session.user._id }, newUser)
   .then(user => {
     req.session.user = user;
     console.log("update user ==>", req.session.user);
