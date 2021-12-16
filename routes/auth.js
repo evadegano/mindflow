@@ -23,16 +23,29 @@ router.get("/signup", isLoggedOut, (req, res) => {
 router.post("/signup", isLoggedOut, (req, res) => {
   const { firstName, email, password } = req.body;
 
-  if (!email || !firstName) {
-    return res
-      .status(400)
-      .render("auth/signup", { errorMessage: "Please provide your first name and email." });
-  }
+  // if (!firstName) {
+  //   return res
+  //     .status(400)
+  //     .render("auth/signup", { nameErrorMessage: "Please provide your first name" });
+  // }
 
-  if (password.length < 8) {
-    return res.status(400).render("auth/signup", {
-      errorMessage: "Your password needs to be at least 8 characters long.",
-    });
+  // if (!email) {
+  //   return res
+  //     .status(400)
+  //     .render("auth/signup", { emailErrorMessage: "Please provide your email." });
+  // }
+
+  // if (password.length < 8) {
+  //   return res.status(400).render("auth/signup", {
+  //     passwordErrorMessage: "Your password needs to be at least 8 characters long.",
+  //   });
+  // }
+
+  if (!firstName || !email || password.length < 8) {
+    res.render('auth/signup', { 
+      errorMessage: ` ⚠️  All fields are mandatory. Please provide your firstName, email and password. 
+      Your password must contain at least 8 or more characters.` });
+    return;
   }
 
   //   ! This use case is using a regular expression to control for special characters and min length
@@ -100,18 +113,24 @@ router.get("/login", isLoggedOut, (req, res) => {
 router.post("/login", isLoggedOut, (req, res, next) => {
   const { email, password } = req.body;
 
-  if (!email) {
-    return res
-      .status(400)
-      .render("auth/login", { errorMessage: "Please provide your email." });
-  }
+  // if (!email) {
+  //   return res
+  //     .status(400)
+  //     .render("auth/login", { errorMessage: "Please provide your email." });
+  // }
 
-  // Here we use the same logic as above
-  // - either length based parameters or we check the strength of a password
-  if (password.length < 8) {
-    return res.status(400).render("auth/login", {
-      errorMessage: "Your password needs to be at least 8 characters long.",
-    });
+  // // Here we use the same logic as above
+  // // - either length based parameters or we check the strength of a password
+  // if (password.length < 8) {
+  //   return res.status(400).render("auth/login", {
+  //     errorMessage: "Your password needs to be at least 8 characters long.",
+  //   });
+  // }
+
+  if (!email || !password) {
+    res.render('auth/login', { 
+      errorMessage: ` ⚠️  All fields are mandatory. Please provide your email and password.` });
+    return;
   }
 
   // Search the database for a user with the username submitted in the form
