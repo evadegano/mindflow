@@ -10,7 +10,7 @@ class PomodoroTimer {
     this.duration = 10;
     this.timeElapsed = 0;
     this.status = "inactive";
-    this.ringLength = pomodoroRing.getTotalLength();
+    this.ringLength = 932.6760864257812;
     this.progress = this.ringLength / this.duration;
     this.intervalId = null;
   }

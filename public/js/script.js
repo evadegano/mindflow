@@ -13,13 +13,17 @@ const breathContainer = document.querySelector("#breath-container");
 const playerMenuItem1 = document.querySelector("#player-menu__item1");
 const playerMenuItem2 = document.querySelector("#player-menu__item2");
 const breathBubble = document.querySelector("#breath-bubble");
-let pageMode, timeElapsed, pomodoroStatus;
-let iterationCount = 0;
-
 const pomodoroTimer = new PomodoroTimer();
+let pageMode, timeElapsed, pomodoroStatus;
 
-// enlever window onload
-window.addEventListener("load", () => {
+
+function init() {
+  updateLocalStorage();
+  updatePageContent();
+}
+
+// update data contained in the local storage
+function updateLocalStorage() {
   localStorage.setItem("pomodoroStatus", "inactive");
   localStorage.setItem("timeElapsed", 0);
   localStorage.setItem("pageMode", "focus");
@@ -40,7 +44,10 @@ window.addEventListener("load", () => {
   timeElapsed = localStorage.getItem("timeElapsed");
   pomodoroStatus = localStorage.getItem("pomodoroStatus");
   pageMode = localStorage.getItem("pageMode");
+}
 
+// update text content on page's DOM elements
+function updatePageContent() {
   // get today's full date
   const todayFullDate = new Date();
 
@@ -51,6 +58,7 @@ window.addEventListener("load", () => {
   // change greeting message
   switchGreetingMsg(todayFullDate.getHours());
 
+  // display blocks depending on the page's mode
   if (pageMode === "focus") {
     pomodoroContainer.classList.toggle("active");
     pomodoroTimer.init(timeElapsed, pomodoroStatus);
@@ -59,8 +67,27 @@ window.addEventListener("load", () => {
     breathContainer.classList.toggle("active");
     pageSwitchBtn.checked = true;
   }
-  
-})
+}
+
+// change greeting message depending on the time of the day
+function switchGreetingMsg(hour) {
+  const greetingMsg = document.querySelector("#greeting-msg");
+
+  switch(true) {
+    case hour > 4 && hour < 13:
+      greetingMsg.textContent = "Good morning,";
+      break;
+    case hour < 18:
+      greetingMsg.textContent = "Good afternoon,";
+      break;
+    case hour < 23:
+      greetingMsg.textContent = "Good evening,";
+      break;
+    default:
+      greetingMsg.textContent = "Good night," ;
+      break;
+  }
+}
 
 // toggle the settings menu
 const toggleLinks = document.querySelector("#toggle-links");
@@ -152,45 +179,27 @@ document.addEventListener("click", event => {
   })  
 })
 
-// change greeting message
-function switchGreetingMsg(hour) {
-  const greetingMsg = document.querySelector("#greeting-msg");
-
-  switch(true) {
-    case hour > 4 && hour < 13:
-      greetingMsg.textContent = "Good morning,";
-      break;
-    case hour < 18:
-      greetingMsg.textContent = "Good afternoon,";
-      break;
-    case hour < 23:
-      greetingMsg.textContent = "Good evening,";
-      break;
-    default:
-      greetingMsg.textContent = "Good night," ;
-      break;
-  }
-}
-
 pageSwitchBtn.addEventListener("click", () => {
   if (pageMode === "focus") {
-    localStorage.setItem("pageMode", "relax");
     pageMode = "relax";
+    localStorage.setItem("pageMode", pageMode);
+    
     pomodoroContainer.classList.toggle("active");
     breathContainer.classList.toggle("active");
-    iterationCount = 0;
     breathContainer.querySelector("#breath-text").textContent = "breath in";
   } else {
-    localStorage.setItem("pageMode", "focus");
     pageMode = "focus";
+    localStorage.setItem("pageMode", pageMode);
+    
     pomodoroContainer.classList.toggle("active");
     breathContainer.classList.toggle("active");
-    updatePomodoro(timeElapsed, pomodoroStatus);
+    pomodoroTimer.init(timeElapsed, pomodoroStatus);
   }
 })
 
-// change breathe bubble text on iteration
+// change breath bubble text on iteration
 breathBubble.addEventListener("animationiteration", () => {
+  let iterationCount = 0;
   iterationCount++;
 
   if (iterationCount % 2 === 0) {
@@ -206,23 +215,6 @@ const playerWidget = document.querySelector("#player-widget");
 const blueCircle = document.querySelector("#blue-circle");
 const yellowCircle = document.querySelector("#yellow-circle");
 
-/*
-playerMenuItem1.addEventListener("click", () => {
-  playerMenuItem1.className = "active";
-  playerMenuItem2.className = "";
-  playerWidget.className = "blue-bg";
-  playerMenuBg.className = "blue-bg";
-  blueCircle.className = "active";
-})
-
-playerMenuItem2.addEventListener("click", () => {
-  playerMenuItem1.className = "";
-  playerMenuItem2.className = "active";
-  playerWidget.className = "yellow-bg";
-  playerMenuBg.className = "yellow-bg";
-  yellowCircle.className = "active";
-})
-*/
 
 // start and stop pomodoro timer
 pomodoroBtn.addEventListener("click", () => {
@@ -233,3 +225,5 @@ pomodoroBtn.addEventListener("click", () => {
     pomodoroTimer.reset();
   }
 })
+
+init();

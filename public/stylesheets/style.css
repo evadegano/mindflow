@@ -563,13 +563,15 @@ figure {
   margin-right: 20px;
 }
 
-#pomodoro-container {
-  position: relative;
-}
-
 #pomodoro-container.active {
   display: block;
 }
+
+#pomodoro-container {
+  position: relative;
+  display: none;
+}
+
 
 #breath-container.active {
   display: flex;
