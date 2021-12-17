@@ -9,18 +9,22 @@ const addTaskOptions = document.querySelector("#add-task-form .options");
 const addTaskForm = document.querySelector("#add-task-form");
 const toggleMenu = document.querySelector("#toggle-menu");
 const pageSwitchBtn = document.querySelector("#page-toggle input")
-const pomodoroContainer = document.querySelector("#pomodoro-container");
 const breathContainer = document.querySelector("#breath-container");
+const playerMenuItem1 = document.querySelector("#player-menu__item1");
+const playerMenuItem2 = document.querySelector("#player-menu__item2");
 const breathBubble = document.querySelector("#breath-bubble");
-let timeElapsed, pomodoroStatus, pageMode;
-let iterationCount = 0;
+const toggleLinks = document.querySelector("#toggle-links");
+const pomodoroTimer = new PomodoroTimer();
+let pageMode, timeElapsed, pomodoroStatus;
 
-// enlever window onload
-window.addEventListener("load", () => {
-  localStorage.setItem("pomodoroStatus", "inactive");
-  localStorage.setItem("timeElapsed", 0);
-  localStorage.setItem("pageMode", "focus");
 
+function init() {
+  updateLocalStorage();
+  updatePageContent();
+}
+
+// update data contained in the local storage
+function updateLocalStorage() {
   // init localStorage if necessary
   if (!localStorage.getItem("pomodoroStatus")) {
     localStorage.setItem("pomodoroStatus", "inactive");
@@ -34,10 +38,13 @@ window.addEventListener("load", () => {
     localStorage.setItem("pageMode", "focus");
   } 
 
-  timeElapsed = localStorage.getItem("timeElapsed");
+  timeElapsed = Number(localStorage.getItem("timeElapsed"));
   pomodoroStatus = localStorage.getItem("pomodoroStatus");
   pageMode = localStorage.getItem("pageMode");
+}
 
+// update text content on page's DOM elements
+function updatePageContent() {
   // get today's full date
   const todayFullDate = new Date();
 
@@ -48,19 +55,47 @@ window.addEventListener("load", () => {
   // change greeting message
   switchGreetingMsg(todayFullDate.getHours());
 
+  // display blocks depending on the page's mode
   if (pageMode === "focus") {
     pomodoroContainer.classList.toggle("active");
-    updatePomodoro(timeElapsed, pomodoroStatus);
+    pomodoroTimer.init(timeElapsed, pomodoroStatus, printPomodoroTime);
+    printPomodoroTime();
     pageSwitchBtn.checked = false;
   } else {
     breathContainer.classList.toggle("active");
     pageSwitchBtn.checked = true;
   }
-  
-})
+}
+
+// change greeting message depending on the time of the day
+function switchGreetingMsg(hour) {
+  const greetingMsg = document.querySelector("#greeting-msg");
+
+  switch(true) {
+    case hour > 4 && hour < 13:
+      greetingMsg.textContent = "Good morning,";
+      break;
+    case hour < 18:
+      greetingMsg.textContent = "Good afternoon,";
+      break;
+    case hour < 23:
+      greetingMsg.textContent = "Good evening,";
+      break;
+    default:
+      greetingMsg.textContent = "Good night," ;
+      break;
+  }
+}
+
+// print seconds and minutes on the pomodoro timer
+function printPomodoroTime() {
+  let secs = pomodoroTimer.getSecs();
+  let mins = pomodoroTimer.getMins();
+  pomodoroMins.textContent = mins;
+  pomodoroSecs.textContent = secs;
+}
 
 // toggle the settings menu
-const toggleLinks = document.querySelector("#toggle-links");
 settingsBtn.addEventListener("click", () => {
   toggleLinks.classList.toggle('active');
 })
@@ -149,45 +184,28 @@ document.addEventListener("click", event => {
   })  
 })
 
-// change greeting message
-function switchGreetingMsg(hour) {
-  const greetingMsg = document.querySelector("#greeting-msg");
-
-  switch(true) {
-    case hour > 4 && hour < 13:
-      greetingMsg.textContent = "Good morning,";
-      break;
-    case hour < 18:
-      greetingMsg.textContent = "Good afternoon,";
-      break;
-    case hour < 23:
-      greetingMsg.textContent = "Good evening,";
-      break;
-    default:
-      greetingMsg.textContent = "Good night," ;
-      break;
-  }
-}
-
 pageSwitchBtn.addEventListener("click", () => {
   if (pageMode === "focus") {
-    localStorage.setItem("pageMode", "relax");
     pageMode = "relax";
+    localStorage.setItem("pageMode", pageMode);
+    
     pomodoroContainer.classList.toggle("active");
     breathContainer.classList.toggle("active");
-    iterationCount = 0;
     breathContainer.querySelector("#breath-text").textContent = "breath in";
   } else {
-    localStorage.setItem("pageMode", "focus");
     pageMode = "focus";
+    localStorage.setItem("pageMode", pageMode);
+    
     pomodoroContainer.classList.toggle("active");
     breathContainer.classList.toggle("active");
-    updatePomodoro(timeElapsed, pomodoroStatus);
+    pomodoroTimer.init(timeElapsed, pomodoroStatus, printPomodoroTime);
+    printPomodoroTime();
   }
 })
 
-// change breathe bubble text on iteration
+// change breath bubble text on iteration
 breathBubble.addEventListener("animationiteration", () => {
+  let iterationCount = 0;
   iterationCount++;
 
   if (iterationCount % 2 === 0) {
@@ -275,3 +293,15 @@ document.querySelector(".uil-shuffle").addEventListener("click",function () {
 document.querySelector(".uil-repeat").addEventListener("click",function () {
   document.querySelector(".uil-repeat").classList.toggle("active");
 });
+// start and stop pomodoro timer
+pomodoroBtn.addEventListener("click", () => {
+  if (pomodoroBtn.className === "start") {
+    pomodoroTimer.start(printPomodoroTime);
+  } else {
+    pomodoroTimer.stop();
+    pomodoroTimer.reset();
+    printPomodoroTime();
+  }
+})
+
+init();
