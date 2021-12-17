@@ -564,7 +564,6 @@ figure {
 
 #pomodoro-container {
   position: relative;
-  display: none;
 }
 
 #pomodoro-container.active {
@@ -661,26 +660,26 @@ figure {
   box-shadow: var(--blue-shadow);
 }
 
-.yellow-circle,
-.blue-circle {
+#yellow-circle,
+#blue-circle {
   border-radius: var(--xlarge-radius);
   height: 40px;
   width: 40px;
   display: none;
 }
 
-.yellow-circle.active,
-.blue-circle.active {
+#yellow-circle.active,
+#blue-circle.active {
   display: block;
 }
 
-.yellow-circle {
+#yellow-circle {
   background: var(--light-yellow);
   box-shadow: 40px 40px 0 23px var(--main-blue);
   transform: translateX(-50%);
 }
 
-.blue-circle {
+#blue-circle {
   background: var(--main-blue);
   box-shadow: -40px 40px 0 23px var(--light-yellow);
   transform: translateX(50%);

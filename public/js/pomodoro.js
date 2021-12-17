@@ -2,106 +2,108 @@ const pomodoroBtn = document.querySelector("#pomodoro--btn");
 const pomodoroMins = document.querySelector("#pomodoro--mins");
 const pomodoroSecs = document.querySelector("#pomodoro--secs");
 const pomodoroRing = document.querySelector("#pomodoro--progress-ring");
-const duration = 25 * 60;
-let ringLength, pomodoroTimer;
+const pomodoroContainer = document.querySelector("#pomodoro-container");
 
 
 class PomodoroTimer {
   constructor() {
-
+    this.duration = 10;
+    this.timeElapsed = 0;
+    this.status = "inactive";
+    this.ringLength = pomodoroRing.getTotalLength();
+    this.progress = this.ringLength / this.duration;
+    this.intervalId = null;
   }
 
+  getSecs() {
+    let secs = this.timeElapsed % 60;
 
-}
+    if (secs < 10) {
+      secs = "0" + secs;
+    }
+    
+    return secs;
+  }
 
+  getMins() {
+    let mins = Math.floor(this.timeElapsed / 60);
 
+    if (mins < 10) {
+      mins = "0" + mins;
+    }
 
+    return mins;
+  }
 
+  init(timeElapsed, pomodoroStatus) {
+    this.timeElapsed = timeElapsed;
+    this.status = pomodoroStatus;
+    this.progress = this.ringLength / this.duration;
 
+    pomodoroRing.style.strokeDasharray = this.ringLength + " " + this.ringLength;
+    pomodoroRing.style.strokeDashoffset = this.ringLength - this.timeElapsed * this.progress;
 
-// update pomodoro timer's content
-function updatePomodoro(timeElapsed, pomodoroStatus) {
-  ringLength = pomodoroRing.getTotalLength();
-  const progress = ringLength / duration;
-  pomodoroRing.style.strokeDasharray = ringLength + " " + ringLength;
-  pomodoroRing.style.strokeDashoffset = ringLength - timeElapsed * progress;
+    if (this.status === "inactive") {
+      pomodoroBtn.classList.add("start");
+      pomodoroBtn.textContent = "start";
+      pomodoroMins.textContent = "00";
+      pomodoroSecs.textContent = "00";
+    } else {
+      pomodoroBtn.classList.add("stop");
+      pomodoroBtn.textContent = "stop";
 
-  if (pomodoroStatus === "inactive") {
-    pomodoroBtn.classList.add("start");
-    pomodoroBtn.textContent = "start";
-    pomodoroMins.textContent = "00";
-    pomodoroSecs.textContent = "00";
-  } else {
-    pomodoroBtn.classList.add("stop");
-    pomodoroBtn.textContent = "stop";
-
-    let mins = Math.floor(timeElapsed / 60);
-    let secs = timeElapsed % 60;
-
-      if (mins < 10) {
-        mins = "0" + mins;
-      }
-
-      if (secs < 10) {
-        secs = "0" + secs;
-      }
-
+      let secs = this.getSecs();
+      let mins = this.getMins();
       pomodoroMins.textContent = mins;
       pomodoroSecs.textContent = secs;
 
-      pomodoroStart(timeElapsed, progress);
+      this.start();
+    }
   }
-}
 
-// start pomodoro timer
-function pomodoroStart(timeElapsed, progress) {
-  localStorage.setItem("pomodoroStatus", "active");
-  let pomodoroTimer = setInterval(pomodoroProgress, 1000);
-  pomodoroBtn.className = "stop";
-  pomodoroBtn.textContent = "stop";
-  
-  function pomodoroProgress() {
-    if (timeElapsed === duration) {
-      pomodoroStop(pomodoroTimer);
+  start() {
+    this.status = "active";
+    localStorage.setItem("pomodoroStatus", this.status);
+    
+    pomodoroBtn.className = "stop";
+    pomodoroBtn.textContent = "stop";
+
+    this.intervalId = setInterval(this.update, 1000);
+  }
+
+  stop() {
+    clearInterval(this.intervalId);
+  }
+
+  reset() {
+    this.timeElapsed = 0;
+    this.status = "inactive"
+    localStorage.setItem("timeElapsed", this.timeElapsed);
+    localStorage.setItem("pomodoroStatus", this.status);
+
+    pomodoroRing.style.strokeDashoffset = this.ringLength;
+    pomodoroMins.textContent = "00";
+    pomodoroSecs.textContent = "00";
+    pomodoroBtn.className = "start";
+    pomodoroBtn.textContent = "start";
+  }
+
+  update() {
+    if (this.timeElapsed === this.duration) {
+      console.log(this.timeElapsed)
+      console.log(this.duration)
+      this.stop();
+      this.reset();
     } else {
-      pomodoroRing.style.strokeDashoffset -= progress;
-      timeElapsed++;
-      localStorage.setItem("timeElapsed", timeElapsed);
-      let mins = Math.floor(timeElapsed / 60);
-      let secs = timeElapsed % 60;
+      this.timeElapsed++;
+      localStorage.setItem("timeElapsed", this.timeElapsed);
 
-      if (mins < 10) {
-        mins = "0" + mins;
-      }
+      pomodoroRing.style.strokeDashoffset -= this.progress;
 
-      if (secs < 10) {
-        secs = "0" + secs;
-      }
-
+      let secs = this.getSecs();
+      let mins = this.getMins();
       pomodoroMins.textContent = mins;
       pomodoroSecs.textContent = secs;
     }
   }
 }
-
-// stop and reset pomodoro timer
-function pomodoroStop(timerId) {
-  pomodoroRing.style.strokeDashoffset = ringLength;
-  pomodoroMins.textContent = "00";
-  pomodoroSecs.textContent = "00";
-  clearInterval(timerId);
-  timeElapsed = 0;
-  localStorage.setItem("timeElapsed", timeElapsed);
-  localStorage.setItem("pomodoroStatus", "inactive");
-  pomodoroBtn.className = "start";
-  pomodoroBtn.textContent = "start";
-}
-
-// pomodoro timer interation
-pomodoroBtn.addEventListener("click", () => {
-  if (pomodoroBtn.className === "start") {
-    pomodoroStart();
-  } else {
-    pomodoroStop(pomodoroTimer);
-  }
-})

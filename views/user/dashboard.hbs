@@ -353,7 +353,7 @@
       </div>
 
       <!-- pomodoro timer -->
-      <div id="pomodoro-container">
+      <div id="pomodoro-container" class="active">
         <svg id="pomodoro" height="297" width="297">
           <circle
                   id="pomodoro--progress-ring"
@@ -381,8 +381,8 @@
       <!-- Spotify widget -->
       <div id="player-widget" class="yellow-bg">
         <div id="player-menu-bg" class="yellow-bg">
-          <div class="yellow-circle active"></div>
-          <div class="blue-circle"></div>
+          <div id="yellow-circle" class="active"></div>
+          <div id="blue-circle"></div>
         </div>
         <div id="player-widget__menu">
           <div id="player-menu__item1">creativity</div>
@@ -391,7 +391,7 @@
 
         <div id="player-widget__content" class="blue-bg">
           <img src="/images/temp-album-cover.png" alt="" width="50%">
-          <div>Song name</div>
+          <div>song name</div>
           <div>artist</div>
           <div id="player-icons">
             <i class="uil uil-shuffle"></i>
@@ -401,8 +401,8 @@
             <i class="uil uil-repeat"></i>
           </div>
         </div>
-
       </div>
+      
     </div>
   </section>
 </div>

@@ -9,11 +9,14 @@ const addTaskOptions = document.querySelector("#add-task-form .options");
 const addTaskForm = document.querySelector("#add-task-form");
 const toggleMenu = document.querySelector("#toggle-menu");
 const pageSwitchBtn = document.querySelector("#page-toggle input")
-const pomodoroContainer = document.querySelector("#pomodoro-container");
 const breathContainer = document.querySelector("#breath-container");
+const playerMenuItem1 = document.querySelector("#player-menu__item1");
+const playerMenuItem2 = document.querySelector("#player-menu__item2");
 const breathBubble = document.querySelector("#breath-bubble");
-let timeElapsed, pomodoroStatus, pageMode;
+let pageMode, timeElapsed, pomodoroStatus;
 let iterationCount = 0;
+
+const pomodoroTimer = new PomodoroTimer();
 
 // enlever window onload
 window.addEventListener("load", () => {
@@ -50,7 +53,7 @@ window.addEventListener("load", () => {
 
   if (pageMode === "focus") {
     pomodoroContainer.classList.toggle("active");
-    updatePomodoro(timeElapsed, pomodoroStatus);
+    pomodoroTimer.init(timeElapsed, pomodoroStatus);
     pageSwitchBtn.checked = false;
   } else {
     breathContainer.classList.toggle("active");
@@ -196,4 +199,37 @@ breathBubble.addEventListener("animationiteration", () => {
     breathContainer.querySelector("#breath-text").textContent = "breath out";
   }
   
+})
+
+const playerMenuBg = document.querySelector("#player-menu-bg");
+const playerWidget = document.querySelector("#player-widget");
+const blueCircle = document.querySelector("#blue-circle");
+const yellowCircle = document.querySelector("#yellow-circle");
+
+/*
+playerMenuItem1.addEventListener("click", () => {
+  playerMenuItem1.className = "active";
+  playerMenuItem2.className = "";
+  playerWidget.className = "blue-bg";
+  playerMenuBg.className = "blue-bg";
+  blueCircle.className = "active";
+})
+
+playerMenuItem2.addEventListener("click", () => {
+  playerMenuItem1.className = "";
+  playerMenuItem2.className = "active";
+  playerWidget.className = "yellow-bg";
+  playerMenuBg.className = "yellow-bg";
+  yellowCircle.className = "active";
+})
+*/
+
+// start and stop pomodoro timer
+pomodoroBtn.addEventListener("click", () => {
+  if (pomodoroBtn.className === "start") {
+    pomodoroTimer.start();
+  } else {
+    pomodoroTimer.stop();
+    pomodoroTimer.reset();
+  }
 })
