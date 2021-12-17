@@ -7,27 +7,30 @@
       <div class="card-3d-wrapper">
         <div class="card-front">
           <div class="center-wrap">
+            <h6 class="welcome-back">Hey ! Welcome back</h6>
             <div class="btn" id="oAuth-btn-g">
               <a href="#"><img src="https://d3ptyyxy2at9ui.cloudfront.net/google-32ae27.svg">with Google</a>
             </div>
-            <div class="btn" id="oAuth-btn-fb">
+            {{!-- <div class="btn" id="oAuth-btn-fb">
               <a href="#"><img src="https://d3ptyyxy2at9ui.cloudfront.net/facebook-fadd25.svg">with Facebook</a>
-            </div>
+            </div> --}}
             <p>Or</p>
             <form method="POST" action="/auth/login">
               <label>Email:</label>
               <input type="text" name="email" placeholder="Your email adress">
-              <!-- <div class="caption">Error</div> -->
 
               <label>Password:</label>
               <input type="password" name="password" placeholder="Your password">
-              <!-- <div class="caption">Error</div> -->
 
               <button class="btn" id="auth-btn" type="submit">Log in</button>
+
+              {{#if errorMessage}}
+                <p class="error">{{errorMessage}}</p>
+              {{/if}}
             </form>
-            <div class="forgot-pass">
+            {{!-- <div class="forgot-pass">
               <a href="#">Forgot your password?</a>
-            </div>          
+            </div>           --}}
           </div>
         </div>
         <div class="card-back">
@@ -35,22 +38,19 @@
                         <div class="btn" id="oAuth-btn-g">
               <a href=""><img src="https://d3ptyyxy2at9ui.cloudfront.net/google-32ae27.svg">with Google</a>
             </div>
-            <div class="btn" id="oAuth-btn-fb">
+            {{!-- <div class="btn" id="oAuth-btn-fb">
               <a href=""><img src="https://d3ptyyxy2at9ui.cloudfront.net/facebook-fadd25.svg">with Facebook</a>
-            </div>
+            </div> --}}
             <p>Or</p>
             <form method="POST" action="/auth/signup">
               <label>First name:</label>
               <input type="text" name="firstName" placeholder="Your first name">
-              <!-- <div class="caption">Error</div> -->
 
               <label>Email:</label>
               <input type="email" name="email" placeholder="Your email">
-              <!-- <div class="caption">Error</div> -->
 
               <label>Password:</label>
               <input type="password" name="password" placeholder="Your password">
-              <!-- <div class="caption">Error</div> -->
 
               <button class="btn" id="auth-btn" type="submit">Sign up</button>
             </form>

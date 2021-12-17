@@ -29,6 +29,7 @@
     <!-- goals container -->
     <div id="goals-section">
       <h2>Goals & projects</h2>
+      <a href='/user/dashboard'>Overview</a>
 
       <div class="collapsible-menu">
         <h3><i class="collapsible-btn uil uil-angle-down"></i>Work & study</h3>
@@ -37,7 +38,7 @@
           {{#each workGoals}}
           <div class="goal-container">
             <div class="goal" style="background: {{this.color}};">
-              <h4>{{this.title}}</h4>
+              <a href='/user/dashboard?goal_id={{_id}}'><h4>{{this.title}}</h4></a>
               <div class="edit-icons">
                 <i class="uil uil-pen"></i>
                 <i class="uil uil-trash-alt"></i>
@@ -78,7 +79,7 @@
           {{#each healthGoals}}
           <div class="goal-container">
             <div class="goal" style="background: {{this.color}};">
-              <h4>{{this.title}}</h4>
+              <a href='/user/dashboard?goal_id={{_id}}'><h4>{{this.title}}</h4></a>
               <div class="edit-icons">
                 <i class="uil uil-pen"></i>
                 <i class="uil uil-trash-alt"></i>
@@ -119,7 +120,7 @@
           {{#each socialGoals}}
           <div class="goal-container">
             <div class="goal" style="background: {{this.color}};">
-              <h4>{{this.title}}</h4>
+              <a href='/user/dashboard?goal_id={{_id}}'><h4>{{this.title}}</h4></a>
               <div class="edit-icons">
                 <i class="uil uil-pen"></i>
                 <i class="uil uil-trash-alt"></i>
@@ -160,7 +161,7 @@
           {{#each financeGoals}}
           <div class="goal-container">
             <div class="goal" style="background: {{this.color}};">
-              <h4>{{this.title}}</h4>
+              <a href='/user/dashboard?goal_id={{_id}}'><h4>{{this.title}}</h4></a>
               <div class="edit-icons">
                 <i class="uil uil-pen"></i>
                 <i class="uil uil-trash-alt"></i>
@@ -201,7 +202,7 @@
           {{#each otherGoals}}
           <div class="goal-container">
             <div class="goal" style="background: {{this.color}};">
-              <h4>{{this.title}}</h4>
+              <a href='/user/dashboard?goal_id={{_id}}'><h4>{{this.title}}</h4></a>
               <div class="edit-icons">
                 <i class="uil uil-pen"></i>
                 <i class="uil uil-trash-alt"></i>
