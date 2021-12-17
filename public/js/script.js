@@ -13,6 +13,7 @@ const breathContainer = document.querySelector("#breath-container");
 const playerMenuItem1 = document.querySelector("#player-menu__item1");
 const playerMenuItem2 = document.querySelector("#player-menu__item2");
 const breathBubble = document.querySelector("#breath-bubble");
+const toggleLinks = document.querySelector("#toggle-links");
 const pomodoroTimer = new PomodoroTimer();
 let pageMode, timeElapsed, pomodoroStatus;
 
@@ -24,10 +25,6 @@ function init() {
 
 // update data contained in the local storage
 function updateLocalStorage() {
-  localStorage.setItem("pomodoroStatus", "inactive");
-  localStorage.setItem("timeElapsed", 0);
-  localStorage.setItem("pageMode", "focus");
-
   // init localStorage if necessary
   if (!localStorage.getItem("pomodoroStatus")) {
     localStorage.setItem("pomodoroStatus", "inactive");
@@ -41,7 +38,7 @@ function updateLocalStorage() {
     localStorage.setItem("pageMode", "focus");
   } 
 
-  timeElapsed = localStorage.getItem("timeElapsed");
+  timeElapsed = Number(localStorage.getItem("timeElapsed"));
   pomodoroStatus = localStorage.getItem("pomodoroStatus");
   pageMode = localStorage.getItem("pageMode");
 }
@@ -61,7 +58,8 @@ function updatePageContent() {
   // display blocks depending on the page's mode
   if (pageMode === "focus") {
     pomodoroContainer.classList.toggle("active");
-    pomodoroTimer.init(timeElapsed, pomodoroStatus);
+    pomodoroTimer.init(timeElapsed, pomodoroStatus, printPomodoroTime);
+    printPomodoroTime();
     pageSwitchBtn.checked = false;
   } else {
     breathContainer.classList.toggle("active");
@@ -89,8 +87,15 @@ function switchGreetingMsg(hour) {
   }
 }
 
+// print seconds and minutes on the pomodoro timer
+function printPomodoroTime() {
+  let secs = pomodoroTimer.getSecs();
+  let mins = pomodoroTimer.getMins();
+  pomodoroMins.textContent = mins;
+  pomodoroSecs.textContent = secs;
+}
+
 // toggle the settings menu
-const toggleLinks = document.querySelector("#toggle-links");
 settingsBtn.addEventListener("click", () => {
   toggleLinks.classList.toggle('active');
 })
@@ -193,7 +198,8 @@ pageSwitchBtn.addEventListener("click", () => {
     
     pomodoroContainer.classList.toggle("active");
     breathContainer.classList.toggle("active");
-    pomodoroTimer.init(timeElapsed, pomodoroStatus);
+    pomodoroTimer.init(timeElapsed, pomodoroStatus, printPomodoroTime);
+    printPomodoroTime();
   }
 })
 
@@ -210,19 +216,14 @@ breathBubble.addEventListener("animationiteration", () => {
   
 })
 
-const playerMenuBg = document.querySelector("#player-menu-bg");
-const playerWidget = document.querySelector("#player-widget");
-const blueCircle = document.querySelector("#blue-circle");
-const yellowCircle = document.querySelector("#yellow-circle");
-
-
 // start and stop pomodoro timer
 pomodoroBtn.addEventListener("click", () => {
   if (pomodoroBtn.className === "start") {
-    pomodoroTimer.start();
+    pomodoroTimer.start(printPomodoroTime);
   } else {
     pomodoroTimer.stop();
     pomodoroTimer.reset();
+    printPomodoroTime();
   }
 })
 

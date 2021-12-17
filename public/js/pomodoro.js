@@ -35,7 +35,7 @@ class PomodoroTimer {
     return mins;
   }
 
-  init(timeElapsed, pomodoroStatus) {
+  init(timeElapsed, pomodoroStatus, callback) {
     this.timeElapsed = timeElapsed;
     this.status = pomodoroStatus;
     this.progress = this.ringLength / this.duration;
@@ -46,29 +46,35 @@ class PomodoroTimer {
     if (this.status === "inactive") {
       pomodoroBtn.classList.add("start");
       pomodoroBtn.textContent = "start";
-      pomodoroMins.textContent = "00";
-      pomodoroSecs.textContent = "00";
     } else {
       pomodoroBtn.classList.add("stop");
       pomodoroBtn.textContent = "stop";
-
-      let secs = this.getSecs();
-      let mins = this.getMins();
-      pomodoroMins.textContent = mins;
-      pomodoroSecs.textContent = secs;
-
-      this.start();
+      this.start(callback);
     }
   }
 
-  start() {
+  start(callback) {
     this.status = "active";
     localStorage.setItem("pomodoroStatus", this.status);
     
     pomodoroBtn.className = "stop";
     pomodoroBtn.textContent = "stop";
 
-    this.intervalId = setInterval(this.update, 1000);
+    this.intervalId = setInterval(() => {
+      if (this.timeElapsed === this.duration) {
+        this.stop();
+        this.reset();
+      } else {
+        this.timeElapsed++;
+        localStorage.setItem("timeElapsed", this.timeElapsed);
+
+        pomodoroRing.style.strokeDashoffset -= this.progress;
+      }
+
+      if (callback) {
+        callback();
+      }
+    }, 1000);
   }
 
   stop() {
@@ -82,28 +88,7 @@ class PomodoroTimer {
     localStorage.setItem("pomodoroStatus", this.status);
 
     pomodoroRing.style.strokeDashoffset = this.ringLength;
-    pomodoroMins.textContent = "00";
-    pomodoroSecs.textContent = "00";
     pomodoroBtn.className = "start";
     pomodoroBtn.textContent = "start";
-  }
-
-  update() {
-    if (this.timeElapsed === this.duration) {
-      console.log(this.timeElapsed)
-      console.log(this.duration)
-      this.stop();
-      this.reset();
-    } else {
-      this.timeElapsed++;
-      localStorage.setItem("timeElapsed", this.timeElapsed);
-
-      pomodoroRing.style.strokeDashoffset -= this.progress;
-
-      let secs = this.getSecs();
-      let mins = this.getMins();
-      pomodoroMins.textContent = mins;
-      pomodoroSecs.textContent = secs;
-    }
   }
 }
