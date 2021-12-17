@@ -197,3 +197,81 @@ breathBubble.addEventListener("animationiteration", () => {
   }
   
 })
+
+// Player widget
+const audioArray = document.querySelectorAll("audio");
+let index = 0;
+
+// play track
+document.querySelector(".uil-play").addEventListener("click",function () {
+  audioArray[index].play();
+  document.querySelector(".uil-play").classList.replace("active", "inactive");
+  document.querySelector(".uil-pause").classList.replace("inactive", "active");
+});
+
+// play the next tracks
+audioArray.forEach((audio) => {
+  audio.addEventListener('ended', (event) => {
+      // si bouton shuffle actif
+      if (document.querySelector(".uil-shuffle").classList.contains("active")) {
+        index = Math.trunc(Math.random() * audioArray.length);
+      }
+      // si bouton shuffle inactif
+      else {
+        // quand le dernier morceau est joué
+        if (index === audioArray.length - 1) {
+          // si bouton repeat actif
+          if (document.querySelector(".uil-repeat").classList.contains("active")) {
+            index = 0;
+          // si bouton repeat inactif
+          } else {
+            return
+          }
+        // sinon le morceau suivant est joué
+        } else {
+            index += 1; 
+        }
+      }
+      audioArray[index].play();
+  })
+})
+
+// pause
+document.querySelector(".uil-pause").addEventListener("click",function () {
+  audioArray[index].pause();
+  document.querySelector(".uil-pause").classList.replace("active", "inactive");
+  document.querySelector(".uil-play").classList.replace("inactive", "active");
+});
+
+// skip forward
+document.querySelector(".uil-skip-forward").addEventListener("click",function () {
+  audioArray[index].pause();
+  if(index === audioArray.length - 1) {
+    index = 0;
+  } else {
+    index += 1; 
+  }
+  audioArray[index].play();
+});
+
+// step backward
+document.querySelector(".uil-step-backward").addEventListener("click",function () {
+  audioArray[index].pause();
+  if(index === 0) {
+    index = audioArray.length - 1;
+  } else {
+    index -= 1; 
+  }
+  audioArray[index].play();
+});
+
+// shuffle
+document.querySelector(".uil-shuffle").addEventListener("click",function () {
+  document.querySelector(".uil-shuffle").classList.toggle("active");
+  index = Math.trunc(Math.random() * audioArray.length);
+});
+
+// repeat 
+document.querySelector(".uil-repeat").addEventListener("click",function () {
+  document.querySelector(".uil-repeat").classList.toggle("active");
+});

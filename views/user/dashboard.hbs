@@ -390,7 +390,7 @@
           <div id="player-menu__item2" class="active">problem solving</div>
         </div>
 
-        <div id="player-widget__content" class="blue-bg">
+        {{!-- <div id="player-widget__content" class="blue-bg">
           <img src="/images/temp-album-cover.png" alt="" width="50%">
           <div>Song name</div>
           <div>artist</div>
@@ -400,9 +400,38 @@
             <i class="uil uil-play"></i>
             <i class="uil uil-skip-forward"></i>
             <i class="uil uil-repeat"></i>
-          </div>
-        </div>
+          </div> --}}
 
+          <div id="player-widget__content" class="blue-bg">
+          <img src="{{album.images.[1].url}}" alt="" width="50%">
+          <div>{{tracks.[1].name}}</div>
+          <div>{{tracks.[0].artists.[0].name}}</div>
+          <div id="player-icons">
+            <i class="uil uil-shuffle"></i>
+            <i class="uil uil-step-backward"></i>
+            <i class="uil uil-play active"></i>
+            <i class="uil uil-pause inactive"></i>
+            <i class="uil uil-skip-forward"></i>
+            <i class="uil uil-repeat"></i>
+          </div>
+          
+          <article class="audio-tag">
+          {{#each tracks}}
+                <figure>
+                  <figcaption>
+                    <div>{{this.name}}</div>
+                    <div>{{this.artists.[0].name}}</div>
+                  </figcaption>
+                  <audio 
+                    controls
+                    src= {{this.preview_url}}>
+                        Your browser does not support the
+                        <code>audio</code> element.
+                  </audio>
+                </figure>          
+          {{/each}}  
+          </article>  
+        </div>
       </div>
     </div>
   </section>

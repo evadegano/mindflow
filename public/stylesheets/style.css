@@ -759,10 +759,26 @@ figure {
   margin-bottom: 10px;
 }
 
+.uil-play.active,
+.uil-pause.active {
+  font-size: 30px;
+}
+
+.uil-play.inactive,
+.uil-pause.inactive {
+  display: none;
+}
+
 .uil-step-backward,
-.uil-play,
 .uil-skip-forward {
   font-size: 30px;
+}
+
+.uil-shuffle.active,
+.uil-repeat.active {
+  border: solid 2px var(--white);
+  border-radius: 50%;
+  padding: 2px;
 }
 
 .uil-shuffle,
@@ -780,6 +796,10 @@ blockquote {
 
 .uil-shuffle {
   transform: rotate(45deg);
+}
+
+.audio-tag {
+  display: none;
 }
 
 #toggle-menu {

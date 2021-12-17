@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
 const axios = require("axios");
+const SpotifyWebApi = require('spotify-web-api-node');
 
 // Handles password encryption
 const bcrypt = require("bcrypt");
@@ -18,9 +19,6 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 // GET /dashboard
 router.get("/dashboard", (req, res, next) => {
   if (!req.session.user) return res.redirect('auth/login')
-
-  // http://localhost:3000/user/dashboard?goal_id=61b1fcf6d094e9c73114f827
-  console.log('req.query ===', req.query) // req.query === { goal_id: '61b1fcf6d094e9c73114f827' }
 
   // capitalize first letter of user's first name
   req.session.user.firstName = req.session.user.firstName[0].toUpperCase() + req.session.user.firstName.substring(1);
@@ -48,10 +46,20 @@ router.get("/dashboard", (req, res, next) => {
   }
   const p4 = Task.find(overdueTasksFilters);
 
-  Promise.all([p1, p2, p3, p4])
+  // get an "album" object with the Spotify API for the player widget
+  const p5 = spotifyApi.getAlbum('6R6bACQZnFdlllNwSB2gfo')
+
+  // get the tracks from the album with the Spotify API for the player widget  
+  const p6 = spotifyApi.getAlbumTracks('6R6bACQZnFdlllNwSB2gfo');
+
+  Promise.all([p1, p2, p3, p4, p5, p6])
     .then(function(values) {
       //console.log('values=', values)
-      const [response, goalsFromDb, tasksFromDb, overdueTasksFromDb] = values;
+      const [response, goalsFromDb, tasksFromDb, overdueTasksFromDb, albumData, tracksData] = values;
+      
+      console.log('Album information', albumData.body);
+      // console.log('Tracks information',tracksData.body);
+      // console.log('Tracks url',tracksData.body.items);
 
       function getGoal(goalid) {
         return goalsFromDb.find(el => el.id === goalid)
@@ -103,7 +111,9 @@ router.get("/dashboard", (req, res, next) => {
         otherGoals: otherGoals,
         allGoals: goalsFromDb,
         todayTasks: tasksFromDb,
-        overdueTasks: overdueTasksFromDb
+        overdueTasks: overdueTasksFromDb,
+        album: albumData.body,
+        tracks: tracksData.body.items
       })
     })
     .catch(err => {
@@ -246,5 +256,25 @@ router.post("/profile", isLoggedIn, (req, res, next) => {
     res.redirect('/user/profile');
   })
 })
+
+// Playlists Spotify
+
+// Spotify API Setup
+
+const spotifyApi = new SpotifyWebApi({
+  clientId: process.env.CLIENT_ID,
+  clientSecret: process.env.CLIENT_SECRET
+});
+
+// // Retrieve an access token
+spotifyApi
+  .clientCredentialsGrant()
+  .then(data => spotifyApi.setAccessToken(data.body['access_token']))
+  .catch(error => console.log('Something went wrong when retrieving an access token', error));
+
+
+// // Healing hertz album = 6R6bACQZnFdlllNwSB2gfo
+
+
 
 module.exports = router;
