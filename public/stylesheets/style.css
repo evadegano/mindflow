@@ -487,14 +487,6 @@ font-size: 150%;
   flex-direction: column;
 }
 
-#bottom-screen {
-  min-height: 100vh;
-  max-height: 100vh;
-  margin-top: 40px;
-  display: flex;
-  justify-content: center;
-}
-
 #page-toggle {
   display: flex;
   justify-content: center;
@@ -555,12 +547,13 @@ figure {
 
 /* widget section */
 #widget-section {
+  max-height: 100%;
   width: 30%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  row-gap: 20px;
-  justify-content: center;
+  row-gap: 10px;
+  justify-content: space-between;
   margin-right: 20px;
 }
 
