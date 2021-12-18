@@ -664,26 +664,19 @@ figure {
   box-shadow: var(--blue-shadow);
 }
 
-#yellow-circle,
-#blue-circle {
+#player-circle {
   border-radius: var(--xlarge-radius);
   height: 40px;
   width: 40px;
-  display: none;
 }
 
-#yellow-circle.active,
-#blue-circle.active {
-  display: block;
-}
-
-#yellow-circle {
+#player-circle.yellow {
   background: var(--light-yellow);
   box-shadow: 40px 40px 0 23px var(--main-blue);
   transform: translateX(-50%);
 }
 
-#blue-circle {
+#player-circle.blue {
   background: var(--main-blue);
   box-shadow: -40px 40px 0 23px var(--light-yellow);
   transform: translateX(50%);
@@ -753,8 +746,15 @@ figure {
   padding: 20px;
   border-bottom-left-radius: var(--large-radius);
   border-bottom-right-radius: var(--large-radius);
-  border-top-left-radius: var(--mid-radius);
   z-index: 1;
+}
+
+#problem-solving-playlist {
+  border-top-left-radius: var(--mid-radius);
+}
+
+#creativity-playlist {
+  border-top-right-radius: var(--mid-radius);
 }
 
 .player-widget__content img {

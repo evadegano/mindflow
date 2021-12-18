@@ -10,6 +10,9 @@ const addTaskForm = document.querySelector("#add-task-form");
 const toggleMenu = document.querySelector("#toggle-menu");
 const pageSwitchBtn = document.querySelector("#page-toggle input")
 const breathContainer = document.querySelector("#breath-container");
+const playerWidget = document.querySelector("#player-widget");
+const playerMenuBg = document.querySelector("#player-menu-bg");
+const playerCircle = document.querySelector("#player-circle");
 const playerMenuItem1 = document.querySelector("#player-menu__item1");
 const playerMenuItem2 = document.querySelector("#player-menu__item2");
 const breathBubble = document.querySelector("#breath-bubble");
@@ -41,7 +44,7 @@ function updateLocalStorage() {
   } 
 
   if (!localStorage.getItem("currentPlaylist")) {
-    localStorage.setItem("currentPlaylist", "problemSolving")
+    localStorage.setItem("currentPlaylist", "problemSolving");
   }
 
   timeElapsed = Number(localStorage.getItem("timeElapsed"));
@@ -73,10 +76,18 @@ function updatePageContent() {
     pageSwitchBtn.checked = true;
   }
 
-  // display a playlist
+  // update the music player
   if (currentPlaylist === "problemSolving") {
+    playerWidget.className = "yellow-bg";
+    playerMenuBg.className = "yellow-bg";
+    playerCircle.className = "yellow";
+    playerMenuItem2.className = "active";
     problemSolvingPlaylist.classList.toggle("active");
   } else {
+    playerWidget.className = "blue-bg";
+    playerMenuBg.className = "blue-bg";
+    playerCircle.className = "blue";
+    playerMenuItem1.className = "active";
     creativityPlaylist.classList.toggle("active");
   }
 }
@@ -231,15 +242,27 @@ breathBubble.addEventListener("animationiteration", () => {
   
 })
 
-//
+// switch player's tabs
 playerMenuItem1.addEventListener("click", () => {
+  playerWidget.className = "blue-bg";
+  playerMenuBg.className = "blue-bg";
+  playerCircle.className = "blue";
+  playerMenuItem1.className = "active";
+  playerMenuItem2.classList.remove("active");
   problemSolvingPlaylist.className = "player-widget__content blue-bg";
   creativityPlaylist.className = "player-widget__content yellow-bg active";
+  localStorage.setItem("currentPlaylist", "creativity");
 })
 
 playerMenuItem2.addEventListener("click", () => {
+  playerWidget.className = "yellow-bg";
+  playerMenuBg.className = "yellow-bg";
+  playerCircle.className = "yellow";
+  playerMenuItem1.classList.remove("active");
+  playerMenuItem2.className = "active";
   problemSolvingPlaylist.className = "player-widget__content blue-bg active";
   creativityPlaylist.className = "player-widget__content yellow-bg";
+  localStorage.setItem("currentPlaylist", "problemSolving");
 })
 
 // Player widget
