@@ -14,6 +14,8 @@ const playerMenuItem1 = document.querySelector("#player-menu__item1");
 const playerMenuItem2 = document.querySelector("#player-menu__item2");
 const breathBubble = document.querySelector("#breath-bubble");
 const toggleLinks = document.querySelector("#toggle-links");
+const problemSolvingPlaylist = document.querySelector("#problem-solving-playlist");
+const creativityPlaylist = document.querySelector("#creativity-playlist");
 const pomodoroTimer = new PomodoroTimer();
 let pageMode, timeElapsed, pomodoroStatus;
 
@@ -38,9 +40,14 @@ function updateLocalStorage() {
     localStorage.setItem("pageMode", "focus");
   } 
 
+  if (!localStorage.getItem("currentPlaylist")) {
+    localStorage.setItem("currentPlaylist", "problemSolving")
+  }
+
   timeElapsed = Number(localStorage.getItem("timeElapsed"));
   pomodoroStatus = localStorage.getItem("pomodoroStatus");
   pageMode = localStorage.getItem("pageMode");
+  currentPlaylist = localStorage.getItem("currentPlaylist");
 }
 
 // update text content on page's DOM elements
@@ -64,6 +71,13 @@ function updatePageContent() {
   } else {
     breathContainer.classList.toggle("active");
     pageSwitchBtn.checked = true;
+  }
+
+  // display a playlist
+  if (currentPlaylist === "problemSolving") {
+    problemSolvingPlaylist.classList.toggle("active");
+  } else {
+    creativityPlaylist.classList.toggle("active");
   }
 }
 
@@ -184,6 +198,7 @@ document.addEventListener("click", event => {
   })  
 })
 
+// switch page mode on click
 pageSwitchBtn.addEventListener("click", () => {
   if (pageMode === "focus") {
     pageMode = "relax";
@@ -214,6 +229,17 @@ breathBubble.addEventListener("animationiteration", () => {
     breathContainer.querySelector("#breath-text").textContent = "breath out";
   }
   
+})
+
+//
+playerMenuItem1.addEventListener("click", () => {
+  problemSolvingPlaylist.className = "player-widget__content blue-bg";
+  creativityPlaylist.className = "player-widget__content yellow-bg active";
+})
+
+playerMenuItem2.addEventListener("click", () => {
+  problemSolvingPlaylist.className = "player-widget__content blue-bg active";
+  creativityPlaylist.className = "player-widget__content yellow-bg";
 })
 
 // Player widget
