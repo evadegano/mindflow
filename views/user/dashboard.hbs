@@ -29,7 +29,7 @@
     <!-- goals container -->
     <div id="goals-section">
       <h2>Goals & projects</h2>
-      <a href='/user/dashboard'>Overview</a>
+      <h3><a href='/user/dashboard'><i class="uil uil-calendar-alt"></i> Today's tasks</a></h3>
 
       <div class="collapsible-menu">
         <h3><i class="collapsible-btn uil uil-angle-down"></i>Work & study</h3>
@@ -380,29 +380,47 @@
       </div>
 
       <!-- Spotify widget -->
-      <div id="player-widget" class="yellow-bg">
-        <div id="player-menu-bg" class="yellow-bg">
-          <div id="yellow-circle" class="active"></div>
-          <div id="blue-circle"></div>
+      <div id="player-widget">
+        <div id="player-menu-bg">
+          <div id="player-circle"></div>
         </div>
         <div id="player-widget__menu">
           <div id="player-menu__item1">creativity</div>
-          <div id="player-menu__item2" class="active">problem solving</div>
+          <div id="player-menu__item2">problem solving</div>
         </div>
 
-        {{!-- <div id="player-widget__content" class="blue-bg">
-          <img src="/images/temp-album-cover.png" alt="" width="50%">
-          <div>song name</div>
-          <div>artist</div>
+        <div id="problem-solving-playlist" class="player-widget__content blue-bg">
+          <img src="{{album.images.[1].url}}" alt="" width="50%">
+          <div>{{tracks.[1].name}}</div>
+          <div>{{tracks.[0].artists.[0].name}}</div>
           <div id="player-icons">
             <i class="uil uil-shuffle"></i>
             <i class="uil uil-step-backward"></i>
-            <i class="uil uil-play"></i>
+            <i class="uil uil-play active"></i>
+            <i class="uil uil-pause inactive"></i>
             <i class="uil uil-skip-forward"></i>
             <i class="uil uil-repeat"></i>
-          </div> --}}
+          </div>
+          
+          <article class="audio-tag">
+          {{#each tracks}}
+                <figure>
+                  <figcaption>
+                    <div>{{this.name}}</div>
+                    <div>{{this.artists.[0].name}}</div>
+                  </figcaption>
+                  <audio 
+                    controls
+                    src= {{this.preview_url}}>
+                        Your browser does not support the
+                        <code>audio</code> element.
+                  </audio>
+                </figure>          
+          {{/each}}  
+          </article>  
+        </div>
 
-          <div id="player-widget__content" class="blue-bg">
+        <div id="creativity-playlist" class="player-widget__content yellow-bg">
           <img src="{{album.images.[1].url}}" alt="" width="50%">
           <div>{{tracks.[1].name}}</div>
           <div>{{tracks.[0].artists.[0].name}}</div>

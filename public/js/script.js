@@ -10,10 +10,15 @@ const addTaskForm = document.querySelector("#add-task-form");
 const toggleMenu = document.querySelector("#toggle-menu");
 const pageSwitchBtn = document.querySelector("#page-toggle input")
 const breathContainer = document.querySelector("#breath-container");
+const playerWidget = document.querySelector("#player-widget");
+const playerMenuBg = document.querySelector("#player-menu-bg");
+const playerCircle = document.querySelector("#player-circle");
 const playerMenuItem1 = document.querySelector("#player-menu__item1");
 const playerMenuItem2 = document.querySelector("#player-menu__item2");
 const breathBubble = document.querySelector("#breath-bubble");
 const toggleLinks = document.querySelector("#toggle-links");
+const problemSolvingPlaylist = document.querySelector("#problem-solving-playlist");
+const creativityPlaylist = document.querySelector("#creativity-playlist");
 const pomodoroTimer = new PomodoroTimer();
 let pageMode, timeElapsed, pomodoroStatus;
 
@@ -38,9 +43,14 @@ function updateLocalStorage() {
     localStorage.setItem("pageMode", "focus");
   } 
 
+  if (!localStorage.getItem("currentPlaylist")) {
+    localStorage.setItem("currentPlaylist", "problemSolving");
+  }
+
   timeElapsed = Number(localStorage.getItem("timeElapsed"));
   pomodoroStatus = localStorage.getItem("pomodoroStatus");
   pageMode = localStorage.getItem("pageMode");
+  currentPlaylist = localStorage.getItem("currentPlaylist");
 }
 
 // update text content on page's DOM elements
@@ -64,6 +74,21 @@ function updatePageContent() {
   } else {
     breathContainer.classList.toggle("active");
     pageSwitchBtn.checked = true;
+  }
+
+  // update the music player
+  if (currentPlaylist === "problemSolving") {
+    playerWidget.className = "yellow-bg";
+    playerMenuBg.className = "yellow-bg";
+    playerCircle.className = "yellow";
+    playerMenuItem2.className = "active";
+    problemSolvingPlaylist.classList.toggle("active");
+  } else {
+    playerWidget.className = "blue-bg";
+    playerMenuBg.className = "blue-bg";
+    playerCircle.className = "blue";
+    playerMenuItem1.className = "active";
+    creativityPlaylist.classList.toggle("active");
   }
 }
 
@@ -184,6 +209,7 @@ document.addEventListener("click", event => {
   })  
 })
 
+// switch page mode on click
 pageSwitchBtn.addEventListener("click", () => {
   if (pageMode === "focus") {
     pageMode = "relax";
@@ -214,6 +240,29 @@ breathBubble.addEventListener("animationiteration", () => {
     breathContainer.querySelector("#breath-text").textContent = "breath out";
   }
   
+})
+
+// switch player's tabs
+playerMenuItem1.addEventListener("click", () => {
+  playerWidget.className = "blue-bg";
+  playerMenuBg.className = "blue-bg";
+  playerCircle.className = "blue";
+  playerMenuItem1.className = "active";
+  playerMenuItem2.classList.remove("active");
+  problemSolvingPlaylist.className = "player-widget__content blue-bg";
+  creativityPlaylist.className = "player-widget__content yellow-bg active";
+  localStorage.setItem("currentPlaylist", "creativity");
+})
+
+playerMenuItem2.addEventListener("click", () => {
+  playerWidget.className = "yellow-bg";
+  playerMenuBg.className = "yellow-bg";
+  playerCircle.className = "yellow";
+  playerMenuItem1.classList.remove("active");
+  playerMenuItem2.className = "active";
+  problemSolvingPlaylist.className = "player-widget__content blue-bg active";
+  creativityPlaylist.className = "player-widget__content yellow-bg";
+  localStorage.setItem("currentPlaylist", "problemSolving");
 })
 
 // Player widget
