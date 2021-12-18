@@ -389,10 +389,18 @@
           <div id="player-menu__item2">problem solving</div>
         </div>
 
+
+
+
+
+
+
+
+
         <div id="problem-solving-playlist" class="player-widget__content blue-bg">
-          <img src="{{album.images.[1].url}}" alt="" width="45%">
-          <div>{{tracks.[1].name}}</div>
-          <div>{{tracks.[0].artists.[0].name}}</div>
+          <img src="{{gammaPlaylist.images.[0].url}}" alt="" width="40%">
+          <div>{{gammaTracks.[8].track.name}}</div>
+          <div>{{gammaTracks.[8].track.artists.[0].name}}</div>
           <div id="player-icons">
             <i class="uil uil-shuffle"></i>
             <i class="uil uil-step-backward"></i>
@@ -403,15 +411,15 @@
           </div>
           
           <article class="audio-tag">
-          {{#each tracks}}
+          {{#each gammaTracks}}
                 <figure>
                   <figcaption>
-                    <div>{{this.name}}</div>
-                    <div>{{this.artists.[0].name}}</div>
+                    <div>{{this.track.name}}</div>
+                    <div>{{this.track.artists.[0].name}}</div>
                   </figcaption>
                   <audio 
                     controls
-                    src="{{this.preview_url}}">
+                    src= {{this.track.preview_url}}>
                         Your browser does not support the
                         <code>audio</code> element.
                   </audio>
@@ -420,10 +428,16 @@
           </article>  
         </div>
 
+
+
+
+
+
+
         <div id="creativity-playlist" class="player-widget__content yellow-bg">
-          <img src="{{album.images.[1].url}}" alt="" width="45%">
-          <div>{{tracks.[1].name}}</div>
-          <div>{{tracks.[0].artists.[0].name}}</div>
+          <img src="{{alphaPlaylist.images.[0].url}}" alt="" width="40%">
+          <div>{{alphaTracks.[1].track.name}}</div>
+          <div>{{alphaTracks.[1].track.artists.[0].name}}</div>
           <div id="player-icons">
             <i class="uil uil-shuffle"></i>
             <i class="uil uil-step-backward"></i>
@@ -434,15 +448,15 @@
           </div>
           
           <article class="audio-tag">
-          {{#each tracks}}
+          {{#each alphaTracks}}
                 <figure>
                   <figcaption>
-                    <div>{{this.name}}</div>
-                    <div>{{this.artists.[0].name}}</div>
+                    <div>{{this.track.name}}</div>
+                    <div>{{this.track.artists.[0].name}}</div>
                   </figcaption>
                   <audio 
                     controls
-                    src="{{this.preview_url}}">
+                    src= {{this.track.preview_url}}>
                         Your browser does not support the
                         <code>audio</code> element.
                   </audio>

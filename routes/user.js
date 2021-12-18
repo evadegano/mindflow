@@ -46,18 +46,19 @@ router.get("/dashboard", (req, res, next) => {
   }
   const p4 = Task.find(overdueTasksFilters);
 
-  // get an "album" object with the Spotify API for the player widget
-  const p5 = spotifyApi.getAlbum('6R6bACQZnFdlllNwSB2gfo')
+  // get an "playlist" object with the Spotify API for the player widget : section problem solving
+  const p5 = spotifyApi.getPlaylist('0zZHRFhDOuWJFKaD1W9Bto') // gamma brain waves
 
-  // get the tracks from the album with the Spotify API for the player widget  
-  const p6 = spotifyApi.getAlbumTracks('6R6bACQZnFdlllNwSB2gfo');
+  // get an "playlist" object with the Spotify API for the player widget : section creativity
+  const p6 = spotifyApi.getPlaylist('5XBZaWeBRk5QBL5BdI3D2A'); // alpha brain waves
 
   Promise.all([p1, p2, p3, p4, p5, p6])
     .then(function(values) {
       //console.log('values=', values)
-      const [response, goalsFromDb, tasksFromDb, overdueTasksFromDb, albumData, tracksData] = values;
+      const [response, goalsFromDb, tasksFromDb, overdueTasksFromDb, gammaPlaylistData, alphaPlaylistData] = values;
       
-      console.log('Album information', albumData.body);
+      console.log('Playlist information', gammaPlaylistData.body);
+      console.log('Tracks url',gammaPlaylistData.body.tracks.items);
       // console.log('Tracks information',tracksData.body);
       // console.log('Tracks url',tracksData.body.items);
 
@@ -112,8 +113,10 @@ router.get("/dashboard", (req, res, next) => {
         allGoals: goalsFromDb,
         todayTasks: tasksFromDb,
         overdueTasks: overdueTasksFromDb,
-        album: albumData.body,
-        tracks: tracksData.body.items
+        gammaPlaylist: gammaPlaylistData.body,
+        gammaTracks: gammaPlaylistData.body.tracks.items,
+        alphaPlaylist: alphaPlaylistData.body,
+        alphaTracks: alphaPlaylistData.body.tracks.items,
       })
     })
     .catch(err => {
@@ -271,10 +274,5 @@ spotifyApi
   .clientCredentialsGrant()
   .then(data => spotifyApi.setAccessToken(data.body['access_token']))
   .catch(error => console.log('Something went wrong when retrieving an access token', error));
-
-
-// // Healing hertz album = 6R6bACQZnFdlllNwSB2gfo
-
-
 
 module.exports = router;
