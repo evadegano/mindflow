@@ -25,9 +25,9 @@
   </nav>
 
   <!-- main screen -->
-  <section id="dashboard-container">
+  <div id="dashboard-container">
     <!-- goals container -->
-    <div id="goals-section">
+    <section id="goals-section">
       <h2>Goals & projects</h2>
       <h3><a href='/user/dashboard'><i class="uil uil-calendar-alt"></i> Today's tasks</a></h3>
 
@@ -235,10 +235,10 @@
           </form>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- tasks container -->
-    <div id="tasks-section">
+    <section id="tasks-section">
       <h2>Today</h2>
       <h4 id="date-today"></h4>
       {{#each todayTasks}}
@@ -339,10 +339,10 @@
         {{/each}}
       {{else}}
       {{/if}}
-    </div>
+    </section>
 
     <!-- widget section -->
-    <div id="widget-section">
+    <section id="widget-section">
       <!-- page toggle -->
       <div id="page-toggle">
         <div>focus</div>
@@ -355,7 +355,7 @@
 
       <!-- pomodoro timer -->
       <div id="pomodoro-container">
-        <svg id="pomodoro" height="297" width="297">
+        <svg id="pomodoro" height="240" width="240">
           <circle
                   id="pomodoro--progress-ring"
                   stroke-width="40"
@@ -466,7 +466,7 @@
         </div>
       </div>
       
-    </div>
-  </section>
+    </section>
+  </div>
 </div>
 </main>
