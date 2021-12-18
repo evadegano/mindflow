@@ -274,8 +274,5 @@ spotifyApi
   .clientCredentialsGrant()
   .then(data => spotifyApi.setAccessToken(data.body['access_token']))
   .catch(error => console.log('Something went wrong when retrieving an access token', error));
-// // Healing hertz album = 6R6bACQZnFdlllNwSB2gfo
-
-
 
 module.exports = router;

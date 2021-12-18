@@ -342,6 +342,7 @@ document.querySelector(".uil-shuffle").addEventListener("click",function () {
 document.querySelector(".uil-repeat").addEventListener("click",function () {
   document.querySelector(".uil-repeat").classList.toggle("active");
 });
+
 // start and stop pomodoro timer
 pomodoroBtn.addEventListener("click", () => {
   if (pomodoroBtn.className === "start") {
