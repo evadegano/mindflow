@@ -225,6 +225,9 @@ router.post("/tasks/:id/delete", isLoggedIn, (req, res, next) => {
 
 // GET /profile
 router.get("/profile", isLoggedIn, (req, res, next) => {
+  // capitalize first letter of user's first name
+  req.session.user.firstName = req.session.user.firstName[0].toUpperCase() + req.session.user.firstName.substring(1);
+  
   res.render("user/profile", {
     currentUser: req.session.user
   });
