@@ -561,25 +561,142 @@ figure {
   margin-right: 20px;
 }
 
-#pomodoro-container.active {
-  display: block;
+/* card flip effect */
+.card-outer-wrapper {
+  position: relative;
+  width: 240px;
+  max-width: 100%;
+  height: 240px;
+  border-radius: 50%;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  perspective: 800px;
+  margin-top: 20px;
 }
+
+.card-inner-wrapper {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position:absolute;    
+  top: 0;
+  left: 0;  
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  transition: all 600ms ease-out;
+}
+
+.card-inner-wrapper .card-front, 
+.card-inner-wrapper .card-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+  box-shadow: var(--blue-shadow);
+  transform-origin:center top;
+}
+
+.card-inner-wrapper .center-wrapper {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--white);
+}
+
+#widget-section {
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 10px;
+  justify-content: space-between;
+  margin-right: 20px;
+}
+
+#page-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  border-radius: 34px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--main-blue);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  border-radius: var(--xlarge-radius);
+  background: var(--white);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.switch input:checked + .slider {
+  background: var(--mid-blue);
+}
+
+.switch input:focus + .slider {
+  box-shadow: var(--blue-shadow);
+}
+
+.switch input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.card-inner-wrapper.rotate {
+  transform: rotateY(180deg);
+}
+
+/* pomodoro timer */
 
 #pomodoro-container {
   position: relative;
-  display: none;
-}
-
-
-#breath-container.active {
-  display: flex;
 }
 
 #breath-container,
 #pomodoro {
-  box-shadow: var(--blue-shadow);
   border-radius: var(--xlarge-radius);
-  color: var(--mid-blue);
 }
 
 #pomodoro--content * {
@@ -594,7 +711,6 @@ figure {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
 }
 
 #pomodoro--progress-ring {
@@ -606,7 +722,7 @@ figure {
 
 /* beath bubble */
 #breath-container {
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
@@ -623,7 +739,10 @@ figure {
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: breath 5s ease-in-out 0s infinite alternate;
+}
+
+#breath-bubble.animated {
+  animation: breath 5s ease-in-out 0.5s infinite alternate;
 }
 
 @keyframes breath {
@@ -859,59 +978,6 @@ blockquote {
 .uil-setting:hover {
   transform: rotate(90deg);
   
-}
-
-/* mode switch */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-.switch input { 
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  border-radius: 34px;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: var(--main-blue);
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  border-radius: var(--xlarge-radius);
-  background: var(--white);
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.switch input:checked + .slider {
-  background: var(--mid-blue);
-}
-
-.switch input:focus + .slider {
-  box-shadow: var(--blue-shadow);
-}
-
-.switch input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
 }
 
 /* goal and tasks forms */

@@ -8,7 +8,8 @@ const addTaskInput = document.querySelector("#add-task-form .add-input");
 const addTaskOptions = document.querySelector("#add-task-form .options");
 const addTaskForm = document.querySelector("#add-task-form");
 const toggleMenu = document.querySelector("#toggle-menu");
-const pageSwitchBtn = document.querySelector("#page-toggle input")
+const pageSwitchBtn = document.querySelector("#page-toggle input");
+const cardWrapper = document.querySelector(".card-inner-wrapper");
 const breathContainer = document.querySelector("#breath-container");
 const playerWidget = document.querySelector("#player-widget");
 const playerMenuBg = document.querySelector("#player-menu-bg");
@@ -67,12 +68,12 @@ function updatePageContent() {
 
   // display blocks depending on the page's mode
   if (pageMode === "focus") {
-    pomodoroContainer.classList.toggle("active");
     pomodoroTimer.init(timeElapsed, pomodoroStatus, printPomodoroTime);
     printPomodoroTime();
     pageSwitchBtn.checked = false;
   } else {
-    breathContainer.classList.toggle("active");
+    cardWrapper.classList.add("rotate");
+    breathBubble.classList.add("animated");
     pageSwitchBtn.checked = true;
   }
 
@@ -215,15 +216,15 @@ pageSwitchBtn.addEventListener("click", () => {
     pageMode = "relax";
     localStorage.setItem("pageMode", pageMode);
     
-    pomodoroContainer.classList.toggle("active");
-    breathContainer.classList.toggle("active");
+    cardWrapper.classList.add("rotate");
+    breathBubble.classList.add("animated");
     breathContainer.querySelector("#breath-text").textContent = "breath in";
   } else {
     pageMode = "focus";
     localStorage.setItem("pageMode", pageMode);
     
-    pomodoroContainer.classList.toggle("active");
-    breathContainer.classList.toggle("active");
+    cardWrapper.classList.remove("rotate");
+    breathBubble.classList.remove("animated");
     pomodoroTimer.init(timeElapsed, pomodoroStatus, printPomodoroTime);
     printPomodoroTime();
   }

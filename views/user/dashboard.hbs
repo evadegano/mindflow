@@ -343,7 +343,7 @@
 
     <!-- widget section -->
     <section id="widget-section">
-      <!-- page toggle -->
+      <!-- page switch -->
       <div id="page-toggle">
         <div>focus</div>
         <label class="switch">
@@ -352,31 +352,44 @@
         </label>
         <div>relax</div>
       </div>
+  
 
-      <!-- pomodoro timer -->
-      <div id="pomodoro-container">
-        <svg id="pomodoro" height="240" width="240">
-          <circle
-                  id="pomodoro--progress-ring"
-                  stroke-width="40"
-                  fill="transparent"
-                  r="50%"
-                  cx="50%"
-                  cy="50%"
-                  />
-        </svg>
-        <div id="pomodoro--content">
-          <div><span id="pomodoro--mins"></span>:<span id="pomodoro--secs"></span></div>
-          <div>
-            <button id="pomodoro--btn">Start</button>
+      <div class="card-outer-wrapper">
+        <div class="card-inner-wrapper">
+          <!-- front of card -->
+          <div class="card-front">
+            <div class="center-wrapper">
+              <div id="pomodoro-container">
+                <svg id="pomodoro" height="240" width="240">
+                  <circle
+                          id="pomodoro--progress-ring"
+                          stroke-width="40"
+                          fill="transparent"
+                          r="50%"
+                          cx="50%"
+                          cy="50%"
+                          />
+                </svg>
+                <div id="pomodoro--content">
+                  <div><span id="pomodoro--mins"></span>:<span id="pomodoro--secs"></span></div>
+                  <div>
+                    <button id="pomodoro--btn">Start</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- back of card -->
+          <div class="card-back">
+            <div class="center-wrapper">
+              <div id="breath-container">
+                <div id="breath-bubble"></div>
+                <div id="breath-text">breath in</div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-
-      <!-- breathing bubble -->
-      <div id="breath-container">
-        <div id="breath-bubble"></div>
-        <div id="breath-text">breath in</div>
       </div>
 
       <!-- Spotify widget -->
@@ -398,7 +411,7 @@
 
 
         <div id="problem-solving-playlist" class="player-widget__content blue-bg">
-          <img src="{{gammaPlaylist.images.[0].url}}" alt="" width="45%">
+          <img src="{{gammaPlaylist.images.[0].url}}" alt="" width="40%">
           <div>{{gammaTracks.[8].track.name}}</div>
           <div>{{gammaTracks.[8].track.artists.[0].name}}</div>
           <div id="player-icons">
@@ -435,7 +448,7 @@
 
 
         <div id="creativity-playlist" class="player-widget__content yellow-bg">
-          <img src="{{alphaPlaylist.images.[0].url}}" alt="" width="45%">
+          <img src="{{alphaPlaylist.images.[0].url}}" alt="" width="40%">
           <div>{{alphaTracks.[1].track.name}}</div>
           <div>{{alphaTracks.[1].track.artists.[0].name}}</div>
           <div id="player-icons">
