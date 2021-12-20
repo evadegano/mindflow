@@ -125,6 +125,11 @@ button {
 /* 
     HOMEPAGE
 */
+#homepage h1,
+#homepage h2 {
+  font-family: var(--title-font);
+}
+
 #homepage h1 {
   margin-bottom: 0;
   font-size: 50px;
@@ -143,6 +148,11 @@ button {
   color: var(--white);
 }
 
+#logo {
+  font-family: var(--title-font);
+  font-size: 30px;
+  color: var(--main-blue);
+}
 
 /* illustrations */
 #superhero-img,
@@ -220,14 +230,14 @@ button {
     AUTH PAGES 
 */
 .auth-section {
-  background: linear-gradient(var(--main-blue), var(--white));
+  background: var(--blue-grey);
   height: 100vh;
   display: flex;
   margin-top: 0;
 }
 
 .auth-container {
-  width: 40vh;
+  width: 400px;
   margin : auto;
   display: flex;
   flex-direction: column;
@@ -235,39 +245,34 @@ button {
 
 .auth-container h2 {
 text-align: center;  
-color: var(--white);
-font-size: 150%;
+color: var(--dark);
+font-size: 16px;
 }
 
 .auth-container span {
   padding: 0 20px;
 }
 
-#oAuth-btn-g {
+.oAuth-btn-g {
   margin: 10px 0;
-  padding: 6px;
-  border-radius: 8px;
-  border: solid 1px black;
+  padding: 8px;
+  border-radius: var(--small-radius);
+  border: solid 1px var(--light-grey);
+}
+
+.oAuth-btn-g a {
+  color: var(--dark);
+  font-size: 14px;
   display: flex;
   justify-content: center;
-}
-
-#oAuth-btn-g img {
-  margin: 0 10px;
-  width: 14px; 
-  height: 14px; 
-}
-
-#oAuth-btn-g a {
-  color: black;
-  font-size: 75%;
-  vertical-align: center;
+  align-items: center;
+  column-gap: 10px;
 }
 
 #oAuth-btn-fb {
   margin: 10px 0;
   padding: 6px;
-  border-radius: 8px;
+  border-radius: var(--small-radius);
   border: solid 1px #0067DB;
   background-color: #0067DB;
   display: flex;
@@ -282,15 +287,19 @@ font-size: 150%;
 
 #oAuth-btn-fb a {
   color: var(--white);
-  font-size: 75%;
+  font-size: 14px;
   vertical-align: center;
 }
 
 .auth-container p {
   margin: 22px auto 10px;
-  color: var(--dark);
   text-align: center;
-  font-size: 90%;
+}
+
+.card-3d-wrap * {
+  font-size: 14px;
+  font-family: var(--main-font);
+  color: var(--dark);
 }
 
 .auth-container form {
@@ -299,47 +308,35 @@ font-size: 150%;
 }
 
 .auth-section label {
-  color: var(--dark);
-  font-size: 80%;
   padding: 5px 0;
+  font-weight: 500;
 }
 
 .auth-section input {
   padding: 8px;
   margin-bottom: 5px;
-  border-radius: 8px;
-  border: solid 1px var(--dark);
-}
-
-.auth-section input:valid {
-  padding: 8px;
-  margin-bottom: 5px;
-  border-radius: 8px;
-  border: solid 1px var(--main-blue);
-  background-color: #c6c4ff3a;
+  border-radius: var(--small-radius);
+  border: solid 1px var(--light-grey);
 }
 
 .auth-section input:invalid {
-  padding: 8px;
-  margin-bottom: 5px;
-  border-radius: 8px;
-  border: solid 1px red;
+  border: solid 1px var(--main-red);
   background-color: rgba(255, 0, 0, 0.1);
 }
 
 .auth-container .error {
-  font-size: 65%;
+  font-size: 14px;
   color: var(--main-red);
   margin: auto;
   padding: 10px;
   width: 90%;
   text-align: justify;
   border: solid 1px var(--main-red);
-  border-radius: 6px;
+  border-radius: var(--small-radius);
   background: #ffc0c06b;
 }
 
-#auth-btn {
+.auth-btn {
   margin: 20px auto 20px;
   padding: 10px 20px;
   background: var(--main-red);
@@ -347,7 +344,7 @@ font-size: 150%;
   border: none;   
 }
 
-#auth-btn:hover {
+.auth-btn:hover {
   background: var(--white);
   color: var(--main-red);
   border: solid 1px var(--main-red);
@@ -361,7 +358,7 @@ font-size: 150%;
 .forgot-pass a {
   margin: auto;
   color: var(--dark);
-  font-size: 70%;
+  font-size: 14px;
 }
 
 /* 3D cards */
@@ -377,12 +374,12 @@ font-size: 150%;
   display: block;
   text-align: center;
   width: 60px;
-  height: 14px;
-  border-radius: 8px;
+  height: 20px;
+  border-radius: var(--large-radius);
   padding: 0;
   margin: 10px auto;
   cursor: pointer;
-  background-color: #c6c4ff3a;
+  background-color: var(--light-blue);
 }
 
 .checkbox:checked + label:before,
@@ -392,7 +389,7 @@ font-size: 150%;
   width: 36px;
   height: 36px;
   border-radius: var(--xlarge-radius);
-  color: var(--light-blue);
+  color: var(--white);
   background-color: var(--dark-blue);
   font-family: 'unicons';
   content: '\eb4f';
@@ -420,6 +417,13 @@ font-size: 150%;
   margin-top: 20px;
 }
 
+.card-3d-wrap h3 {
+  font-weight: 300;
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
 .card-3d-wrapper {
   width: 100%;
   height: 106%;
@@ -437,7 +441,7 @@ font-size: 150%;
   height: 80%;
   background: var(--white);
   position: absolute;
-  border-radius: 6px;
+  border-radius: var(--large-radius);
   left: 0;
   top: 0;
   -webkit-transform-style: preserve-3d;
@@ -569,7 +573,7 @@ figure {
   width: 240px;
   max-width: 100%;
   height: 240px;
-  border-radius: 50%;
+  border-radius: var(--xlarge-radius);
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   perspective: 800px;
@@ -579,7 +583,7 @@ figure {
 .card-inner-wrapper {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  border-radius: var(--xlarge-radius);
   position:absolute;    
   top: 0;
   left: 0;  
@@ -593,7 +597,7 @@ figure {
   width: 100%;
   height: 100%;
   position: absolute;
-  border-radius: 50%;
+  border-radius: var(--xlarge-radius);
   left: 0;
   top: 0;
   -webkit-transform-style: preserve-3d;
@@ -607,7 +611,7 @@ figure {
 }
 
 .card-inner-wrapper .center-wrapper {
-  border-radius: 50%;
+  border-radius: var(--xlarge-radius);
   width: 100%;
   height: 100%;
   padding: 0;
@@ -903,7 +907,7 @@ figure {
 .uil-shuffle.active,
 .uil-repeat.active {
   border: solid 2px var(--white);
-  border-radius: 50%;
+  border-radius: var(--xlarge-radius);
   padding: 2px;
 }
 
@@ -1082,8 +1086,7 @@ blockquote {
   font-family: var(--main-font);
 }
 
-.profile-container input:focus,
-.add-input:focus {
+input:focus {
   outline: none;
 }
 
@@ -1253,22 +1256,12 @@ blockquote {
 .profile-container input {
   padding: 8px;
   margin-bottom: 5px;
-  border-radius: 8px;
-  border: solid 1px var(--light-grey);
-}
-
-.profile-container input:valid {
-  padding: 8px;
-  margin-bottom: 5px;
-  border-radius: 8px;
+  border-radius:var(--small-radius);
   border: solid 1px var(--light-grey);
 }
 
 .profile-container input:invalid {
-  padding: 8px;
-  margin-bottom: 5px;
-  border-radius: 8px;
-  border: solid 1px red;
+  border: solid 1px var(--main-red);
   background-color: rgba(255, 0, 0, 0.1);
 }
 
@@ -1284,7 +1277,7 @@ blockquote {
   background: var(--white);
   color: var(--main-red);
   border: solid 1px var(--main-red);
-  border-radius: 6px;  
+  border-radius: var(--small-radius);  
 }
 
 .uil-left-arrow-to-left {
