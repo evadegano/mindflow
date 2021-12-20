@@ -170,20 +170,24 @@ nav div {
   margin-top: 0;
 }
 
+.homepage .uil {
+  color: var(--mid-blue);
+}
+
 #logo {
   font-family: var(--title-font);
   font-size: 30px;
   color: var(--main-blue);
 }
 
-/* illustrations */
-#superhero-img,
-#rainbow-img {
-  width: 40%;
+
+#demo-section img {
+  border-radius: var(--small-radius);
+  box-shadow: var(--blue-shadow);
 }
 
-#demo-section {
-  background-color: linear-gradient(var(--light-blue), var(--light-red));
+footer {
+  padding: 10px;
 }
 
 /* text animation */
