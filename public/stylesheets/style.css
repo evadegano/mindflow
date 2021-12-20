@@ -79,11 +79,6 @@ input {
 
 
 /* containers */
-#homepage h1,
-#homepage h2 {
-  font-family: var(--title-font);
-}
-
 .row-container {
   display: flex;
   justify-content: space-evenly;
@@ -91,6 +86,9 @@ input {
 
 .one-half-container {
   width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .col-container {
@@ -104,12 +102,12 @@ input {
 /* buttons */
 .btn {
   padding: 10px;
-  margin-left: 10px;
   border-radius: var(--small-radius);
 }
 
 .signup-btn {
   background: var(--main-red);
+  color: var(--white);
 }
 
 button {
@@ -125,27 +123,51 @@ button {
 /* 
     HOMEPAGE
 */
-#homepage h1,
-#homepage h2 {
-  font-family: var(--title-font);
+nav div {
+  display: flex;
+  column-gap: 15px;
+  align-items: center;
+  justify-content: center;
 }
 
-#homepage h1 {
+.homepage {
+  font-size: 16px;
+}
+
+.homepage h1,
+.homepage h2 {
+  font-family: var(--title-font);
+  margin-bottom: 0;
+}
+
+.homepage h1 {
   margin-bottom: 0;
   font-size: 50px;
 }
 
-#homepage h2 {
+.homepage h2 {
   font-size: 40px;
 }
 
-#homepage section {
+.homepage section {
   margin-top: 40px;
 }
 
-#homepage header {
+.homepage header {
   background: linear-gradient(var(--main-blue), var(--white));
   color: var(--white);
+}
+
+.homepage span {
+  margin-top: 10px;
+}
+
+.homepage p {
+  margin-bottom: 30px;
+}
+
+.homepage ul {
+  margin-top: 0;
 }
 
 #logo {
@@ -359,6 +381,25 @@ font-size: 16px;
   margin: auto;
   color: var(--dark);
   font-size: 14px;
+}
+
+.separator {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  height: 0;
+  border-top: 1px solid var(--light-grey);
+  position: relative;
+}
+
+.separator div {
+  position: absolute;
+  padding: 0 16px;
+  color: var(--light-grey);
+  background: var(--white);
+  text-shadow: 0 1px 0 #fff;
+  text-transform: uppercase;
+  top: -10px;
+  left: 40%;
 }
 
 /* 3D cards */
