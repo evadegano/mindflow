@@ -7,14 +7,16 @@
       <div class="card-3d-wrapper">
         <div class="card-front">
           <div class="center-wrap">
-            <h6 class="welcome-back">Hey ! Welcome back</h6>
-            <div class="btn" id="oAuth-btn-g">
+            <h3 class="welcome-back">Welcome back!</h3>
+            <div class="btn oAuth-btn-g">
               <a href="#"><img src="https://d3ptyyxy2at9ui.cloudfront.net/google-32ae27.svg">with Google</a>
             </div>
             {{!-- <div class="btn" id="oAuth-btn-fb">
               <a href="#"><img src="https://d3ptyyxy2at9ui.cloudfront.net/facebook-fadd25.svg">with Facebook</a>
             </div> --}}
-            <p>Or</p>
+            <div class="separator">
+              <div>OR</div>
+            </div>
             <form method="POST" action="/auth/login">
               <label>Email:</label>
               <input type="text" name="email" placeholder="Your email adress">
@@ -22,7 +24,7 @@
               <label>Password:</label>
               <input type="password" name="password" placeholder="Your password">
 
-              <button class="btn" id="auth-btn" type="submit">Log in</button>
+              <button class="btn auth-btn" type="submit">Log in</button>
 
               {{#if errorMessage}}
                 <p class="error">{{errorMessage}}</p>
@@ -35,13 +37,15 @@
         </div>
         <div class="card-back">
           <div class="center-wrap">
-                        <div class="btn" id="oAuth-btn-g">
+                        <div class="btn oAuth-btn-g">
               <a href=""><img src="https://d3ptyyxy2at9ui.cloudfront.net/google-32ae27.svg">with Google</a>
             </div>
             {{!-- <div class="btn" id="oAuth-btn-fb">
               <a href=""><img src="https://d3ptyyxy2at9ui.cloudfront.net/facebook-fadd25.svg">with Facebook</a>
             </div> --}}
-            <p>Or</p>
+            <div class="separator">
+              <div>OR</div>
+            </div>
             <form method="POST" action="/auth/signup">
               <label>First name:</label>
               <input type="text" name="firstName" placeholder="Your first name">
@@ -52,7 +56,7 @@
               <label>Password:</label>
               <input type="password" name="password" placeholder="Your password">
 
-              <button class="btn" id="auth-btn" type="submit">Sign up</button>
+              <button class="btn auth-btn" type="submit">Sign up</button>
             </form>
           </div>
         </div>

@@ -7,10 +7,10 @@ const pomodoroContainer = document.querySelector("#pomodoro-container");
 
 class PomodoroTimer {
   constructor() {
-    this.duration = 10;
+    this.duration = 25*60;
     this.timeElapsed = 0;
     this.status = "inactive";
-    this.ringLength = 932.6760864257812;
+    this.ringLength = 753.6776733398438;
     this.progress = this.ringLength / this.duration;
     this.intervalId = null;
   }
