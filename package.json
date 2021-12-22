@@ -19,7 +19,9 @@
     "mongodb": "^4.2.1",
     "mongoose": "^6.0.14",
     "morgan": "^1.10.0",
+    "passport": "^0.5.2",
     "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0",
     "serve-favicon": "^2.5.0",
     "spotify-web-api-node": "^5.0.2"
   },

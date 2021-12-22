@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const passport = require("passport");
 
 // ℹ️ Handles password encryption
 const bcrypt = require("bcrypt");
@@ -177,7 +178,6 @@ router.post("/logout", isLoggedIn, (req, res) => {
 });
 
 // Google oauth routes
-/*
 router.get(
   "/auth/google",
   passport.authenticate("google", {
@@ -187,14 +187,14 @@ router.get(
     ]
   })
 );
+
 router.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    successRedirect: "/private-page",
-    failureRedirect: "/" // here you would redirect to the login page using traditional login approach
+    successRedirect: "/user/dashboard",
+    failureRedirect: "/auth/signup"
   })
 );
-*/
 
 
 module.exports = router;

@@ -20,6 +20,9 @@ const breathBubble = document.querySelector("#breath-bubble");
 const toggleLinks = document.querySelector("#toggle-links");
 const problemSolvingPlaylist = document.querySelector("#problem-solving-playlist");
 const creativityPlaylist = document.querySelector("#creativity-playlist");
+const rocketImg = document.querySelector("#rocket-img");
+const rocketPathSvg = document.querySelector("#rocket-path-svg");
+const rocketPath = document.querySelector("#rocket-path").getAttribute("d");
 const pomodoroTimer = new PomodoroTimer();
 let pageMode, timeElapsed, pomodoroStatus;
 
@@ -27,6 +30,7 @@ let pageMode, timeElapsed, pomodoroStatus;
 function init() {
   updateLocalStorage();
   updatePageContent();
+  drawSvgPath();
 }
 
 // update data contained in the local storage
@@ -354,5 +358,24 @@ pomodoroBtn.addEventListener("click", () => {
     printPomodoroTime();
   }
 })
+
+// use on load and on window resize
+function drawSvgPath() {
+  let width = rocketPathSvg.width;
+  console.log("width:", width)
+  rocketPath = `M0 100 l${width/2} -200 ${width} 0`;
+}
+
+function updateImgPos(scrollY) {
+  // get viewport width
+
+  // get height from top to start of curved section
+
+  // calc progress: width / height
+
+  // update img x pos accordningly
+
+  // how to update rotation 
+}
 
 init();

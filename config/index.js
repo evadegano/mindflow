@@ -28,6 +28,11 @@ const MongoStore = require("connect-mongo");
 // Connects the mongo uri to maintain the same naming structure
 const MONGO_URI = require("../utils/consts");
 
+// imports used for Google OAuth
+const passport = require("passport");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const User = require("../models/User.model");
+
 // Middleware configuration
 module.exports = (app) => {
   // In development environment the app logs
@@ -50,7 +55,7 @@ module.exports = (app) => {
     favicon(path.join(__dirname, "..", "public", "images", "favicon.ico"))
   );
 
-  // ℹ️ Middleware that adds a "req.session" information and later to check that you are who you say you are 😅
+  // ℹ️ Middleware that adds a "req.session" information and later to check that you are who you say you are
   app.use(
     session({
       secret: process.env.SESSION_SECRET || "super hyper secret key",
@@ -60,5 +65,38 @@ module.exports = (app) => {
         mongoUrl: MONGO_URI,
       }),
     })
+  );
+
+  // initialize passport and passport session
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+  passport.use(
+    new GoogleStrategy(
+      {
+        clientID: process.env.GOOGLE_OAUTH_ID,
+        clientSecret: process.env.GOOGLE_OAUTH_SECRET,
+        callbackURL: process.env.GOOGLE_OAUTH_CALLBACK_URL || "/auth/google/callback"
+      },
+      (accessToken, refreshToken, profile, done) => {
+        // to see the structure of the data in received response:
+        console.log("Google account details:", profile);
+  
+        User.findOne({ googleID: profile.id })
+          .then(user => {
+            if (user) {
+              done(null, user);
+              return;
+            }
+  
+            User.create({ googleID: profile.id })
+              .then(newUser => {
+                done(null, newUser);
+              })
+              .catch(err => done(err)); // closes User.create()
+          })
+          .catch(err => done(err)); // closes User.findOne()
+      }
+    )
   );
 };
