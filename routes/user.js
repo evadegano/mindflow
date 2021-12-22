@@ -59,8 +59,6 @@ router.get("/dashboard", (req, res, next) => {
       
       console.log('Playlist information', gammaPlaylistData.body);
       console.log('Tracks url',gammaPlaylistData.body.tracks.items);
-      // console.log('Tracks information',tracksData.body);
-      // console.log('Tracks url',tracksData.body.items);
 
       function getGoal(goalid) {
         return goalsFromDb.find(el => el.id === goalid)
@@ -127,8 +125,8 @@ router.get("/dashboard", (req, res, next) => {
 // POST /dashboard
 
 // POST /goals
+// add a goal in the database
 router.post("/goals", isLoggedIn, (req, res, next) => {
-  // TODO: permettre au user d'ajouter des objectifs dans la DB
   Goal.create({ 
     user_id: req.session.user._id,
     title: req.body.title,
@@ -141,6 +139,7 @@ router.post("/goals", isLoggedIn, (req, res, next) => {
     .catch((err) => res.redirect('/user/dashboard'))
 })
 
+// update a goal in the database
 router.post("/goals/:id/edit", isLoggedIn, (req, res, next) => {
   const { title, startDate, endDate, color } = req.body;
   const updateGoal = {};
@@ -166,6 +165,7 @@ router.post("/goals/:id/edit", isLoggedIn, (req, res, next) => {
     })
 })
 
+// delete a goal from the database
 router.post("/goals/:id/delete", isLoggedIn, (req, res, next) => {
   Goal.findByIdAndRemove(req.params.id)
   .then(() => res.redirect('/user/dashboard'))
@@ -174,8 +174,8 @@ router.post("/goals/:id/delete", isLoggedIn, (req, res, next) => {
 
 
 // POST /tasks
+// add task in the database
 router.post("/tasks", isLoggedIn, (req, res, next) => {
-  // TODO: permettre au user d'ajouter des tâches dans la DB
   Task.create({ 
     user_id: req.session.user._id,
     goal_id: req.body.taskGoal,
@@ -185,6 +185,7 @@ router.post("/tasks", isLoggedIn, (req, res, next) => {
     .catch(err => res.redirect('/user/dashboard'))
 })
 
+//update a task in the database
 router.post("/tasks/:id/edit", isLoggedIn, (req, res, next) => {
   const { title, endDate, taskGoal } = req.body;
   const updateTask = {};
@@ -217,6 +218,7 @@ router.post("/tasks/:id/done", isLoggedIn, (req, res, next) => {
     })
 })
 
+//delete a task from the database
 router.post("/tasks/:id/delete", isLoggedIn, (req, res, next) => {
   Goal.findByIdAndRemove(req.params.id)
   .then(() => res.redirect("/user/dashboard"))
@@ -224,6 +226,7 @@ router.post("/tasks/:id/delete", isLoggedIn, (req, res, next) => {
 })
 
 // GET /profile
+// display profile page
 router.get("/profile", isLoggedIn, (req, res, next) => {
   // capitalize first letter of user's first name
   req.session.user.firstName = req.session.user.firstName[0].toUpperCase() + req.session.user.firstName.substring(1);
@@ -234,10 +237,8 @@ router.get("/profile", isLoggedIn, (req, res, next) => {
 })
 
 // POST /profile
+// update profile infos
 router.post("/profile", isLoggedIn, (req, res, next) => {
-  //TO DO: récupérer les valeurs des champs modifiés
-  //TO DO: Ne pas envoyer un nouveau mot de passe si pas de modification du champ "password"
-  //TO DO: encrypter le nouveau mot de passe
 
   const { firstName, email, password, newPassword, newPasswordChecked } = req.body;
   const newUser = {};
@@ -250,7 +251,6 @@ router.post("/profile", isLoggedIn, (req, res, next) => {
     newUser.password = bcrypt.hashSync(newPassword, salt);
   }
   
-  //TO DO: update la DB
   User.findOneAndUpdate({ _id: req.session.user._id }, newUser)
   .then(user => {
     req.session.user = user;
@@ -266,7 +266,6 @@ router.post("/profile", isLoggedIn, (req, res, next) => {
 // Playlists Spotify
 
 // Spotify API Setup
-
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET
@@ -275,7 +274,11 @@ const spotifyApi = new SpotifyWebApi({
 // // Retrieve an access token
 spotifyApi
   .clientCredentialsGrant()
-  .then(data => spotifyApi.setAccessToken(data.body['access_token']))
+  .then(data => {
+    console.log('The access token expires in ' + data.body['expires_in']);
+    console.log('The access token is ' + data.body['access_token']);
+    spotifyApi.setAccessToken(data.body['access_token'])
+  })
   .catch(error => console.log('Something went wrong when retrieving an access token', error));
 
 module.exports = router;
