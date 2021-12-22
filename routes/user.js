@@ -246,7 +246,25 @@ router.post("/profile", isLoggedIn, (req, res, next) => {
   newUser.firstName = firstName;
   newUser.email = email;
 
-  if (password !== '' && newPassword !== '' && newPassword === newPasswordChecked) {
+  // make sure that the new password has the right format
+  if (newPassword !== "") {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+
+    if (!regex.test(newPassword)) {
+      return res.status(400).render("user/profile", {
+        errorMessage: "Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter.",
+      });
+    }
+  }
+
+  // make sure that the new password is equal to the confirmation password
+  if (newPassword !== "" && newPassword !== newPasswordChecked) {
+    return res.status(400).render("user/profile", {
+      errorMessage: "Confirmation password must match new password",
+    });
+  }
+
+  if (password !== "" && newPassword !== "" && newPassword === newPasswordChecked) {
     const salt = bcrypt.genSaltSync(saltRounds);
     newUser.password = bcrypt.hashSync(newPassword, salt);
   }

@@ -19,7 +19,7 @@
           <div class="center-wrap">
             <h3 class="welcome-back">Welcome back!</h3>
             <div class="btn oAuth-btn-g">
-              <a href="/auth/google"><img src="https://d3ptyyxy2at9ui.cloudfront.net/google-32ae27.svg">with Google</a>
+              <a href="/auth/google"><img src="https://d3ptyyxy2at9ui.cloudfront.net/google-32ae27.svg">Google log in</a>
             </div>
             <div class="separator">
               <div>OR</div>
@@ -34,7 +34,7 @@
               <button class="btn auth-btn" type="submit">Log in</button>
 
               {{#if errorMessage}}
-                <p class="error">{{errorMessage}}</p>
+                <div class="error">{{errorMessage}}</div>
               {{/if}}
             </form>
             {{!-- <div class="forgot-pass">
@@ -44,8 +44,8 @@
         </div>
         <div class="card-back">
           <div class="center-wrap">
-              <div class="btn oAuth-btn-g">
-              <a href="/auth/google"><img src="https://d3ptyyxy2at9ui.cloudfront.net/google-32ae27.svg">with Google</a>
+            <div class="btn oAuth-btn-g">
+              <a href="/auth/google"><img src="https://d3ptyyxy2at9ui.cloudfront.net/google-32ae27.svg">Google sign up</a>
             </div>
             <div class="separator">
               <div>OR</div>
@@ -61,6 +61,10 @@
               <input type="password" name="password" placeholder="Your password">
 
               <button class="btn auth-btn" type="submit">Sign up</button>
+
+              {{#if errorMessage}}
+                <div class="error">{{errorMessage}}</div>
+              {{/if}}
             </form>
           </div>
         </div>
@@ -68,7 +72,3 @@
     </div>
   </div>
 </section>
-
-{{#if errorMessage}}
-   {{errorMessage}}
-{{/if}}

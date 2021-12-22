@@ -484,7 +484,7 @@ font-size: 16px;
   background-color: rgba(255, 0, 0, 0.1);
 }
 
-.auth-container .error {
+.error {
   font-size: 14px;
   color: var(--main-red);
   margin: auto;
@@ -617,7 +617,7 @@ font-size: 16px;
 .card-front, 
 .card-back {
   width: 100%;
-  height: 80%;
+  min-height: 80%;
   background: var(--white);
   position: absolute;
   border-radius: var(--large-radius);
