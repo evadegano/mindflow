@@ -1,28 +1,46 @@
+const curvedSection = document.querySelector(".row-container.curved-bg");
 const rocketImg = document.querySelector("#rocket-img");
-const rocketPathSvg = document.querySelector("#rocket-path-svg");
-const rocketPath = document.querySelector("#rocket-path").getAttribute("d");
+const totalScrollHeight = curvedSection.getBoundingClientRect().y;
 
-function init() {
-  drawSvgPath();
-}
+let vpWidth = window.innerWidth;
+let progressRatio = vpWidth / totalScrollHeight;
+rocketImg.style.left = "0px";
+rocketImg.style.top = "0px";
 
-// use on load and on window resize
-function drawSvgPath() {
-  let width = rocketPathSvg.width.animVal.value;
-  console.log("width:", width)
-  rocketPath = `M0 100 l${width/2} -200 ${width} 0`;
-}
+
+window.addEventListener("resize", () => {
+  // update viewport width
+  vpWidth = window.innerWidth;
+})
+
+window.addEventListener('scroll', () => {
+  let scrollY = window.scrollY;
+
+  updateImgPos(scrollY);
+})
+
 
 function updateImgPos(scrollY) {
-  // get viewport width
+  let progress = scrollY * progressRatio;
+  let normalizedProgress = progress / vpWidth * 1.2;
 
-  // get height from top to start of curved section
-
-  // calc progress: width / height
-
-  // update img x pos accordningly
+  let startPoint = {
+    x: 0,
+    y: 0
+  };
+  let midPoint = {
+    x: (vpWidth - rocketImg.width) / 2,
+    y: 300,
+  };
+  let endPoint = {
+    x: vpWidth - rocketImg.width,
+    y: 0
+  };
+  
+  rocketImg.style.left = `${progress}px`;
+  rocketImg.style.top = `-${(1 - normalizedProgress) ** 2 * startPoint.y + 2 * (1 - normalizedProgress) * normalizedProgress * midPoint.y + normalizedProgress * normalizedProgress * endPoint.y}px`;
+  console.log(rocketImg.style.top)
 
   // how to update rotation 
-}
-
-init();
+  // SVG passes center of screen
+} 

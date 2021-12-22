@@ -244,6 +244,7 @@ nav .logo {
 
 header.homepage {
   background: var(--white);
+  margin-bottom: 100px;
 }
 
 .homepage span {
@@ -277,37 +278,31 @@ header.homepage {
   box-shadow: var(--blue-shadow);
 }
 
+
 footer {
   padding: 10px;
 }
 
 /* separator */
-.row-container.curved-bg {
+section.curved-bg {
   border-top-left-radius: 50% 100%;
   border-top-right-radius: 50% 100%;
   padding-top: 60px;
   background: var(--main-blue);
   color: var(--white);
-  margin-top: 0;
+  margin-top: 50px;
 }
 
-.curved {
+#rocket-container {
   position: relative;
-  background: var(--white);
-  height: 400px;
 }
 
-.curved::after {
-  content: '';
-  border-top-left-radius: 50% 100%;
-  border-top-right-radius: 50% 100%;
+#rocket-img {
   position: absolute;
+  left: 0;
   top: 0;
-  width: 100%;
-  background: var(--main-blue);
-  height: 100%;
-  z-index: 0;
 }
+
 
 /* illustration animations */
 #meditation-img {
@@ -427,28 +422,6 @@ font-size: 16px;
   justify-content: center;
   align-items: center;
   column-gap: 10px;
-}
-
-#oAuth-btn-fb {
-  margin: 10px 0;
-  padding: 6px;
-  border-radius: var(--small-radius);
-  border: solid 1px #0067DB;
-  background-color: #0067DB;
-  display: flex;
-  justify-content: center;
-}
-
-#oAuth-btn-fb img {
-  margin: 0 10px;
-  width: 14px; 
-  height: 14px; 
-}
-
-#oAuth-btn-fb a {
-  color: var(--white);
-  font-size: 14px;
-  vertical-align: center;
 }
 
 .auth-container p {
