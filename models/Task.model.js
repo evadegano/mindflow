@@ -1,5 +1,7 @@
+// package used to connect to the database
 const { Schema, model } = require("mongoose");
 
+// task schema
 const taskSchema = new Schema(
   {
     user_id: {
@@ -28,6 +30,7 @@ const taskSchema = new Schema(
   }
 )
 
+// create task model
 const Task = model("Task", taskSchema);
 
 module.exports = Task;

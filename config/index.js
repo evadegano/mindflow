@@ -1,102 +1,49 @@
-// We reuse this import in order to have access to the `body` property in requests
+// get access to the body property in requests
 const express = require("express");
-
-// ℹ️ Responsible for the messages you see in the terminal as requests are coming in
-// https://www.npmjs.com/package/morgan
+// get messages in the terminal as requests are coming in
 const logger = require("morgan");
-
-// ℹ️ Needed when we deal with cookies (we will when dealing with authentication)
-// https://www.npmjs.com/package/cookie-parser
+// deal with cookies
 const cookieParser = require("cookie-parser");
-
-// ℹ️ Serves a custom favicon on each request
-// https://www.npmjs.com/package/serve-favicon
+// serve a custom favicon on each request
 const favicon = require("serve-favicon");
-
-// ℹ️ global package used to `normalize` paths amongst different operating systems
-// https://www.npmjs.com/package/path
+// normalize paths amongst different operating systems
 const path = require("path");
-
-// ℹ️ Session middleware for authentication
-// https://www.npmjs.com/package/express-session
+// session middleware for authentication
 const session = require("express-session");
-
-// ℹ️ MongoStore in order to save the user session in the database
-// https://www.npmjs.com/package/connect-mongo
+// package to save the user session in the database
 const MongoStore = require("connect-mongo");
 
-// Connects the mongo uri to maintain the same naming structure
-const MONGO_URI = require("../utils/consts");
 
-// imports used for Google OAuth
-const passport = require("passport");
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const User = require("../models/User.model");
-
-// Middleware configuration
 module.exports = (app) => {
-  // In development environment the app logs
+  // app logs in a dev environment
   app.use(logger("dev"));
 
-  // To have access to `body` property in the request
+  // get access to the body property in requests
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
 
-  // Normalizes the path to the views folder
+  // normalize the path to the views folder
   app.set("views", path.join(__dirname, "..", "views"));
-  // Sets the view engine to handlebars
+  // set the view engine to handlebars
   app.set("view engine", "hbs");
-  // AHandles access to the public folder
+  // handle access to the public folder
   app.use(express.static(path.join(__dirname, "..", "public")));
 
-  // Handles access to the favicon
+  // handle access to the favicon
   app.use(
     favicon(path.join(__dirname, "..", "public", "images", "favicon.ico"))
   );
 
-  // ℹ️ Middleware that adds a "req.session" information and later to check that you are who you say you are
+  // use req.session for user sessions
   app.use(
     session({
       secret: process.env.SESSION_SECRET || "super hyper secret key",
       resave: false,
       saveUninitialized: false,
       store: MongoStore.create({
-        mongoUrl: MONGO_URI,
+        mongoUrl: process.env.MONGODB_URI,
       }),
     })
-  );
-
-  // initialize passport and passport session
-  app.use(passport.initialize());
-  app.use(passport.session());
-
-  passport.use(
-    new GoogleStrategy(
-      {
-        clientID: process.env.GOOGLE_OAUTH_ID,
-        clientSecret: process.env.GOOGLE_OAUTH_SECRET,
-        callbackURL: process.env.GOOGLE_OAUTH_CALLBACK_URL || "/auth/google/callback"
-      },
-      (accessToken, refreshToken, profile, done) => {
-        // to see the structure of the data in received response:
-        console.log("Google account details:", profile);
-  
-        User.findOne({ googleID: profile.id })
-          .then(user => {
-            if (user) {
-              done(null, user);
-              return;
-            }
-  
-            User.create({ googleID: profile.id })
-              .then(newUser => {
-                done(null, newUser);
-              })
-              .catch(err => done(err)); // closes User.create()
-          })
-          .catch(err => done(err)); // closes User.findOne()
-      }
-    )
   );
 };

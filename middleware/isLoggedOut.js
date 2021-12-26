@@ -1,6 +1,5 @@
 module.exports = (req, res, next) => {
-  // if an already logged in user tries to access the login page it
-  // redirects the user to the home page
+  // if a logged in user tries to access auth pages, they are redirected to private pages
   if (req.session.user) {
     return res.redirect('/user/dashboard');
   }

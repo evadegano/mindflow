@@ -1,5 +1,7 @@
+// package used to connect to the database
 const { Schema, model } = require("mongoose");
 
+// goal schema
 const goalSchema = new Schema(
   {
     user_id: {
@@ -30,6 +32,7 @@ const goalSchema = new Schema(
   }
 )
 
+// create goal model
 const Goal = model("Goal", goalSchema);
 
 module.exports = Goal;

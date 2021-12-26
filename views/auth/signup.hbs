@@ -1,3 +1,4 @@
+<!-- app logo -->
 <div class="logo">
     <a href="/">
       <div class="wave-background">
@@ -8,23 +9,30 @@
       Mindflow
     </a>
 </div>
+
+<!-- main content -->
 <section class="auth-section">
   <div class="auth-container">
+    <!-- switch button -->
     <h2><span>Log In </span><span>Sign Up</span></h2>
     <input class="checkbox" type="checkbox" checked="checked" id="reg-log" name="reg-log"/>
     <label for="reg-log"></label>
     
+    <!-- flipping card -->
     <div class="card-3d-wrap">
       <div class="card-3d-wrapper">
+        <!-- front of card: log in form -->
         <div class="card-front">
           <div class="center-wrap">
-          <h3 class="welcome-back">Welcome back!</h3>
-           <div class="btn oAuth-btn-g">
+            <h3 class="welcome-back">Welcome back!</h3>
+            <div class="btn oAuth-btn-g">
               <a href="/auth/google"><img src="https://d3ptyyxy2at9ui.cloudfront.net/google-32ae27.svg">Google log in</a>
             </div>
+
             <div class="separator">
               <div>OR</div>
             </div>
+
             <form method="POST" action="/auth/login">
               <label>Email:</label>
               <input type="email" name="email" placeholder="Your email">
@@ -38,21 +46,20 @@
                 <div class="error">{{errorMessage}}</div>
               {{/if}}
             </form>
-            {{!-- <div class="forgot-pass">
-              <a href="#">Forgot your password?</a>
-            </div>           --}}
+            <a href="/recovery/request">I forgot my password</a>
           </div>
-        </div>
 
-        <!-- back of -->
+        <!-- back of card: sign up form -->
         <div class="card-back">
           <div class="center-wrap">
             <div class="btn oAuth-btn-g">
               <a href="/auth/google"><img src="https://d3ptyyxy2at9ui.cloudfront.net/google-32ae27.svg">Google sign up</a>
             </div>
+
             <div class="separator">
               <div>OR</div>
             </div>
+            
             <form method="POST" action="/auth/signup">
               <label>First name:</label>
               <input type="text" name="firstName" placeholder="Your first name">

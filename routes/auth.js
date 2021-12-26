@@ -1,26 +1,24 @@
 const router = require("express").Router();
 const passport = require("passport");
 
-// ℹ️ Handles password encryption
-const bcrypt = require("bcrypt");
+// database connection and models
 const mongoose = require("mongoose");
-
-// How many rounds should bcrypt run the salt (default [10 - 12 rounds])
-const saltRounds = 10;
-
-// database models
 const User = require("../models/User.model");
 
-// middleware to control access to specific routes
+// password encryption
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+
+// middlewares to control access to specific routes
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
-// GET /signup
+// GET sign up route
 router.get("/signup", isLoggedOut, (req, res) => {
   res.render("auth/signup");
 });
 
-// POST /signup
+// POST sign up route
 router.post("/signup", isLoggedOut, (req, res) => {
   const { firstName, email, password } = req.body;
 
@@ -107,6 +105,23 @@ router.post("/signup", isLoggedOut, (req, res) => {
   });
 });
 
+// get log in route
+router.get("/login", (req, res, next) => {
+  res.render("auth/login", {
+    errorMessage: req.flash("error")
+  });
+})
+
+
+// post log in route
+router.post("/login", passport.authenticate("local", {
+  successRedirect: "/private/join-chat",
+  failureRedirect: "/auth/login",
+  failureFlash: true
+  })
+)
+
+/*
 router.get("/login", isLoggedOut, (req, res) => {
   res.render("auth/login");
 });
@@ -152,7 +167,8 @@ router.post("/login", isLoggedOut, (req, res, next) => {
             .render("auth/login", { errorMessage: "Wrong credentials." });
         }
         req.session.user = user;
-        console.log("user ==>", req.session.user)
+        console.log("user ==>", req.session.user);
+
         // req.session.user = user._id; // ! better and safer but in this case we saving the entire user object
         return res.redirect("/user/dashboard");
       });
@@ -167,6 +183,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
 });
 
 router.post("/logout", isLoggedIn, (req, res) => {
+  // destroy user session
   req.session.destroy((err) => {
     if (err) {
       return res
@@ -176,25 +193,29 @@ router.post("/logout", isLoggedIn, (req, res) => {
     res.redirect("/");
   });
 });
+*/
 
-// Google oauth routes
-router.get(
-  "/auth/google",
-  passport.authenticate("google", {
-    scope: [
-      "https://www.googleapis.com/auth/userinfo.profile",
-      "https://www.googleapis.com/auth/userinfo.email"
-    ]
-  })
-);
+// get Google route
+router.get("/google", passport.authenticate("google", {
+  scope: [
+    "https://www.googleapis.com/auth/userinfo.profile",
+    "https://www.googleapis.com/auth/userinfo.email"
+  ]
+}))
 
-router.get(
-  "/auth/google/callback",
-  passport.authenticate("google", {
-    successRedirect: "/user/dashboard",
-    failureRedirect: "/auth/signup"
-  })
-);
+// get Google callback route
+router.get("/google/callback", passport.authenticate("google", {
+  successRedirect: "/private/join-chat",
+  failureRedirect: "/auth/login"
+}))
+
+// post logout route
+router.post("/logout", (req, res, next) => {
+  // terminate user session
+  req.logout();
+  // send user back to homepage
+  res.redirect("/");
+})
 
 
 module.exports = router;

@@ -1,42 +1,45 @@
-// ℹ️ Gets access to environment variables/settings
-// https://www.npmjs.com/package/dotenv
+// get access to environment variables
 require("dotenv/config");
-
-// ℹ️ Connects to the database
+// connect to the database
 require("./db");
-
-// Handles http requests (express is node js framework)
-// https://www.npmjs.com/package/express
+// handle http requests
 const express = require("express");
-
-// Handles the handlebars
-// https://www.npmjs.com/package/hbs
+// handle authentification strategies
+const passport = require('passport');
+// handle dynamic views
 const hbs = require("hbs");
 
+// init app
 const app = express();
 
-// ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
-require("./config")(app);
-
+// set up project variables
 const projectName = "ironhack-project2";
 const capitalized = (string) => string[0].toUpperCase() + string.slice(1).toLowerCase();
-
 app.locals.title = `${capitalized(projectName)} created with IronLauncher`;
 
-// 👇 Start handling routes here
+// import app middlewares
+require("./config/index")(app);
+
+// import passport middlewares
+require("./congig/passport")(passport);
+app.use(passport.initialize());
+app.use(passport.session());
+
+// import routes
 const mainRouter = require("./routes/index");
 app.use("/", mainRouter);
 
 const authRouter = require("./routes/auth");
 app.use("/auth", authRouter);
 
+const recoveryRouter = require("./routes/recovery");
+app.use("/recovery", recoveryRouter);
+
 const userRouter = require("./routes/user");
 app.use("/user", userRouter);
 
-// ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
+// handle errors
 require("./error-handling")(app);
-
-
 
 
 

@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const axios = require("axios");
 const SpotifyWebApi = require('spotify-web-api-node');
 
-// Handles password encryption
+// password encryption
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
@@ -12,7 +12,7 @@ const User = require("../models/User.model");
 const Goal = require("../models/Goal.model");
 const Task = require("../models/Task.model");
 
-// middleware to control access to specific routes
+// middlewares to control access to specific routes
 const isLoggedIn = require("../middleware/isLoggedIn");
 const isLoggedOut = require("../middleware/isLoggedOut");
 
