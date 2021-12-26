@@ -1,9 +1,10 @@
 const router = require("express").Router();
 const User = require("../models/User.model");
-let { transporter, recoveryText, recoveryEmail } = require("../config/nodemailer");
+const recoveryTemplate = require("../config/recoveryTemplate").recoveryTemplate;
+let { transporter, recoveryText } = require("../config/nodemailer");
 
 // package used for password hashing
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 // get recovery request route
@@ -33,7 +34,7 @@ router.post("/request", (req, res, next) => {
           to: email,
           subject: "Reset password request",
           text: recoveryText,
-          html: recoveryEmail
+          html: recoveryTemplate(user.firstName, user._id)
         })
         .then((info) => { 
           return res.render("recovery/request", { 
@@ -46,14 +47,16 @@ router.post("/request", (req, res, next) => {
 
 
 // get reset-password route
-router.get("/reset-password", (req, res, next) => {
-  res.render("recovery/reset-password");
+router.get("/reset-password/:userId", (req, res, next) => {
+  res.render("recovery/reset-password", {
+    userId: req.params.userId
+  });
 })
 
 
 // post reset-password route
 router.post("/reset-password", (req, res, next) => {
-  const { newPassword, confirmationPassword } = req.body;
+  const { newPassword, confirmationPassword, userId } = req.body;
 
   // make sure no field is empty
   if (!newPassword || !confirmationPassword) {
@@ -89,7 +92,7 @@ router.post("/reset-password", (req, res, next) => {
     .then((salt) => { bcrypt.hashSync(newPassword, salt) })
     .then((hashedPwd) => {
       // update user's password in database
-      return User.findByIdAndUpdate(req.session.user._id, { password: hashedPwd }, { new: true })
+      return User.findByIdAndUpdate(userId, { password: hashedPwd }, { new: true })
     })
     .then((user) => {
       res.render("recovery/reset-password", {

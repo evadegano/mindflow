@@ -17,7 +17,7 @@
     <h2><span>Log In </span><span>Sign Up</span></h2>
     <input class="checkbox" type="checkbox" checked="checked" id="reg-log" name="reg-log"/>
     <label for="reg-log"></label>
-    
+
     <!-- flipping card -->
     <div class="card-3d-wrap">
       <div class="card-3d-wrapper">
@@ -35,19 +35,20 @@
 
             <form method="POST" action="/auth/login">
               <label>Email:</label>
-              <input type="email" name="email" placeholder="Your email">
+              <input type="text" name="email" placeholder="Your email adress">
 
               <label>Password:</label>
               <input type="password" name="password" placeholder="Your password">
+              <a class="pwd-reset-link" href="/recovery/request">I forgot my password</a>
 
               <button class="btn auth-btn" type="submit">Log in</button>
-              
+
               {{#if errorMessage}}
                 <div class="error">{{errorMessage}}</div>
               {{/if}}
             </form>
-            <a href="/recovery/request">I forgot my password</a>
           </div>
+        </div>
 
         <!-- back of card: sign up form -->
         <div class="card-back">
@@ -69,6 +70,9 @@
 
               <label>Password:</label>
               <input type="password" name="password" placeholder="Your password">
+
+              <label>Confirm your password:</label>
+              <input type="password" name="passwordCheck" placeholder="Confirm your password">
 
               <button class="btn auth-btn" type="submit">Sign up</button>
 

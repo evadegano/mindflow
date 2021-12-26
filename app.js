@@ -6,8 +6,7 @@ require("./db");
 const express = require("express");
 // handle authentification strategies
 const passport = require('passport');
-// handle dynamic views
-const hbs = require("hbs");
+
 
 // init app
 const app = express();
@@ -21,7 +20,7 @@ app.locals.title = `${capitalized(projectName)} created with IronLauncher`;
 require("./config/index")(app);
 
 // import passport middlewares
-require("./congig/passport")(passport);
+require("./config/passport")(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -40,7 +39,6 @@ app.use("/user", userRouter);
 
 // handle errors
 require("./error-handling")(app);
-
 
 
 module.exports = app;

@@ -1,4 +1,5 @@
 :root {
+  /* colors */
   --dark: #161616;
   --white: #FFFFFF;
   --light-grey: rgba(196,196,196, 0.5);
@@ -9,14 +10,23 @@
   --mid-blue: #9295F1;
   --light-blue: #C6C4FF;
   --main-red: #FF6D6D;
+  --error-red: #FFC0C06B;
+  --success-green: #4bb543;
+  --success-green-bd: rgba(75,181,67, 0.2);
   --light-red: #FFC0C0;
   --light-yellow: #FECB91;
+
+  /* shadows */
   --blue-shadow: 0 4px 44px 0 rgba(2,7,191, 0.1);
   --red-shadow: 0 4px 44px 0 rgba(255,109,109, 0.3);
+
+  /* radius */
   --small-radius: 5px;
   --mid-radius: 15px;
   --large-radius: 25px;
   --xlarge-radius: 50%;
+
+  /* fonts */
   --title-font: "Rozha One";
   --main-font: "Poppins";
 }
@@ -386,7 +396,7 @@ section.curved-bg {
 */
 .auth-section {
   background: var(--blue-grey);
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   margin-top: 0;
 }
@@ -463,10 +473,26 @@ font-size: 16px;
   margin: auto;
   padding: 10px;
   width: 90%;
-  text-align: justify;
+  text-align: center;
   border: solid 1px var(--main-red);
   border-radius: var(--small-radius);
-  background: #ffc0c06b;
+  background: var(--error-red);
+}
+
+.success {
+  font-size: 14px;
+  color: var(--success-green);
+  margin: auto;
+  padding: 10px;
+  width: 90%;
+  text-align: center;
+  border: solid 1px var(--success-green);
+  border-radius: var(--small-radius);
+  background: var(--success-green-bd);
+}
+
+.recovery button {
+  color: var(--white);
 }
 
 .auth-btn {
@@ -483,15 +509,10 @@ font-size: 16px;
   border: solid 1px var(--main-red);
 }
 
-.forgot-pass {
-  display: flex;
-  margin-top: 15px;
-}
-
-.forgot-pass a {
-  margin: auto;
-  color: var(--dark);
-  font-size: 14px;
+.pwd-reset-link {
+  margin-top: 10px;
+  color: var(--main-blue);
+  text-decoration: underline;
 }
 
 .separator {
@@ -1248,7 +1269,7 @@ input:focus {
   opacity: 0;
 }
 
-#category-input {
+.hidden {
   display: none;
 }
 
@@ -1381,7 +1402,6 @@ input:focus {
 }
 
 .profile-section * {
-  color: var(--dark);
   font-family: var(--main-font);
 }
 

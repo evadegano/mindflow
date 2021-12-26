@@ -17,7 +17,10 @@ const goalSchema = new Schema(
       type: String,
       required: true
     },
-    category: String,
+    category: {
+      type: String,
+      enum: ["work", "health", "social", "finance", "other"]
+    },
     color: {
       type: String,
       default: "#636EE6"

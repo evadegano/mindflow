@@ -1,6 +1,6 @@
-<div class="profile-section">
+<section class="profile-section">
   <div class="profile-container">
-    <h2>Edit your profile</h2>
+    <h1>Edit your profile</h1>
     <form method="POST" action="/user/profile">
       <label>First name:</label>
       <input type="text" name="firstName" placeholder="Your first name" value="{{currentUser.firstName}}">
@@ -19,7 +19,7 @@
       <!-- <div class="caption">Error</div> -->
 
       <label>Confirm your new password:</label>
-      <input type="password" name="newPasswordChecked" placeholder="Confirm your new password">
+      <input type="password" name="newPasswordCheck" placeholder="Confirm your new password">
       <!-- <div class="caption">Error</div> -->      
       <div class="profile-buttons">
         <a href="/user/dashboard"><i class="uil uil-left-arrow-to-left"></i>Back</a>
@@ -30,4 +30,4 @@
       {{/if}}
     </form>       
   </div>  
-</div>
+</section>

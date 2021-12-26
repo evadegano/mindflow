@@ -3,7 +3,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require("../models/User.model");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 
 
 module.exports = passport => {
@@ -16,24 +16,29 @@ module.exports = passport => {
       },
       (username, password, done) => {
         // search for user in database
+        console.log("user search init")
         User.findOne({ email: username })
           .then(user => {
             // return error if email adress doesn't exist in the database
             if (!user) {
+              console.log("user not found ===> error")
               return done(null, false, {
                 errorMessage: "Incorrect email address."
               });
             }
 
             if (!bcrypt.compareSync(password, user.password)) {
+              console.log("user found ===> wrong pwd")
               return done(null, false, {
                 errorMessage: "Incorrect password."
               })
             }
-
+            console.log("user found ===> ok")
             done(null, user);
           })
-          .catch(err => done(err));
+          .catch(err => {
+            console.log("ERROR")
+            done(err)});
       }
     )
   )
@@ -41,9 +46,9 @@ module.exports = passport => {
   passport.use(
     new GoogleStrategy(
       {
-        clientID: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: process.env.GOOGLE_CALLBACK_URL || "/auth/google/callback"
+        clientID: process.env.GOOGLE_OAUTH_ID,
+        clientSecret: process.env.GOOGLE_OAUTH_SECRET,
+        callbackURL: process.env.GOOGLE_OAUTH_CALLBACK_URL || "/auth/google/callback"
       },
       (accessToken, refreshToken, profile, done) => {
         console.log("Google account details: ", profile);
@@ -51,11 +56,15 @@ module.exports = passport => {
         // search for user in database
         User.findOne({ googleID: profile.id })
           .then(user => {
+            console.log("google user search init")
             // log in user if found
             if (user) {
+              console.log("google user found in db => logging in")
               done(null, user);
               return;
             }
+
+            console.log("google user not found in db => signing up")
 
             // add user to database if not found
             User.create({ 
@@ -75,7 +84,6 @@ module.exports = passport => {
 
   // serialize user to define what data will be kept in the session
   passport.serializeUser((user, cb) => cb(null, user._id));
-  // deserialize user to define what data will be kept in the session
   passport.deserializeUser((id, cb) => {
     User.findById(id)
       .then(user => cb(null, user))

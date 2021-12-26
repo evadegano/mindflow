@@ -1,16 +1,20 @@
-<h1>Password recovery</h1>
+<section class="recovery profile-section">
+  <div class="profile-container">
+    <h1>Password recovery</h1>
 
-<form method="POST" action="/recovery/request">
-  <label>What is your email address?</label>
-  <input type="email" name="email" placeholder="Your email adress" required>
+    <form method="POST" action="/recovery/request">
+      <label>What is your email address?</label>
+      <input type="email" name="email" placeholder="Your email adress">
 
-  <button type="submit">Send</button>
+      <button class="btn auth-btn" type="submit">Send</button>
 
-  {{#if errorMessage}}
-  <div class="error-msg">{{errorMessage}}</div>
-  {{/if}}
-</form>
+      {{#if errorMessage}}
+      <div class="error">{{errorMessage}}</div>
+      {{/if}}
 
-{{#if successMessage}}
-<div class="success-msg">{{successMessage}}</div>
-{{/if}}
+      {{#if successMessage}}
+      <div class="success">{{successMessage}}</div>
+      {{/if}}
+    </form>
+  </div>
+</section>

@@ -39,6 +39,7 @@
 
               <label>Password:</label>
               <input type="password" name="password" placeholder="Your password">
+              <a class="pwd-reset-link" href="/recovery/request">I forgot my password</a>
 
               <button class="btn auth-btn" type="submit">Log in</button>
 
@@ -46,7 +47,6 @@
                 <div class="error">{{errorMessage}}</div>
               {{/if}}
             </form>
-            <a href="/recovery/request">I forgot my password</a>
           </div>
         </div>
 
@@ -70,6 +70,9 @@
 
               <label>Password:</label>
               <input type="password" name="password" placeholder="Your password">
+
+              <label>Confirm your password:</label>
+              <input type="password" name="passwordCheck" placeholder="Confirm your password">
 
               <button class="btn auth-btn" type="submit">Sign up</button>
 

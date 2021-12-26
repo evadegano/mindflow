@@ -6,12 +6,16 @@ const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 // serve a custom favicon on each request
 const favicon = require("serve-favicon");
+// allow flash messages
+const flash = require("connect-flash");
 // normalize paths amongst different operating systems
 const path = require("path");
 // session middleware for authentication
 const session = require("express-session");
 // package to save the user session in the database
 const MongoStore = require("connect-mongo");
+// handle dynamic views
+const hbs = require("hbs");
 
 
 module.exports = (app) => {
@@ -27,6 +31,8 @@ module.exports = (app) => {
   app.set("views", path.join(__dirname, "..", "views"));
   // set the view engine to handlebars
   app.set("view engine", "hbs");
+  // set path to partials
+  hbs.registerPartials(__dirname + "/views/partials" );
   // handle access to the public folder
   app.use(express.static(path.join(__dirname, "..", "public")));
 
@@ -34,6 +40,9 @@ module.exports = (app) => {
   app.use(
     favicon(path.join(__dirname, "..", "public", "images", "favicon.ico"))
   );
+
+  // use flash messages
+  app.use(flash());
 
   // use req.session for user sessions
   app.use(
