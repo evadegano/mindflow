@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const mongoose = require("mongoose");
 const axios = require("axios");
 const SpotifyWebApi = require('spotify-web-api-node');
 
@@ -33,17 +32,7 @@ spotifyApi
 
 
 // GET /dashboard
-router.get("/dashboard", (req, res, next) => {
-  if (!req.user && !req.session.user) {
-    console.log("dash no req.user")
-    return res.redirect("/auth/login");
-  }
-
-  if (!req.user) {
-    req.user = req.session.user;
-    console.log("dash user:", "req.user")
-  }
-
+router.get("/dashboard", isAuthenticated, (req, res, next) => {
   // capitalize first letter of user's first name
   let capitalizedUserName = req.user.firstName[0].toUpperCase() + req.user.firstName.substring(1);
 
@@ -81,7 +70,6 @@ router.get("/dashboard", (req, res, next) => {
 
   Promise.all([p1, p2, p3, p4, p5, p6])
     .then(function(values) {
-      //console.log('values=', values)
       const [ response, goalsFromDb, tasksFromDb, overdueTasksFromDb, gammaPlaylistData, alphaPlaylistData ] = values;
 
       function getGoal(goalid) {
@@ -208,7 +196,6 @@ router.post("/goals/:id/edit", isAuthenticated, (req, res, next) => {
   Goal.findByIdAndUpdate(req.params.id, updateGoal)
     .then(task => res.redirect('/user/dashboard'))
     .catch(err => {
-      // console.log(err);
       res.redirect('/user/dashboard');    
     })
 })
@@ -254,7 +241,6 @@ router.post("/tasks/:id/edit", isAuthenticated, (req, res, next) => {
   Task.findByIdAndUpdate(req.params.id, updateTask)
     .then(task => res.redirect('/user/dashboard'))
     .catch(err => {
-      // console.log(err);
       res.redirect('/user/dashboard');    
     })
 })
@@ -263,7 +249,6 @@ router.post("/tasks/:id/done", isAuthenticated, (req, res, next) => {
   Task.findByIdAndUpdate(req.params.id, { isDone: req.body.isDone })
     .then(task => res.redirect('/user/dashboard'))
     .catch(err => {
-      console.log(err);
       res.redirect('/user/dashboard');    
     })
 })
@@ -330,7 +315,6 @@ router.post("/profile", isAuthenticated, (req, res, next) => {
     res.redirect("/user/profile");
   })
   .catch((err) => {
-    console.log(err);
     res.redirect('/user/profile');
   })
 })

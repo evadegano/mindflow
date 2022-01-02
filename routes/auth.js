@@ -86,8 +86,10 @@ router.post("/signup", (req, res, next) => {
       })
       .then((user) => {
         // bind the user to the session object
-        req.user = user;
-        res.redirect("/user/dashboard");
+        req.login(user, err => {
+          if (err) { return next(err); }
+          res.redirect("/user/dashboard");
+        })
       })
       .catch((error) => {
         if (error instanceof mongoose.Error.ValidationError) {
