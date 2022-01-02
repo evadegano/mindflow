@@ -159,6 +159,7 @@ header .row-container {
 #dashboard-screenshot {
   border-radius: var(--mid-radius);
   box-shadow: var(--blue-shadow);
+  margin-top: 40px;
 }
 
 #demo-section {
