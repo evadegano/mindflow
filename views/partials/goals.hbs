@@ -1,18 +1,18 @@
 <div class="collapsible-menu">
-  <h3><i class="collapsible-btn uil uil-angle-down"></i>Work & study</h3>
+  <h3><i class="collapsible-btn uil uil-angle-down"></i>{{this.title}}</h3>
   <div class="collapsible-content">
     <!-- display goals from db -->
-    {{#each workGoals}}
+    {{#each goals}}
     <div class="goal-container">
       <div class="goal" style="background: {{this.color}};">
-        <a href='/user/dashboard?goal_id={{_id}}'><h4>{{this.title}}</h4></a>
+        <a href='/user/dashboard?goal_id={{this._id}}'><h4>{{this.title}}</h4></a>
         <div class="edit-icons">
           <i class="uil uil-pen"></i>
           <i class="uil uil-trash-alt"></i>
         </div>
       </div>
       <!-- form to edit goals -->
-      <form class="edit-goal-form" method="POST" action="/user/goals/{{_id}}/edit">
+      <form class="edit-goal-form" method="POST" action="/user/goals/{{this._id}}/edit">
         <div>
           <input class="add-input" type="text" name="title" value="{{this.title}}">
           <button class="save-btn" type="submit">save</button>
@@ -34,7 +34,7 @@
         <input class="date-picker" type="date" name="endDate">
         <input class="color-picker" type="color" name="color" value="#636EE6">
       </span>
-      <input class="hidden" type="text" name="category" value="work">
+      <input class="hidden" type="text" name="category" value="{{this.category}}">
     </form>
   </div>
 </div>

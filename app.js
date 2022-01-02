@@ -6,6 +6,8 @@ require("./db");
 const express = require("express");
 // handle authentification strategies
 const passport = require('passport');
+// handle dynamic views
+const hbs = require("hbs");
 
 
 // init app
@@ -18,6 +20,8 @@ app.locals.title = `${capitalized(projectName)} created with IronLauncher`;
 
 // import app middlewares
 require("./config/index")(app);
+// set path to partials
+hbs.registerPartials(__dirname + "/views/partials/" );
 
 // import passport middlewares
 require("./config/passport")(passport);

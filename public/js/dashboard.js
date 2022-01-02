@@ -23,10 +23,13 @@ const creativityPlaylist = document.querySelector("#creativity-playlist");
 const pomodoroTimer = new PomodoroTimer();
 let pageMode, timeElapsed, pomodoroStatus;
 
+
+
 function init() {
   updateLocalStorage();
   updatePageContent();
 }
+
 
 // update data contained in the local storage
 function updateLocalStorage() {
@@ -53,6 +56,7 @@ function updateLocalStorage() {
   currentPlaylist = localStorage.getItem("currentPlaylist");
 }
 
+
 // update text content on page's DOM elements
 function updatePageContent() {
   // get today's full date
@@ -65,7 +69,7 @@ function updatePageContent() {
   // change greeting message
   switchGreetingMsg(todayFullDate.getHours());
 
-  // display blocks depending on the page's mode
+  // display different blocks depending on the page's mode
   if (pageMode === "focus") {
     pomodoroTimer.init(timeElapsed, pomodoroStatus, printPomodoroTime);
     printPomodoroTime();
@@ -92,6 +96,7 @@ function updatePageContent() {
   }
 }
 
+
 // change greeting message depending on the time of the day
 function switchGreetingMsg(hour) {
   const greetingMsg = document.querySelector("#greeting-msg");
@@ -112,6 +117,7 @@ function switchGreetingMsg(hour) {
   }
 }
 
+
 // print seconds and minutes on the pomodoro timer
 function printPomodoroTime() {
   let secs = pomodoroTimer.getSecs();
@@ -120,10 +126,12 @@ function printPomodoroTime() {
   pomodoroSecs.textContent = secs;
 }
 
+
 // toggle the settings menu
 settingsBtn.addEventListener("click", () => {
   toggleLinks.classList.toggle('active');
 })
+
 
 // toggle dropdown menus
 collapseMenus.forEach(menu => {
@@ -143,11 +151,13 @@ collapseMenus.forEach(menu => {
   })
 })
 
+
 // display new task options on focus
 addTaskInput.addEventListener("focus", () => {
   addTaskOptions.classList.add("active");
   addTaskInput.classList.add("active");
 })
+
 
 // display new goal options on focus
 addGoalForms.forEach((form) => {
@@ -155,6 +165,7 @@ addGoalForms.forEach((form) => {
     form.querySelector(".options").classList.add("active");
   })
 })
+
 
 // display edit task options on click
 taskFormsContainers.forEach((container) => {
@@ -164,6 +175,7 @@ taskFormsContainers.forEach((container) => {
   })
 })
 
+
 // display edit goal options on click
 goalContainers.forEach((container) => {
   container.querySelector(".goal .edit-icons .uil-pen").addEventListener("click", () => {
@@ -171,6 +183,7 @@ goalContainers.forEach((container) => {
     container.querySelector(".edit-goal-form").classList.add("active");
   })
 })
+
 
 document.addEventListener("click", event => {
   // hide task options
@@ -209,6 +222,7 @@ document.addEventListener("click", event => {
   })  
 })
 
+
 // switch page mode on click
 pageSwitchBtn.addEventListener("click", () => {
   if (pageMode === "focus") {
@@ -228,6 +242,7 @@ pageSwitchBtn.addEventListener("click", () => {
     printPomodoroTime();
   }
 })
+
 
 // change breath bubble text on iteration
 breathBubble.addEventListener("animationiteration", () => {
@@ -276,5 +291,7 @@ pomodoroBtn.addEventListener("click", () => {
     printPomodoroTime();
   }
 })
+
+
 
 init();

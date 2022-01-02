@@ -11,7 +11,6 @@ const saltRounds = 10;
 
 // middlewares to control access to specific routes
 const isLoggedOut = require("../middleware/isLoggedOut");
-const isLoggedIn = require("../middleware/isLoggedIn");
 
 // GET sign up route
 router.get("/signup", isLoggedOut, (req, res, next) => {

@@ -15,10 +15,37 @@ const Task = require("../models/Task.model");
 // middlewares to control access to specific routes
 const isAuthenticated = require("../middleware/isAuthenticated");
 
+// Spotify API Setup
+const spotifyApi = new SpotifyWebApi({
+  clientId: process.env.CLIENT_ID,
+  clientSecret: process.env.CLIENT_SECRET
+});
+
+// Retrieve an access token
+spotifyApi
+  .clientCredentialsGrant()
+  .then(data => {
+    console.log('The access token expires in ' + data.body['expires_in']);
+    console.log('The access token is ' + data.body['access_token']);
+    spotifyApi.setAccessToken(data.body['access_token'])
+  })
+  .catch(error => console.log('Something went wrong when retrieving an access token', error));
+
+
 // GET /dashboard
-router.get("/dashboard", isAuthenticated, (req, res, next) => {
+router.get("/dashboard", (req, res, next) => {
+  if (!req.user && !req.session.user) {
+    console.log("dash no req.user")
+    return res.redirect("/auth/login");
+  }
+
+  if (!req.user) {
+    req.user = req.session.user;
+    console.log("dash user:", "req.user")
+  }
+
   // capitalize first letter of user's first name
-  req.user.firstName = req.user.firstName[0].toUpperCase() + req.user.firstName.substring(1);
+  let capitalizedUserName = req.user.firstName[0].toUpperCase() + req.user.firstName.substring(1);
 
   // get the "zenQuote" object with the Zen Quote API
   const p1 = axios.get('https://zenquotes.io/api/today/');
@@ -31,9 +58,11 @@ router.get("/dashboard", isAuthenticated, (req, res, next) => {
   // today tasks filters
   const today = new Date().toISOString().split('T')[0]; // '2021-12-15'
   const todayTasksFilters = { user_id: req.user._id, endDate:  { $gte: new Date(`${today}T00:00:00.000Z`)  , $lte: new Date(`${today}T23:59:59.999Z`) }  , isDone: false };
+  
   if (req.query.goal_id) {
     todayTasksFilters.goal_id = req.query.goal_id;
   }
+
   const p3 = Task.find(todayTasksFilters); //.populate('goal_id');
            
   // overdue tasks filters
@@ -41,6 +70,7 @@ router.get("/dashboard", isAuthenticated, (req, res, next) => {
   if (req.query.goal_id) {
     overdueTasksFilters.goal_id = req.query.goal_id;
   }
+
   const p4 = Task.find(overdueTasksFilters);
 
   // get an "playlist" object with the Spotify API for the player widget : section problem solving
@@ -52,25 +82,21 @@ router.get("/dashboard", isAuthenticated, (req, res, next) => {
   Promise.all([p1, p2, p3, p4, p5, p6])
     .then(function(values) {
       //console.log('values=', values)
-      const [response, goalsFromDb, tasksFromDb, overdueTasksFromDb, gammaPlaylistData, alphaPlaylistData] = values;
-      
-      console.log('Playlist information', gammaPlaylistData.body);
-      console.log('Tracks url',gammaPlaylistData.body.tracks.items);
+      const [ response, goalsFromDb, tasksFromDb, overdueTasksFromDb, gammaPlaylistData, alphaPlaylistData ] = values;
 
       function getGoal(goalid) {
         return goalsFromDb.find(el => el.id === goalid)
       }
+
       tasksFromDb.forEach((task, i) => {
-        const goal = getGoal(''+task.goal_id) // add a .goal property of the matching goal
-        //console.log('goal=', goal)
+        const goal = getGoal(''+task.goal_id)
         tasksFromDb[i].goal = goal
       })
+
       overdueTasksFromDb.forEach((task, i) => {
         const goal = getGoal(''+task.goal_id) 
         overdueTasksFromDb[i].goal = goal
       })
-      // console.log('tasksFromDb=', tasksFromDb)
-      // console.log('overdueTasksFromDb ==>', overdueTasksFromDb)
 
       // work goals
       let workGoals = goalsFromDb.filter(function(goal) {
@@ -98,23 +124,38 @@ router.get("/dashboard", isAuthenticated, (req, res, next) => {
       })
 
       // all goals
-      let goals = [
+      let goalObjects = [
         {
-          name: workGoals,
+          goals: workGoals,
           title: "Work & study",
           category: "work"
-        }
+        },
+        {
+          goals: healthGoals,
+          title: "Health & fitness",
+          category: "health"
+        },
+        {
+          goals: socialGoals,
+          title: "Social life",
+          category: "social"
+        },
+        {
+          goals: financeGoals,
+          title: "Finance",
+          category: "finance"
+        },
+        {
+          goals: otherGoals,
+          title: "Misc.",
+          category: "other"
+        },
       ]
 
       res.render('user/dashboard', {
-        currentUser: req.user,
+        userName: capitalizedUserName,
         zenQuote: response.data[0],
-        goals: goals,
-        workGoals: workGoals,
-        healthGoals: healthGoals,
-        socialGoals: socialGoals,
-        financeGoals: financeGoals,
-        otherGoals: otherGoals,
+        goals: goalObjects,
         allGoals: goalsFromDb,
         todayTasks: tasksFromDb,
         overdueTasks: overdueTasksFromDb,
@@ -129,7 +170,6 @@ router.get("/dashboard", isAuthenticated, (req, res, next) => {
     })
 })
 
-// POST /dashboard
 
 // POST /goals
 // add a goal in the database
@@ -145,6 +185,7 @@ router.post("/goals", isAuthenticated, (req, res, next) => {
     .then(newGoal => res.redirect('/user/dashboard'))
     .catch((err) => res.redirect('/user/dashboard'))
 })
+
 
 // update a goal in the database
 router.post("/goals/:id/edit", isAuthenticated, (req, res, next) => {
@@ -172,6 +213,7 @@ router.post("/goals/:id/edit", isAuthenticated, (req, res, next) => {
     })
 })
 
+
 // delete a goal from the database
 router.post("/goals/:id/delete", isAuthenticated, (req, res, next) => {
   Goal.findByIdAndRemove(req.params.id)
@@ -191,6 +233,7 @@ router.post("/tasks", isAuthenticated, (req, res, next) => {
     .then(newTask => res.redirect('/user/dashboard'))
     .catch(err => res.redirect('/user/dashboard'))
 })
+
 
 //update a task in the database
 router.post("/tasks/:id/edit", isAuthenticated, (req, res, next) => {
@@ -225,6 +268,7 @@ router.post("/tasks/:id/done", isAuthenticated, (req, res, next) => {
     })
 })
 
+
 //delete a task from the database
 router.post("/tasks/:id/delete", isAuthenticated, (req, res, next) => {
   Goal.findByIdAndRemove(req.params.id)
@@ -232,16 +276,19 @@ router.post("/tasks/:id/delete", isAuthenticated, (req, res, next) => {
   .catch((err) => res.redirect('/user/dashboard'))
 })
 
+
 // GET /profile
 // display profile page
 router.get("/profile", isAuthenticated, (req, res, next) => {
   // capitalize first letter of user's first name
-  req.user.firstName = req.user.firstName[0].toUpperCase() + req.user.firstName.substring(1);
+  let capitalizedUserName = req.user.firstName[0].toUpperCase() + req.user.firstName.substring(1);
   
   res.render("user/profile", {
-    currentUser: req.user
+    firstName: capitalizedUserName,
+    email: req.user.email
   });
 })
+
 
 // POST /profile
 // update profile infos
@@ -288,22 +335,5 @@ router.post("/profile", isAuthenticated, (req, res, next) => {
   })
 })
 
-// Playlists Spotify
-
-// Spotify API Setup
-const spotifyApi = new SpotifyWebApi({
-  clientId: process.env.CLIENT_ID,
-  clientSecret: process.env.CLIENT_SECRET
-});
-
-// // Retrieve an access token
-spotifyApi
-  .clientCredentialsGrant()
-  .then(data => {
-    console.log('The access token expires in ' + data.body['expires_in']);
-    console.log('The access token is ' + data.body['access_token']);
-    spotifyApi.setAccessToken(data.body['access_token'])
-  })
-  .catch(error => console.log('Something went wrong when retrieving an access token', error));
 
 module.exports = router;

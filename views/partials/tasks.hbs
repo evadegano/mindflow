@@ -1,0 +1,35 @@
+<!-- display today's tasks -->
+<div class="task-forms-container">
+  <form class="task-form" method="POST" action="/user/tasks/{{this._id}}/done">
+    <div class="task-container">
+      <input class="is-done-input" name="isDone" value="true">
+      <button></button>
+      <div class="task" style="border-left: 3px solid {{this.goal.color}}">
+        <h4>{{this.title}}</h4>
+        <div class="edit-icons">
+          <i class="uil uil-pen"></i>
+          <i class="uil uil-trash-alt"></i>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!-- form to edit tasks -->
+  <form class="edit-task-form" method="POST" action="/user/tasks/{{this._id}}/edit">
+    <div class="task">
+      <input class="add-input" type="text" name="title" value="{{this.title}}">
+      <button class="save-btn" type="submit">Save</button>
+    </div>
+    <div>
+      <span class="datepicker-toggle">
+        <input class="date-picker" type="date" name="endDate">
+      </span>
+      <select class="goal-selector" name="taskGoal">
+        <option value="">Change goal</option>
+        {{#each @root.allGoals}}
+        <option value="{{this._id}}">{{this.title}}</option>
+        {{/each}}
+      </select>
+    </div>
+  </form>
+</div>
+<hr>

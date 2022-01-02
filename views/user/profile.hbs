@@ -3,28 +3,22 @@
     <h1>Edit your profile</h1>
     <form method="POST" action="/user/profile">
       <label>First name:</label>
-      <input type="text" name="firstName" placeholder="Your first name" value="{{currentUser.firstName}}">
-      <!-- <div class="caption">Error</div> -->
+      <input type="text" name="firstName" placeholder="Your first name" value="{{firstName}}">
 
       <label>Email:</label>
-      <input type="text" name="email" placeholder="Your email adress" value="{{currentUser.email}}">
-      <!-- <div class="caption">Error</div> -->
-
-      <label>Password:</label>
-      <input type="password" name="password" placeholder="*********">
-      <!-- <div class="caption">Error</div> -->
+      <input type="text" name="email" placeholder="Your email adress" value="{{email}}">
 
       <label>New password:</label>
       <input type="password" name="newPassword" placeholder="Enter your new password">
-      <!-- <div class="caption">Error</div> -->
 
       <label>Confirm your new password:</label>
       <input type="password" name="newPasswordCheck" placeholder="Confirm your new password">
-      <!-- <div class="caption">Error</div> -->      
+
       <div class="profile-buttons">
         <a href="/user/dashboard"><i class="uil uil-left-arrow-to-left"></i>Back</a>
         <button class="btn" id="edit-btn" type="submit">Edit</button>
       </div>
+      
       {{#if errorMessage}}
         <div class="error">{{errorMessage}}</div>
       {{/if}}

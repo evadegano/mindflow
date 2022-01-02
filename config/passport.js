@@ -16,28 +16,23 @@ module.exports = passport => {
       },
       (username, password, done) => {
         // search for user in database
-        console.log("user search init")
         User.findOne({ email: username })
           .then(user => {
             // return error if email adress doesn't exist in the database
             if (!user) {
-              console.log("user not found ===> error")
               return done(null, false, {
                 errorMessage: "Incorrect email address."
               });
             }
 
             if (!bcrypt.compareSync(password, user.password)) {
-              console.log("user found ===> wrong pwd")
               return done(null, false, {
                 errorMessage: "Incorrect password."
               })
             }
-            console.log("user found ===> ok")
             done(null, user);
           })
           .catch(err => {
-            console.log("ERROR")
             done(err)});
       }
     )
@@ -56,15 +51,11 @@ module.exports = passport => {
         // search for user in database
         User.findOne({ googleID: profile.id })
           .then(user => {
-            console.log("google user search init")
             // log in user if found
             if (user) {
-              console.log("google user found in db => logging in")
               done(null, user);
               return;
             }
-
-            console.log("google user not found in db => signing up")
 
             // add user to database if not found
             User.create({ 

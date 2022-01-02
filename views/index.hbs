@@ -10,73 +10,89 @@
       Mindflow
     </div>
     <div>
-      <a href="/auth/login">Sign in</a>
+      <a href="/auth/login">Log in</a>
       <a class="btn signup-btn" href="/auth/signup">Sign up</a>
     </div>
   </nav>
+
   <!-- header section -->
-  <div class="col-container">
-    <h1>Increase your productivity,
-      <br>decrease your stress.
-    </h1>
-    <!--
-    <div id="dynamic-txt-wrapper">
-      <div id="dynamic-txt">
-        <span>motivation</span>
-        <span>productivity</span>
-        <span>positivity</span>
-      </div>
-    </div> -->
-    <p>Mindflow is the first todo app that includes meditation techniques to help you be more productive.</p>
-    <a class="btn signup-btn" href="/auth/signup">Sign up</a>
-    <span>It's free.</span>
+  <div class="row-container">
+    <div class="one-half-container">
+      <h2>Do more,
+      <br>stress less
+      </h2>
+      <p>Mindflow is the only todo app
+        <br>that includes meditation techniques
+        <br>to boost productivity while decreasing stress.</p>
+      <a class="btn signup-btn" href="/auth/signup">Sign up</a>
+      <span>It's free.</span>
+    </div>
+    <!-- meditation illustration -->
+    <div id="blobs-container">
+      <svg 
+      viewBox="0 0 600 600" 
+      width="500" height="500"
+      xmlns="http://www.w3.org/2000/svg" 
+      xmlns:xlink="http://www.w3.org/1999/xlink" 
+      version="1.1">
+        <g transform="translate(299.92667234968565 290.1903098426436)">
+          <path id="blob1" d="M157 -184.4C196.5 -153.9 216.9 -97.9 229.7 -38.5C242.5 20.8 247.7 83.4 224 134.1C200.4 184.7 147.9 223.4 92.5 235.5C37.2 247.5 -21.1 232.7 -80.3 214C-139.5 195.3 -199.7 172.7 -224.8 129.6C-250 86.5 -240.2 22.9 -226.5 -37.3C-212.8 -97.6 -195.1 -154.5 -156.7 -185.2C-118.3 -216 -59.1 -220.5 -0.2 -220.2C58.7 -220 117.4 -214.9 157 -184.4" fill="#C6C4FF"></path>
+        </g>
+        <g transform="translate(311.6225176232238 295.5128635871798)" style="visibility: hidden;">
+          <path id="blob2" d="M165.5 -201.2C202.4 -166.2 212 -102.7 217.4 -42.7C222.8 17.3 224 73.6 201.2 119C178.4 164.3 131.6 198.7 77.9 221.4C24.3 244 -36.3 255 -92.7 240.5C-149.1 226.1 -201.4 186.3 -226 134.8C-250.6 83.3 -247.4 20.1 -231.3 -35.4C-215.1 -91 -186 -139 -145.3 -173.3C-104.6 -207.6 -52.3 -228.3 6 -235.5C64.3 -242.6 128.6 -236.2 165.5 -201.2" fill="#C6C4FF"></path>
+        </g>
+        <image xlink:href="/images/illustrations/meditation.png" x="100" y="100" height="60%" width="60%" />
+      </svg>
+    </div>
+    
   </div>
 </header>
 
-<!-- rocket image -->
-<div id="rocket-container">
-  <img id="rocket-img" src="/images/illustrations/girl-on-rocket.png" alt="3D illustration of a woman on a rocket" width="200px">
-</div>
-
 <main class="homepage">
   <!-- features section -->
-  <section class="curved-bg">
-    <div class="col-container">
-      <h2>Get on top of your work</h2>
-      <p>Go from feeling overwhelmed,
-        <br>to feeling good about things.
-      </p>
-    </div>
+  <section id="features-section">
+    <h2>What's in Minflow?</h2>
+
     <div class="row-container">
-      <div class="one-half-container">
-        <div>
-          <p>A clean todo list</p>
-          <i class="uil uil-clipboard-notes"></i>
-        </div>
-        <div>
-          <p>Powerful musics curated to boost your performance, whether you are doing creative work or solving problems</p>
-        </div>
+      <div>
+        <i class="uil uil-clipboard-notes"></i>
+        <h3>Plan your tasks</h3>
+        <p>Organize your goals and tasks in a crispy clean todo list.</p>
       </div>
       <div>
-        <div>
-          <p>A pomodoro timer with 3 preset work-break patterns</p>
-          <i class="uil uil-clipboard-notes"></i>
-        </div>
-        <div>
-          <p>A breath bubble to calm your mind and slow down your heart rate</p>
-        </div>
+        <i class="uil uil-headphones"></i>
+        <h3>Boost your productivity</h3>
+        <p>Boost your creativity and problem solving skills with powerful curated musics.</p>
+      </div>
+      <div>
+        <i class="uil uil-stopwatch"></i>
+        <h3>Maximize your focus</h3>
+        <p>Follow an optimal work-break pattern with a pomodoro timer.</p>
+      </div>
+      <div>
+        <i class="uil uil-heartbeat"></i>
+        <h3>Reduce your stress</h3>
+        <p>Relax in just 5 minutes with a breath bubble.</p>
       </div>
     </div>
   </section>
+
+  <!-- wave separator -->
+  <div class="wave-separator wave-bgd"></div>
+
   <!-- demo section -->
-  <section id="demo-section" class="col-container">
-    <img src="/images/illustrations/dashboard-screenshot.png" alt="Screenshot of Mindflow's dasboard" width="60%">
-    <h2>Try it out</h2>
-    <a class="btn signup-btn" href="/auth/signup">Sign up</a>
+  <section id="demo-section" class="row-container">
+    <div>
+      <img id="dashboard-screenshot" src="/images/illustrations/dashboard-screenshot.png" alt="" width="100%">
+    </div>
+
+    <div>
+      <h2>Try it out</h2>
+      <p>Go from feeling overwhelmed,
+        <br>to feeling on top of it.</p>
+        <a class="btn signup-btn" href="/auth/signup">Sign up</a>
+    </div>
   </section>
 </main>
-<footer>
-  <div>@ 2021 Mindflow</div>
-</footer>
 
 <script src="/js/index.js"></script>
