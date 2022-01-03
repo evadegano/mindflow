@@ -20,8 +20,16 @@ const spotifyApi = new SpotifyWebApi({
   clientSecret: process.env.CLIENT_SECRET
 });
 
-// Retrieve an access token
-spotifyApi
+
+
+
+// GET /dashboard
+router.get("/dashboard", isAuthenticated, (req, res, next) => {
+  // capitalize first letter of user's first name
+  let capitalizedUserName = req.user.firstName[0].toUpperCase() + req.user.firstName.substring(1);
+
+  // Retrieve an access token
+  spotifyApi
   .clientCredentialsGrant()
   .then(data => {
     console.log('The access token expires in ' + data.body['expires_in']);
@@ -29,12 +37,6 @@ spotifyApi
     spotifyApi.setAccessToken(data.body['access_token'])
   })
   .catch(error => console.log('Something went wrong when retrieving an access token', error));
-
-
-// GET /dashboard
-router.get("/dashboard", isAuthenticated, (req, res, next) => {
-  // capitalize first letter of user's first name
-  let capitalizedUserName = req.user.firstName[0].toUpperCase() + req.user.firstName.substring(1);
 
   // get the "zenQuote" object with the Zen Quote API
   const p1 = axios.get('https://zenquotes.io/api/today/');
