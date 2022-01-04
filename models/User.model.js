@@ -13,7 +13,7 @@ const userSchema = new Schema(
       type: String,
       trim: true,
       lowercase: true,
-      unique: [true, "This email address is already linked to an account."],
+      sparse: [true, "This email address is already linked to an account."],
       match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, "Please provide a valid email address."]
     },
     password: {
