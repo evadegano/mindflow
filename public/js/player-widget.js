@@ -1,5 +1,4 @@
 // Creativity playlist
-
 const audioArrayCreativity = document.querySelectorAll("#creativity-playlist audio");
 let indexCreativity = 0;
 

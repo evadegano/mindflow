@@ -1,5 +1,4 @@
 // package to manage auth strategies
-const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require("../models/User.model");
@@ -49,15 +48,21 @@ module.exports = passport => {
         console.log("Google account details: ", profile);
 
         // search for user in database
-        User.findOne({ googleID: profile.id })
+        User.findOne({ email: profile.emails.value })
           .then(user => {
-            // log in user if found
-            if (user) {
-              done(null, user);
-              return;
+            // return an error if account was not created via Google
+            if (user && user.googleID !== profile.id) {
+              return done(null, false, {
+                errorMessage: "This email address was not registered via Google. Please login with your password."
+              });
             }
 
-            // add user to database if not found
+            // log in user if found
+            if (user) {
+              return done(null, user);
+            }
+
+            // else, add user to database
             User.create({ 
               firstName: profile.name.givenName,
               email: profile.emails.value,
