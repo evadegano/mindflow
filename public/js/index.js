@@ -54,7 +54,6 @@ function fadeUpDiv(target, trigger) {
       scrollTrigger: {
         trigger: trigger,
         toggleActions: "restart none none reset",
-        start: "100% bottom"
       },
       yPercent: 0,
       opacity: 1,
