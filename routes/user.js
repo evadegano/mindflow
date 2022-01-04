@@ -14,11 +14,27 @@ const Task = require("../models/Task.model");
 // middlewares to control access to specific routes
 const isAuthenticated = require("../middleware/isAuthenticated");
 
+// Spotify API Setup
+const spotifyApi = new SpotifyWebApi({
+  clientId: process.env.CLIENT_ID,
+  clientSecret: process.env.CLIENT_SECRET
+});
+
 // GET /dashboard
 router.get("/dashboard", isAuthenticated, (req, res, next) => {
   // capitalize first letter of user's first name
   let capitalizedUserName = req.user.firstName[0].toUpperCase() + req.user.firstName.substring(1);
 
+  // Retrieve an access token
+  spotifyApi
+    .clientCredentialsGrant()
+    .then(data => {
+      console.log('The access token expires in ' + data.body['expires_in']);
+      console.log('The access token is ' + data.body['access_token']);
+      spotifyApi.setAccessToken(data.body['access_token'])
+    })
+    .catch(error => console.log('Something went wrong when retrieving an access token', error));
+  
   // get the "zenQuote" object with the Zen Quote API
   const p1 = axios.get('https://zenquotes.io/api/today/');
 
@@ -301,21 +317,5 @@ router.post("/profile", isAuthenticated, (req, res, next) => {
     res.redirect('/user/profile');
   })
 })
-
-// Spotify API Setup
-const spotifyApi = new SpotifyWebApi({
-  clientId: process.env.CLIENT_ID,
-  clientSecret: process.env.CLIENT_SECRET
-});
-
-  // Retrieve an access token
-  spotifyApi
-  .clientCredentialsGrant()
-  .then(data => {
-    console.log('The access token expires in ' + data.body['expires_in']);
-    console.log('The access token is ' + data.body['access_token']);
-    spotifyApi.setAccessToken(data.body['access_token'])
-  })
-  .catch(error => console.log('Something went wrong when retrieving an access token', error));
 
 module.exports = router;
