@@ -1328,7 +1328,7 @@ input:focus {
   flex-direction: column;
 }
 
-.task-form.inactive,
+.task-container.inactive,
 .goal.inactive {
   display: none;
 }
@@ -1343,7 +1343,7 @@ input:focus {
   margin-left: 5px;
 }
 
-.task-container button {
+.task-form button {
   width: 25px;
   height: 25px;
   margin-right: 5px;
@@ -1403,6 +1403,10 @@ input:focus {
 
 .edit-goal-form div:nth-child(2) {
   display: flex;
+}
+
+.delete-form {
+  display: inline;
 }
 
 /*

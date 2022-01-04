@@ -169,8 +169,8 @@ addGoalForms.forEach((form) => {
 
 // display edit task options on click
 taskFormsContainers.forEach((container) => {
-  container.querySelector(".task-form .task-container .task .edit-icons .uil-pen").addEventListener("click", () => {
-    container.querySelector(".task-form").classList.add("inactive");
+  container.querySelector(".task-container .task .edit-icons .uil-pen").addEventListener("click", () => {
+    container.querySelector(".task-container").classList.add("inactive");
     container.querySelector(".edit-task-form").classList.add("active");
   })
 })
@@ -208,7 +208,7 @@ document.addEventListener("click", event => {
   // hide task edit menu
   taskFormsContainers.forEach((container) => {
     if (!container.contains(event.target)) {
-      container.querySelector(".task-form").classList.remove("inactive");
+      container.querySelector(".task-container").classList.remove("inactive");
       container.querySelector(".edit-task-form").classList.remove("active");
     }
   })

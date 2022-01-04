@@ -1,18 +1,20 @@
 <!-- display today's tasks -->
 <div class="task-forms-container">
-  <form class="task-form" method="POST" action="/user/tasks/{{this._id}}/done">
-    <div class="task-container">
+  <div class="task-container">
+    <form class="task-form" method="POST" action="/user/tasks/{{this._id}}/done">
       <input class="is-done-input" name="isDone" value="true">
       <button></button>
-      <div class="task" style="border-left: 3px solid {{this.goal.color}}">
-        <h4>{{this.title}}</h4>
-        <div class="edit-icons">
-          <i class="uil uil-pen"></i>
-          <i class="uil uil-trash-alt"></i>
-        </div>
+    </form>
+    <div class="task" style="border-left: 3px solid {{this.goal.color}}">
+      <h4>{{this.title}}</h4>
+      <div class="edit-icons">
+        <i class="uil uil-pen"></i>
+        <form class="delete-form" method="POST" action="/user/tasks/{{this._id}}/delete">
+          <button type="submit"><i class="uil uil-trash-alt"></i></button>
+        </form>
       </div>
     </div>
-  </form>
+  </div>
   <!-- form to edit tasks -->
   <form class="edit-task-form" method="POST" action="/user/tasks/{{this._id}}/edit">
     <div class="task">

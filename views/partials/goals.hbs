@@ -8,7 +8,9 @@
         <a href='/user/dashboard?goal_id={{this._id}}'><h4>{{this.title}}</h4></a>
         <div class="edit-icons">
           <i class="uil uil-pen"></i>
-          <i class="uil uil-trash-alt"></i>
+          <form class="delete-form" method="POST" action="/user/goals/{{this._id}}/delete">
+            <button type="submit"><i class="uil uil-trash-alt"></i></button>
+          </form>
         </div>
       </div>
       <!-- form to edit goals -->

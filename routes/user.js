@@ -258,7 +258,7 @@ router.post("/tasks/:id/done", isAuthenticated, (req, res, next) => {
 
 //delete a task from the database
 router.post("/tasks/:id/delete", isAuthenticated, (req, res, next) => {
-  Goal.findByIdAndRemove(req.params.id)
+  Task.findByIdAndRemove(req.params.id)
   .then(() => res.redirect("/user/dashboard"))
   .catch((err) => res.redirect('/user/dashboard'))
 })
