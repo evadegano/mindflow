@@ -1,6 +1,9 @@
 // Greensock ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
+const featuresSection = document.querySelector("#features-section");
+const demoSection = document.querySelector("#demo-section");
+
 const blobShape1 = "M157 -184.4C196.5 -153.9 216.9 -97.9 229.7 -38.5C242.5 20.8 247.7 83.4 224 134.1C200.4 184.7 147.9 223.4 92.5 235.5C37.2 247.5 -21.1 232.7 -80.3 214C-139.5 195.3 -199.7 172.7 -224.8 129.6C-250 86.5 -240.2 22.9 -226.5 -37.3C-212.8 -97.6 -195.1 -154.5 -156.7 -185.2C-118.3 -216 -59.1 -220.5 -0.2 -220.2C58.7 -220 117.4 -214.9 157 -184.4";
 const blobShape2 = "M165.5 -201.2C202.4 -166.2 212 -102.7 217.4 -42.7C222.8 17.3 224 73.6 201.2 119C178.4 164.3 131.6 198.7 77.9 221.4C24.3 244 -36.3 255 -92.7 240.5C-149.1 226.1 -201.4 186.3 -226 134.8C-250.6 83.3 -247.4 20.1 -231.3 -35.4C-215.1 -91 -186 -139 -145.3 -173.3C-104.6 -207.6 -52.3 -228.3 6 -235.5C64.3 -242.6 128.6 -236.2 165.5 -201.2";
 const wave1Shape1 = "M0 76L21.5 82.8C43 89.7 86 103.3 128.8 102.5C171.7 101.7 214.3 86.3 257.2 80.7C300 75 343 79 385.8 84.5C428.7 90 471.3 97 514.2 101.3C557 105.7 600 107.3 642.8 107.2C685.7 107 728.3 105 771.2 102.7C814 100.3 857 97.7 878.5 96.3L900 95L900 201L878.5 201C857 201 814 201 771.2 201C728.3 201 685.7 201 642.8 201C600 201 557 201 514.2 201C471.3 201 428.7 201 385.8 201C343 201 300 201 257.2 201C214.3 201 171.7 201 128.8 201C86 201 43 201 21.5 201L0 201Z";
@@ -12,15 +15,14 @@ const wave3Shape2 = "M0 140L21.5 137.5C43 135 86 130 128.8 129.5C171.7 129 214.3
 const wave4Shape1 = "M0 162L21.5 163.7C43 165.3 86 168.7 128.8 170.3C171.7 172 214.3 172 257.2 170.5C300 169 343 166 385.8 162.3C428.7 158.7 471.3 154.3 514.2 154.8C557 155.3 600 160.7 642.8 160.8C685.7 161 728.3 156 771.2 156.8C814 157.7 857 164.3 878.5 167.7L900 171L900 201L878.5 201C857 201 814 201 771.2 201C728.3 201 685.7 201 642.8 201C600 201 557 201 514.2 201C471.3 201 428.7 201 385.8 201C343 201 300 201 257.2 201C214.3 201 171.7 201 128.8 201C86 201 43 201 21.5 201L0 201Z";
 const wave4Shape2 = "M0 164L21.5 165.7C43 167.3 86 170.7 128.8 170.8C171.7 171 214.3 168 257.2 169C300 170 343 175 385.8 177C428.7 179 471.3 178 514.2 177C557 176 600 175 642.8 173.5C685.7 172 728.3 170 771.2 167.7C814 165.3 857 162.7 878.5 161.3L900 160L900 201L878.5 201C857 201 814 201 771.2 201C728.3 201 685.7 201 642.8 201C600 201 557 201 514.2 201C471.3 201 428.7 201 385.8 201C343 201 300 201 257.2 201C214.3 201 171.7 201 128.8 201C86 201 43 201 21.5 201L0 201Z";
 
-
 function init() {
   animateSvg("#blob", blobShape1, blobShape2);
   animateSvg("#wave1", wave1Shape1, wave1Shape2);
   animateSvg("#wave2", wave2Shape1, wave2Shape2);
   animateSvg("#wave3", wave3Shape1, wave3Shape2);
   animateSvg("#wave4", wave4Shape1, wave4Shape2);
-  fadeUpDiv("#features-content");
-  fadeUpDiv("#dashboard-screenshot");
+  fadeUpDiv("#features-content", featuresSection);
+  fadeUpDiv("#dashboard-screenshot", demoSection);
 }
 
 
@@ -41,17 +43,18 @@ function animateSvg(element, shape1, shape2) {
 
 
 // fade up divs on scroll
-function fadeUpDiv(element, ) {
+function fadeUpDiv(target, trigger) {
   gsap.fromTo(
-    element,
+    target,
     { 
-      yPercent: 20,
+      yPercent: 50,
       opacity: 0
     },
     {
       scrollTrigger: {
-        trigger: element,
-        toggleActions: "restart"
+        trigger: trigger,
+        toggleActions: "restart none none reset",
+        start: "100% bottom"
       },
       yPercent: 0,
       opacity: 1,
