@@ -9,7 +9,7 @@ The app is available [here](https://mindflow-todo-app.herokuapp.com/).
 * [Features](#features)
 
 ## Scope
-This project was built as a second project during Ironhack's Full Stack Developer bootcamp.
+The app was built as a second project during Ironhack's Full Stack Developer bootcamp.
 
 ## Technologies
 This project is built with:
