@@ -5,11 +5,12 @@ The app is available [here](https://mindflow-todo-app.herokuapp.com/).
 
 ## Table of contents
 * [Scope](#scope)
-* [Technologies](#technologies)
 * [Features](#features)
-* [Setup](#setup)
-* [Run](#run)
-* [Deploy](#deploy)
+* [Development](#development)
+  * [Setup](#setup)
+  * [Install](#install)
+  * [Run](#run)
+  * [Deploy](#deploy)
 
 ## Scope
 The app was built as a second project during Ironhack's Full Stack Developer bootcamp.
@@ -31,24 +32,11 @@ It was awarded gold medal for best project by teachers and students.
 * A breath bubble that promotes cardiac coherence and instant relaxation
 <img src='https://user-images.githubusercontent.com/35829634/160286347-90a23cf3-6b95-4a95-bfe3-f6d437f479db.gif' alt='' height='300' />
 
-## Setup
-### Dependencies
-```
-$ npm install
-```
-
-* axios: 0.24.0
-* bcrypt: 5.0.1
-* express: 4.17.1
-* gsap: 3.7
-* hbs: 4.2.0
-* mongodb": 4.2.1
-* mongoose: 6.0.14
-* node: 14.17.5
-* nodemailer: 6.7.2
-* passport: 0.5.2
-* spotify-web-api-node: 5.0.2
-
+## Development
+### Setup
+#### Requirements
+* [NodeJS](https://nodejs.org): >= 14
+* [NPM](https://www.npmjs.com/): >= 8.1.2
 
 ### Config variables
 Add the following variable with your own values inside a `.env` file:
@@ -63,14 +51,21 @@ Add the following variable with your own values inside a `.env` file:
 * GOOGLE_OAUTH_SECRET (client secret from your Google developer account)
 * GOOGLE_OAUTH_CALLBACK_URL (Google oAuth callback URL)
 
-## Run
-```
-$ npm run dev
+### Install
+```bash
+# install dependencies
+$ npm i 
 ```
 
-## Deploy
-You must log into Heroku first.
+### Deploy
+You must log into [Heroku](https://id.heroku.com/login) first.
 
+```bash
+# create an Heroku app in the root directory
+$ heroku create -a example-app
 ```
+
+```bash
+# deploy to Heroku
 $ git push heroku main
 ```
