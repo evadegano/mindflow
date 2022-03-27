@@ -17,20 +17,19 @@ It was awarded gold medal for best project by teachers and students.
 
 ## Features
 * Svg animations using Green Sock
-![Recording 2022-03-27 at 16 07 14](https://user-images.githubusercontent.com/35829634/160286207-eb23daa2-c0c9-4118-8774-9e66c8a98dff.gif)
-
-<img src='https://user-images.githubusercontent.com/35829634/160286207-eb23daa2-c0c9-4118-8774-9e66c8a98dff.gif' alt='' height='200' />
+<img src='https://user-images.githubusercontent.com/35829634/160286207-eb23daa2-c0c9-4118-8774-9e66c8a98dff.gif' alt='' height='300' />
 
 * User authentication and authorization via Passport (local and Google strategies)
-![Recording 2022-03-27 at 16 08 32](https://user-images.githubusercontent.com/35829634/160286201-253b3741-8893-4bc7-9bd4-f1ea37d6d0a7.gif)
-
+* Password reset via Nodemailer
+<img src='https://user-images.githubusercontent.com/35829634/160286201-253b3741-8893-4bc7-9bd4-f1ea37d6d0a7.gif' alt='' height='300' />
 
 * User data stored in a MongoDB database
-* Password reset via Nodemailer
-
 * Two playlists that boost creativity and problem-solving skills, fetched from Spotify's API
+<img src='https://user-images.githubusercontent.com/35829634/160286333-feeeee4d-7382-45bb-8fb1-28908ea70e42.gif' alt='' height='300' />
+
 * A built-in Pomodoro timer for an optimal work/break pattern
 * A breath bubble that promotes cardiac coherence and instant relaxation
+<img src='https://user-images.githubusercontent.com/35829634/160286347-90a23cf3-6b95-4a95-bfe3-f6d437f479db.gif' alt='' height='300' />
 
 ## Setup
 ### Dependencies
