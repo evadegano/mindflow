@@ -16,10 +16,16 @@ The app was built as a second project during Ironhack's Full Stack Developer boo
 It was awarded gold medal for best project by teachers and students.
 
 ## Features
+* Svg animations using Green Sock
+![Recording 2022-03-27 at 16 07 14](https://user-images.githubusercontent.com/35829634/160286207-eb23daa2-c0c9-4118-8774-9e66c8a98dff.gif)
+
 * User authentication and authorization via Passport (local and Google strategies)
+![Recording 2022-03-27 at 16 08 32](https://user-images.githubusercontent.com/35829634/160286201-253b3741-8893-4bc7-9bd4-f1ea37d6d0a7.gif)
+
+
 * User data stored in a MongoDB database
 * Password reset via Nodemailer
-* Svg animations using Green Sock
+
 * Two playlists that boost creativity and problem-solving skills, fetched from Spotify's API
 * A built-in Pomodoro timer for an optimal work/break pattern
 * A breath bubble that promotes cardiac coherence and instant relaxation
